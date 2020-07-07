@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-07-07T14:48:38.490Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>John Doe</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>人机交互中人类伙伴期望轨迹的迭代学习</title>
+    <link href="http://yoursite.com/2020/07/07/blog1/"/>
+    <id>http://yoursite.com/2020/07/07/blog1/</id>
+    <published>2020-07-07T14:00:00.000Z</published>
+    <updated>2020-07-07T14:48:38.490Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Iterative-Learning-of-Human-Partner’s-Desired-Trajectory-for-Proactive-Human-Robot-Collaboration"><a href="#Iterative-Learning-of-Human-Partner’s-Desired-Trajectory-for-Proactive-Human-Robot-Collaboration" class="headerlink" title="Iterative Learning of Human Partner’s Desired Trajectory for Proactive Human-Robot Collaboration"></a>Iterative Learning of Human Partner’s Desired Trajectory for Proactive Human-Robot Collaboration</h1><h2 id="IDEA"><a href="#IDEA" class="headerlink" title="IDEA"></a>IDEA</h2><h3 id="1、Issue-to-be-addressed"><a href="#1、Issue-to-be-addressed" class="headerlink" title="1、Issue to be addressed"></a>1、Issue to be addressed</h3><p>Although a repetitive human-robot collaboration task is considered, the task period is subject to uncertainty introduced by the human. </p><h3 id="2、Main-Work"><a href="#2、Main-Work" class="headerlink" title="2、Main Work"></a>2、Main Work</h3><p>A novel learning mechanism is proposed to achieve the control objective. Theoretical analysis. Selective   simulations and experiments.</p><h3 id="3、Contributions"><a href="#3、Contributions" class="headerlink" title="3、Contributions"></a>3、Contributions</h3><ol><li>Based on a simplified human arm model, estimation of the human partner’s desired trajectory is formulated as a force regulation problem.</li><li>ILC is employed to achieve force regulation, thus obtaining the human partner;s desired trajectory through repetitive pHRI.</li><li>A period-varying ILC is developed to deal with the problem of interactions with uncertain time durations due to human variance, so it can be applied to a wider class of pHRI applications.</li></ol><h2 id="1-Problem-Formulation"><a href="#1-Problem-Formulation" class="headerlink" title="1 Problem Formulation"></a>1 Problem Formulation</h2><p>The dynamics of this n-degrees-of-freedom(n-DOF)robotic manipulator can be described by</p><script type="math/tex; mode=display">H(\theta) \ddot{\theta} + C(\theta, \dot \theta)\dot \theta + G(\theta)= u - J^TF_h \tag1</script><p>The <strong>robot dynamics in the</strong> <strong>Cartesian space</strong> are given by</p><script type="math/tex; mode=display">H_x\ddot X + C_x\dot X +G_x = J^{-T}u-F_h \tag{2}</script><p>The velocity and acceleration satisfy</p><script type="math/tex; mode=display">\left\{\begin{array}{c}\dot X = J \dot \theta    \\\ddot X = J \ddot \theta + \dot J \dot \theta\end{array}\right.    \tag{3}</script><script type="math/tex; mode=display">\left\{\begin{array}{c}H_x = J^{-T}HJ^{-1}    \\C_x = J^{-T}(C-HJ^{-1}\dot J)J^{-1} \\G_x = J^{-T}G\end{array}\right.    \tag{4}</script><p>According to [17], dynamics of a robot’s environment can be described by a spring model. This corresponds to the equilibrium point control model that describes the human motor control [33], which is given below:</p><script type="math/tex; mode=display">F_h = K_h(X-X_h) \tag5</script><p>where $K_h$ is the $n \times n$ equivalent stiffness matrix(等效刚度矩阵)， $X_h$ is the desired trajectory of the human. </p><h3 id="2、Control-objective"><a href="#2、Control-objective" class="headerlink" title="2、Control objective"></a>2、Control objective</h3><h3 id="3、Controller-Design"><a href="#3、Controller-Design" class="headerlink" title="3、Controller Design"></a>3、Controller Design</h3><h2 id="Impedance-Control"><a href="#Impedance-Control" class="headerlink" title="Impedance Control"></a>Impedance Control</h2><h3 id="1、Dynamics-of-Robots"><a href="#1、Dynamics-of-Robots" class="headerlink" title="1、Dynamics of Robots."></a>1、Dynamics of Robots.</h3><script type="math/tex; mode=display">M_d \ddot X + D_d \dot X + K_d(X-X_d) = F_{ext}    \tag{2-1}</script><script type="math/tex; mode=display">M_d \ddot X + D_d (\dot X- \dot X_d )  + K_d(X-X_d) = F_{ext}    \tag{2-2}</script><script type="math/tex; mode=display">M_d(\ddot X - \ddot X_d) + D_d(\dot X- \dot X_d )+ K_d(X-X_d) = F_{ext}    \tag{2-3}</script><p>The corresponding physical model is as follows:</p><p><img src="/.com//Users\45478\OneDrive - my.swjtu.edu.cn\迭代学习人机协作\笔记\physical model.jpg" alt="preview"></p><p>$M_d$ is inertial parameter. $D_d$ is impedance parameter. $K_d$ is stiffness parameters.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Iterative-Learning-of-Human-Partner’s-Desired-Trajectory-for-Proactive-Human-Robot-Collaboration&quot;&gt;&lt;a href=&quot;#Iterative-Learning-of-Hu
+      
+    
+    </summary>
+    
+    
+    
+      <category term="first, 人机交互。" scheme="http://yoursite.com/tags/first-%E4%BA%BA%E6%9C%BA%E4%BA%A4%E4%BA%92%E3%80%82/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://yoursite.com/2020/07/07/hello-world/"/>
+    <id>http://yoursite.com/2020/07/07/hello-world/</id>
+    <published>2020-07-07T09:52:35.716Z</published>
+    <updated>2020-07-07T09:52:35.716Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
