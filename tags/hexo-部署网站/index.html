@@ -18,7 +18,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>Archive: 2020/7 - Jian&#39;s Blog</title>
+  <title>Tag: hexo, 部署网站 - Jian&#39;s Blog</title>
   
 
   
@@ -373,7 +373,7 @@
   
 
 
-  <div class="l_body">
+  <div class="l_body nocover">
     <div class='body-wrapper' id="pjax-container">
       
         <!--此文件用来存放一些不方便取值的变量-->
@@ -396,16 +396,16 @@
 
 <script>
   // 处理封面 此时 jquery 还没加载
-  if ("blog" == "none") { // 移除封面
+  if ("none" == "none") { // 移除封面
     document.getElementsByClassName('cover')[0].style.display = "none";
     document.getElementsByClassName('l_body')[0].classList.add("nocover");
     document.getElementsByClassName('l_header', 'cover-wrapper')[0].classList.add("show");
   } else {
-    if ("blog" == "blog") { // 半屏
+    if ("none" == "blog") { // 半屏
       document.getElementsByClassName('cover')[0].classList.remove("full");
       document.getElementsByClassName('cover')[0].classList.add("half");
       document.getElementsByClassName('scroll-down')[0].style.display = "none";
-    } else if ("blog" == "docs") { // 全屏
+    } else if ("none" == "docs") { // 全屏
       document.getElementsByClassName('cover')[0].classList.remove("half");
       document.getElementsByClassName('cover')[0].classList.add("full");
       document.getElementsByClassName('scroll-down')[0].style.display = "";
@@ -419,9 +419,11 @@
       
       
 
+
 <div class='l_main'>
-	
-		
+  
+    
+      
   <section class="post-list ">
     
       
@@ -446,8 +448,8 @@
         
           
   <h2 class="title">
-    <a href="/myblogs/pages/2020/07/22/hello-world/">
-      Hello World
+    <a href="/myblogs/pages/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/">
+      Windows下安装hexo并部署网站
     </a>
   </h2>
 
@@ -477,7 +479,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Jul 22, 2020</p>
+    <p>发布于：Aug 4, 2020</p>
   </a>
 </div>
 
@@ -494,7 +496,7 @@
     <a class='notlink'>
       <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
       
-      <span id="/myblogs/pages/2020/07/22/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
+      <span id="/myblogs/pages/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/" class="leancloud_visitors" data-flag-title="Windows下安装hexo并部署网站">
       <p>
         <span class="leancloud-visitors-count"></span>
       </p>
@@ -509,9 +511,9 @@
               
 <div class="new-meta-item comments-count">
   
-  <a href="/myblogs/pages/2020/07/22/hello-world/#comments">
+  <a href="/myblogs/pages/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/#comments">
     <i class="fas fa-comment-dots fa-fw"></i>
-    <span class="valine-comment-count" data-xid="/myblogs/pages/2020/07/22/hello-world/">0</span>
+    <span class="valine-comment-count" data-xid="/myblogs/pages/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/">0</span>
     <span class="leancloud-comments-count">&nbsp;</span>
   </a>
 </div>
@@ -536,12 +538,12 @@
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+        <p>本文主要介绍在Windows操作系统上使用hexo生成个人博客的软件安装及环境配置，同时记录了过程中用到的相关命令。<br></p>
       
     </div>
     
       
-        <a class= "readmore" href="/myblogs/pages/2020/07/22/hello-world/">
+        <a class= "readmore" href="/myblogs/pages/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/">
           阅读全文 <i class="fas fa-chevron-right"></i>
         </a>
       
@@ -563,7 +565,8 @@
   
 
 
-	
+    
+  
 </div>
 <aside class='l_side'>
   
@@ -656,15 +659,6 @@
 
 
 </aside>
-
-
-
-
-
-	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-	
-
-	
 
 
     </div>
