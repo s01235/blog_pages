@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head hexo-theme='https://volantis.js.org/#1.0.0'>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   <!-- SEO相关 -->
   
     
@@ -57,6 +57,12 @@
   
 
   
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-light.css">
+
+    
+  
   
     
 <link rel="stylesheet" href="/myblogs/css/style.css">
@@ -65,13 +71,13 @@
 
   
   
-</head>
+<link rel="stylesheet" href="/myblogs/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 <body>
   
   
   
-  <div class="cover-wrapper">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="cover-wrapper">
     <cover class='cover post' style="display: none;">
       <div class='cover-body'>
   <div class='a'>
@@ -80,40 +86,40 @@
       <p class="title">Jian's Blog</p>
     
     
-      <p class="subtitle">My daily record</p>
+      <p class="subtitle">Up</p>
     
   </div>
   <div class='b'>
-    <div class='menu navigation dock'>
+    <div class='menu navigation focus'>
       <div class='list-h'>
         
           
-            <a href="/myblogs/v3/getting-started/"
+            <a href="/myblogs/archives/"
               
               
-              id="myblogsv3getting-started">
+              id="myblogsarchives">
               <img src='https://i.loli.net/2020/07/24/GaeXvVAdtJkCYT3.png'><p>文档</p>
             </a>
           
-            <a href="/myblogs/faqs/"
+            <a href="/myblogs/categories/"
               
               
-              id="myblogsfaqs">
+              id="myblogscategories">
+              <img src='https://i.loli.net/2020/07/24/9kHJZNA8m4RBxhp.png'><p>分类</p>
+            </a>
+          
+            <a href="/myblogs/friends/"
+              
+              
+              id="myblogsfriends">
+              <img src='https://i.loli.net/2020/07/24/skczZ1VdMGRbTLi.png'><p>友链</p>
+            </a>
+          
+            <a href="/myblogs/about/"
+              
+              
+              id="myblogsabout">
               <img src='https://i.loli.net/2020/07/24/cxRslyWzk2OTP9r.png'><p>帮助</p>
-            </a>
-          
-            <a href="/myblogs/examples/"
-              
-              
-              id="myblogsexamples">
-              <img src='https://i.loli.net/2020/07/24/9kHJZNA8m4RBxhp.png'><p>示例</p>
-            </a>
-          
-            <a href="/myblogs/contributors/"
-              
-              
-              id="myblogscontributors">
-              <img src='https://i.loli.net/2020/07/24/skczZ1VdMGRbTLi.png'><p>社区</p>
             </a>
           
         
@@ -143,7 +149,7 @@
           
           
           
-            Jian's Blog 1.0
+            Jian's Blog
           
         </a>
       
@@ -375,7 +381,7 @@
   
 
 
-  <div class="l_body nocover">
+  <div class="l_body">
     <div class='body-wrapper' id="pjax-container">
       
         <!--此文件用来存放一些不方便取值的变量-->
@@ -387,7 +393,7 @@
   <div id="pjax-ispage">true</div>
   <div id="pjax-pageTitle">Windows下安装hexo并部署网站</div>
   <div id="pjax-enable-cover">true</div>
-  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/</div>
+  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/2020/08/04/blog1-an-zhuang-hexo-yi-ji-wang-zhan-de-bu-shu/</div>
   
   <div id="valine-path">none</div>
   <div id="valine-placeholder">none</div>
@@ -398,16 +404,16 @@
 
 <script>
   // 处理封面 此时 jquery 还没加载
-  if ("none" == "none") { // 移除封面
+  if ("blog" == "none") { // 移除封面
     document.getElementsByClassName('cover')[0].style.display = "none";
     document.getElementsByClassName('l_body')[0].classList.add("nocover");
     document.getElementsByClassName('l_header', 'cover-wrapper')[0].classList.add("show");
   } else {
-    if ("none" == "blog") { // 半屏
+    if ("blog" == "blog") { // 半屏
       document.getElementsByClassName('cover')[0].classList.remove("full");
       document.getElementsByClassName('cover')[0].classList.add("half");
       document.getElementsByClassName('scroll-down')[0].style.display = "none";
-    } else if ("none" == "docs") { // 全屏
+    } else if ("blog" == "docs") { // 全屏
       document.getElementsByClassName('cover')[0].classList.remove("half");
       document.getElementsByClassName('cover')[0].classList.add("full");
       document.getElementsByClassName('scroll-down')[0].style.display = "";
@@ -425,7 +431,7 @@
   
 
   
-    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+    <article id="post" class="post white-box reveal blur article-type-post" itemscope itemprop="blogPost">
       
 
 
@@ -437,7 +443,7 @@
         
           
   <h1 class="title">
-    <a href="/myblogs/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/">
+    <a href="/myblogs/2020/08/04/blog1-an-zhuang-hexo-yi-ji-wang-zhan-de-bu-shu/">
       Windows下安装hexo并部署网站
     </a>
   </h1>
@@ -468,7 +474,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Aug 4, 2020</p>
+    <p>发布于：2020年8月4日</p>
   </a>
 </div>
 
@@ -494,36 +500,66 @@
           
           <p>本文主要介绍在Windows操作系统上使用hexo生成个人博客的软件安装及环境配置，同时记录了过程中用到的相关命令。<br><a id="more"></a></p>
 <h2 id="一、安装node-js"><a href="#一、安装node-js" class="headerlink" title="一、安装node.js"></a>一、安装node.js</h2><p>windows版本的官网链接为：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a> ，<strong>安装过程中CustomSetup这一步记得检查Add—to-PATH是否被选上。</strong> 安装完成后命令行输入以下命令检查环境是否配好，正常情况下会返回软件版本号。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
-<h2 id="二、安装hexo"><a href="#二、安装hexo" class="headerlink" title="二、安装hexo"></a>二、安装hexo</h2><p>在Windows的cmd命令行中输入以下命令安装hexo并验证。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-<p>如果出现以下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo : 无法加载文件 C:\Users\45478\AppData\Roaming\npm\hexo.ps1，因为在此系统上禁止运行脚本。</span><br></pre></td></tr></table></figure>
-<p>可在管理员模式下的powershell中执行以下命令，输入y回车，之后问题解决。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set-ExecutionPolicy RemoteSigned</span><br></pre></td></tr></table></figure>
-<h2 id="三、生成博客"><a href="#三、生成博客" class="headerlink" title="三、生成博客"></a>三、生成博客</h2><p>步骤为创建工作目录，工作目录初始化，生成博客，开启本地服务预览网站。指令代码如下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br><span class="line">hexo generate  </span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-<h2 id="四、部署网站"><a href="#四、部署网站" class="headerlink" title="四、部署网站"></a>四、部署网站</h2><ul>
+<pre><code>npm -v
+</code></pre><h2 id="二、安装hexo"><a href="#二、安装hexo" class="headerlink" title="二、安装hexo"></a>二、安装hexo</h2><p>在Windows的cmd命令行中输入以下命令安装hexo并验证。</p>
+<pre><code>npm install -g hexo
+hexo -v
+</code></pre><p>如果出现以下错误：</p>
+<pre><code>hexo : 无法加载文件 C:\Users\45478\AppData\Roaming\npm\hexo.ps1，因为在此系统上禁止运行脚本。
+</code></pre><p>可在管理员模式下的powershell中执行以下命令，输入y回车，之后问题解决。</p>
+<pre><code>set-ExecutionPolicy RemoteSigned
+</code></pre><h2 id="三、生成博客"><a href="#三、生成博客" class="headerlink" title="三、生成博客"></a>三、生成博客</h2><p>步骤为创建工作目录，工作目录初始化，生成博客，开启本地服务预览网站。指令代码如下。</p>
+<pre><code>hexo init
+hexo generate  
+hexo server
+</code></pre><h2 id="四、部署网站"><a href="#四、部署网站" class="headerlink" title="四、部署网站"></a>四、部署网站</h2><ul>
 <li>首先执行以下命令安装hexo-deployer-git。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<ul>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre><ul>
 <li>网站的部署可以参考<a href="https://hexo.io/zh-cn/docs/one-command-deployment" target="_blank" rel="noopener">hexo</a>的官方教程，主要用到的命令如下。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<ul>
+<pre><code>hexo deploy
+</code></pre><ul>
 <li>deploy之前需要更改_config.yml中deploy段的参数，可使用多个deployer。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">- type: git</span><br><span class="line">  repo:</span><br><span class="line">- type: heroku</span><br><span class="line">  repo:</span><br></pre></td></tr></table></figure>
-<ul>
+<pre><code>deploy:
+- type: git
+  repo:
+- type: heroku
+  repo:
+</code></pre><ul>
 <li>修改配置。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: &lt;repository url&gt; #https:&#x2F;&#x2F;bitbucket.org&#x2F;JohnSmith&#x2F;johnsmith.bitbucket.io</span><br><span class="line">  branch: [branch]</span><br><span class="line">  message: [message]</span><br></pre></td></tr></table></figure>
-<ul>
-<li>生成站点文件并推送至远程库。执行以下指令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<h2 id="五、HEXO主题"><a href="#五、HEXO主题" class="headerlink" title="五、HEXO主题"></a>五、HEXO主题</h2>可以<a href="https://hexo.io/themes/" target="_blank" rel="noopener">在官网的主题页面</a>找适合自己的主题，本文所用的主题为<a href="https://volantis.js.org/" target="_blank" rel="noopener">volantis</a>，在此对主题的作者表示崇高的敬意！！!<br><img src="https://s1.ax1x.com/2020/08/05/arQSld.png" alt="volantis主题封面"></li>
+<pre><code>deploy:
+  type: git
+  repo: &lt;repository url&gt; #https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
+  branch: [branch]
+  message: [message]
+</code></pre><ul>
+<li>生成站点文件并推送至远程库。执行以下指令<pre><code>hexo clean 
+hexo deploy
+</code></pre><h2 id="五、HEXO主题"><a href="#五、HEXO主题" class="headerlink" title="五、HEXO主题"></a>五、HEXO主题</h2>可以<a href="https://hexo.io/themes/" target="_blank" rel="noopener">在官网的主题页面</a>找适合自己的主题，本文所用的主题为<a href="https://volantis.js.org/" target="_blank" rel="noopener">volantis</a>，在此对主题的作者表示崇高的敬意！！!<br><img src="https://s1.ax1x.com/2020/08/05/arQSld.png" alt="volantis主题封面"></li>
 </ul>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
           
             <div class='article_footer'>
               
@@ -559,7 +595,7 @@
           
         
           
-            <p>本文永久链接是：<a href=http://cj_song.gitee.io/myblogs/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/>http://cj_song.gitee.io/myblogs/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/</a></p>
+            <p>本文永久链接是：<a href=http://cj_song.gitee.io/myblogs/2020/08/04/blog1-an-zhuang-hexo-yi-ji-wang-zhan-de-bu-shu/>http://cj_song.gitee.io/myblogs/2020/08/04/blog1-an-zhuang-hexo-yi-ji-wang-zhan-de-bu-shu/</a></p>
           
         
       </blockquote>
@@ -613,7 +649,7 @@
           <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-08-05T10:27:01+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Aug 5, 2020</p>
+    <p>更新于：2020年8月5日</p>
   </a>
 </div>
 
@@ -640,7 +676,7 @@
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/&title=Windows下安装hexo并部署网站 - Jian's Blog&summary=本文主要介绍在Windows操作系统上使用hexo生成个人博客的软件安装及环境配置，同时记录了过程中用到的相关命令。"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/08/04/blog1-an-zhuang-hexo-yi-ji-wang-zhan-de-bu-shu/&title=Windows下安装hexo并部署网站 - Jian's Blog&summary=本文主要介绍在Windows操作系统上使用hexo生成个人博客的软件安装及环境配置，同时记录了过程中用到的相关命令。"
           
           >
           
@@ -652,7 +688,7 @@
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/&title=Windows下安装hexo并部署网站 - Jian's Blog&summary=本文主要介绍在Windows操作系统上使用hexo生成个人博客的软件安装及环境配置，同时记录了过程中用到的相关命令。"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/08/04/blog1-an-zhuang-hexo-yi-ji-wang-zhan-de-bu-shu/&title=Windows下安装hexo并部署网站 - Jian's Blog&summary=本文主要介绍在Windows操作系统上使用hexo生成个人博客的软件安装及环境配置，同时记录了过程中用到的相关命令。"
           
           >
           
@@ -664,7 +700,7 @@
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/08/04/blog1_%E5%AE%89%E8%A3%85hexo%E4%BB%A5%E5%8F%8A%E7%BD%91%E7%AB%99%E7%9A%84%E9%83%A8%E7%BD%B2/&title=Windows下安装hexo并部署网站 - Jian's Blog&summary=本文主要介绍在Windows操作系统上使用hexo生成个人博客的软件安装及环境配置，同时记录了过程中用到的相关命令。"
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/08/04/blog1-an-zhuang-hexo-yi-ji-wang-zhan-de-bu-shu/&title=Windows下安装hexo并部署网站 - Jian's Blog&summary=本文主要介绍在Windows操作系统上使用hexo生成个人博客的软件安装及环境配置，同时记录了过程中用到的相关命令。"
           
           >
           
@@ -688,6 +724,12 @@
         
           <div class="prev-next">
             
+              <a class='prev' href='/myblogs/2020/08/13/blog2-adam-lun-wen-fan-yi/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Adam论文翻译</p>
+                <p class='content'>本文为Adam算法原论文的翻译。
+第一部分：引言​    基于随机梯度的优化问题在许多科学和工程领域具有重要的实际意义。这些领域中的许多问题都可以归结为某个标量参数化目标函数的优化问题，这些目标...</p>
+              </a>
+            
             
               <a class='next' href='/myblogs/2020/07/22/hello-world/'>
                 <p class='title'>Hello World<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
@@ -702,7 +744,7 @@
 
   
     
-  <article class="post white-box reveal comments shadow">
+  <article class="post white-box reveal comments blur">
     <section class="article typo">
       <p ct><i class='fas fa-comments'></i> 评论</p>
       
@@ -735,7 +777,7 @@
 
 
 
-  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+  <section class="widget toc-wrapper shadow blur desktop mobile" id="toc-div" >
     
   <header>
     
@@ -803,16 +845,16 @@
       
     
       
-        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
-        Use
+        本站使用
         <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
-        as theme, total visits
+        作为主题，总访问量为
           <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-          times
+          次
         
       
     
@@ -1169,7 +1211,7 @@
 
     <script type="text/javascript">
       $(function(){
-        var imgs=["https://gitee.com/wallpapers/minimalist/raw/master/2020/002.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/003.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/004.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/006.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/012.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/016.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/019.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/025.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/034.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/039.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/046.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/051.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/052.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/056.jpg"];
+        var imgs=["https://gitee.com/wallpapers/minimalist/raw/master/2020/002.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/003.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/006.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/016.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/019.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/025.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/046.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/051.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/052.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/056.jpg"];
         if ('true' == 'true') {
           function shuffle(arr){
             /*From countercurrent-time*/
@@ -1187,14 +1229,14 @@
           $('').backstretch(
             imgs,
           {
-            duration: "20000",
+            duration: "40000",
             fade: "1500"
           });
         } else {
           $.backstretch(
             imgs,
           {
-            duration: "20000",
+            duration: "40000",
             fade: "1500"
           });
         }
@@ -1259,14 +1301,14 @@
       meta: meta,
       placeholder: valinePlaceholder,
       path: valinePath,
-      appId: "",
-      appKey: "",
+      appId: "3M3j7zd1tJSDunVCQBA34hs7-gzGzoHsz",
+      appKey: "l7jDOciqUowP2CY7O4dDDr9e",
       pageSize: '10',
       avatar: 'robohash',
       lang: 'zh-cn',
       visitor: 'true',
       highlight: 'true',
-      mathJax: 'false',
+      mathJax: 'true',
       enableQQ: 'true',
       requiredFields: requiredFields,
       emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
@@ -1435,6 +1477,13 @@
 
 
 
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  
+
 
 
 
@@ -1538,6 +1587,10 @@
           }
         
         
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+        
         
         
           pjax_initCopyCode();
@@ -1562,6 +1615,6 @@
 </script>
 
     
-  </div>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
