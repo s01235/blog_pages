@@ -16,9 +16,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>Jian&#39;s Blog</title>
+  <title>使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Jian&#39;s Blog</title>
+  
+    <meta name="keywords" content="FPGA, ZYNQ, LUT">
   
 
+  
+    <meta name="description" content="本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。">
   
 
   <!-- feed -->
@@ -74,7 +78,7 @@
   
   
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="cover-wrapper">
-    <cover class='cover list' style="display: none;">
+    <cover class='cover post' style="display: none;">
       <div class='cover-body'>
   <div class='a'>
     
@@ -386,10 +390,10 @@
 
 
 <div id="pjax-data" style="display: none">
-  <div id="pjax-ispage">false</div>
-  <div id="pjax-pageTitle"></div>
+  <div id="pjax-ispage">true</div>
+  <div id="pjax-pageTitle">使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程</div>
   <div id="pjax-enable-cover">true</div>
-  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/mylist/index.html</div>
+  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/</div>
   
   <div id="valine-path">none</div>
   <div id="valine-placeholder">none</div>
@@ -423,93 +427,213 @@
       
       
 
-
 <div class='l_main'>
   
-    <section class="post-list ">
+
+  
+    <article id="post" class="post white-box reveal blur article-type-post" itemscope itemprop="blogPost">
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </section>
+
+
+  <section class='meta'>
     
-  
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/">
+      使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg">
+    <p>Chenjian_Song</p>
+  </a>
 </div>
-<aside class='l_side'>
-  
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年10月23日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          
+          <p>本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：<a href="https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。</a><br><a id="more"></a></p>
+<h2 id="一，摘要"><a href="#一，摘要" class="headerlink" title="一，摘要"></a>一，摘要</h2><p>主要介绍一下<strong>使用Vivado进行部分动态重构系统的开发流程</strong>，<strong>AXI_HWICAP IP基本的使用方法</strong>，以及<strong>通过ARM部分实现LUT内容动态修改的程序流程(此部分见下篇博客)</strong>。</p>
+<h2 id="二，系统框图"><a href="#二，系统框图" class="headerlink" title="二，系统框图"></a>二，系统框图</h2><p><img src="https://img-blog.csdnimg.cn/20200225180357207.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="系统框图"><br>系统结构主要如上图，其中LUT的读写操作由PS端的程序控制，通过PC端的串口助手可以观察读取的配置帧数据，设置要修改的LUT位置以及修改后的LUT中的新数据。</p>
+<h2 id="三，PL工程的创建，综合，布局布线。"><a href="#三，PL工程的创建，综合，布局布线。" class="headerlink" title="三，PL工程的创建，综合，布局布线。"></a>三，PL工程的创建，综合，布局布线。</h2><p>考虑到调试过程中可能要多次设置目标LUT的初始值来搞清楚bitstream中数据与LUT中数据的映射关系，为了<strong>提高该系统的编译调试效率，本文针对目标操作的LUT采取局部动态重构的设计方法</strong>。实际应用中不采用部分重构设计流程也可以对LUT进行动态读写。<br>以下是本次设计使用Vivado进行部分重构系统开发的整体流程：</p>
+<ol>
+<li>使用Vivado创建整个设计，将部分重构模块保留为空模块。综合工程生成静态设计的.dcp文件(如top_syn_static.dcp)。</li>
+<li>综合部分重构模块的源文件，生成对应的.dcp文件(如：pr_lut_syn.dcp)。</li>
+<li>打开第一步生成的top_syn_static.dcp，读入第二步生成的pr_lut_syn.dcp，设置重构属性，保存设计点。</li>
+<li>为重构模块指定重构区域，读入约束文件。</li>
+<li>优化，布局，布线，保存设计点。</li>
+<li>生成bitstream文件，及ila调试相关文件。</li>
+<li>将重构模块清除保留为黑盒，将其他部分在布局布线后的级别上保存其设计点。</li>
+<li>打开上一步保存的设计点，读入新的重构模块，优化，布局布线，保存设计点，生成bitstream等。</li>
+<li>使用pr_verify指令对生成的bitstream进行验证。<h3 id="第一步，创建设计。"><a href="#第一步，创建设计。" class="headerlink" title="第一步，创建设计。"></a>第一步，创建设计。</h3>可直接在给出的工程目录下面执行脚本自动创建，综合，以及硬件的导出。在工程目录下执行以下代码(windows下需要在Vivado的命令行下操作)：<pre class=" language-lang-javascript"><code class="language-lang-javascript">source ./tcl/step1_create_project.tcl
+</code></pre>
+具体工程文件结构如下图所示：<br><img src="https://img-blog.csdnimg.cn/20200225173307967.png" alt="工程结构"><br>其中原理图部分如下：<br><img src="https://img-blog.csdnimg.cn/20200225173451606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="原理图"><br>这一步我们要<strong>用到的文件为.\vivado\lut_modify.runs\synth_1\top.dcp，我们需要将此文件复制到.\checkpoints\synth\static\路径下</strong>，便于后续操作。<br>当然也可以自己手动来创建工程，编写相关文件。<h3 id="第二步，综合重构模块"><a href="#第二步，综合重构模块" class="headerlink" title="第二步，综合重构模块"></a>第二步，综合重构模块</h3>直接执行脚本文件即可，脚本代码如下：<pre class=" language-lang-javascript"><code class="language-lang-javascript">read_verilog ./src/rms/pr_lut1/pr_lut.v
+synth_design -mode out_of_context -flatten_hierarchy rebuilt -top pr_lut -part xc7z020clg400-1
+write_checkpoint ./checkpoints/synth/rms/pr_lut1.dcp
+close_design
+close_project
+</code></pre>
+以下是重构模块的verilog代码，该模块例化一个内部的固定位置的LUT，便于我们以后寻址更改其内部内容：<br><code>``javascript</code>timescale 1ns/1ps </li>
+</ol>
+<p>//<strong><strong><strong><strong><em>*</em></strong></strong></strong></strong><br>//DEFINE MODULE PORT<br>//<strong><strong><strong><strong><em>*</em></strong></strong></strong></strong><br>module  pr_lut   (<br>            input           clk  ,<br>            input           rst  ,<br>            input   [5:0]   din  ,<br>            output  reg     dout<br>              ) ;</p>
+<p>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>//INNER SIGNAL DECLARATION<br>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>//REGS<br>reg [5:0] din_ff ;</p>
+<p>//WIRES<br> wire  dout_pre ;<br>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>//MAIN CORE<br>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>always @(posedge clk or posedge rst) begin<br>    if (rst == 1’b1) begin<br>        din_ff &lt;= ‘d0 ;<br>    end<br>    else begin<br>        din_ff &lt;= din ;<br>    end<br>end</p>
+<p>always @(posedge clk or posedge rst) begin<br>    if (rst == 1’b1) begin<br>        dout &lt;= ‘d0 ;<br>    end<br>    else begin<br>        dout &lt;= dout_pre ;<br>    end<br>end<br>// 0001 0010 0011</p>
+<p> (<em> DONT_TOUCH= “TRUE” </em>) (<em>BEL=”D6LUT”,LOC=”SLICE_X57Y53”</em>)    LUT6 #(<br>      .INIT(64’h1234123412341234)  // Specify LUT Contents<br>   ) LUT6_inst_D_right (<br>      .O(dout_pre),   // LUT general output<br>      .I0(din_ff[0]), // LUT input<br>      .I1(din_ff[1]), // LUT input<br>      .I2(din_ff[2]), // LUT input<br>      .I3(din_ff[3]), // LUT input<br>      .I4(din_ff[4]), // LUT input<br>      .I5(din_ff[5])  // LUT input<br>   );</p>
+<p>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>endmodule   </p>
+<pre><code>该步操作主要生成的文件如下图,后面可用不同lut初始值的rm来创建完整设计，方便在bitstream文件中找到目标lut配置数据的位置及内容。便于分析bitstream配置数据同实际LUT中数据的映射关系：
+![rms](https://img-blog.csdnimg.cn/20200225180557292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70)
+###   第三步，打开设计点，读入重构模块，划分重构区域
+执行以下脚本
+ ```javascript
+open_checkpoint ./checkpoints/synth/static/top.dcp
+read_checkpoint -cell pr_lut_0 ./checkpoints/synth/rms/pr_lut1.dcp
+set_property HD.RECONFIGURABLE 1 [get_cells pr_lut_0]  
+write_checkpoint ./checkpoints/synth/top_link_lut.dcp -force 
+
+#划分重构区域。
+startgroup
+create_pblock pblock_pr_lut_0
+resize_pblock pblock_pr_lut_0 -add {SLICE_X54Y50:SLICE_X59Y59 RAMB18_X3Y20:RAMB18_X3Y23 RAMB36_X3Y10:RAMB36_X3Y11}
+add_cells_to_pblock pblock_pr_lut_0 [get_cells [list pr_lut_0]] -clear_locs
+endgroup
+</code></pre><p>其中为重构模块划分重构区域手动操作如下图，然后在layout上面绘制相应的重构区域即可，注意：此例中由于指定了LUT的位置信息，所以重构区域必须覆盖到该LUT的物理区域。<br><img src="https://img-blog.csdnimg.cn/20200225181803384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="划分重构区域"><br>此例中划分的重构区域如下：<br><img src="https://img-blog.csdnimg.cn/20200225182306433.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="重构区域"></p>
+<h3 id="第四步，优化，布局布线，保存设计点，生成-bit及-rbt文件。"><a href="#第四步，优化，布局布线，保存设计点，生成-bit及-rbt文件。" class="headerlink" title="第四步，优化，布局布线，保存设计点，生成.bit及.rbt文件。"></a>第四步，优化，布局布线，保存设计点，生成.bit及.rbt文件。</h3><p>直接执行以下命令：</p>
+<pre class=" language-lang-bash"><code class="language-lang-bash">opt_design 
+place_design 
+route_design
+write_checkpoint -force ./checkpoints/implement/top_route_design.dcp 
+write_checkpoint -force -cell pr_lut_0 ./checkpoints/implement/pr_lut_instance_route_design.dcp
+write_bitstream  -raw_bitfile ./bitstreams/top1 -force
+write_debug_probes -force ./bitstreams/top
+</code></pre>
+<p>执行上述命令后可以观察到器件已经完成布局布线，此时可生成对应的bitstream文件及部分bitstream文件。我们可通过生成的top.rbt来分析top.bit的结构，（<strong>top.rbt为top.bit的二进制asii格式表示，可通过python脚本来将rbt文件转换为16进制格式表示数据并保存为txt文件，后续我们从器件中读配置数据的时候要与之进行对比，来验证读操作的正确性</strong>）<br><img src="https://img-blog.csdnimg.cn/20200225184904323.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="布局布线结果"></p>
+<h3 id="第五步，保存静态设计。"><a href="#第五步，保存静态设计。" class="headerlink" title="第五步，保存静态设计。"></a>第五步，保存静态设计。</h3><p>脚本命令如下：</p>
+<pre class=" language-lang-bash"><code class="language-lang-bash">update_design -cell pr_lut_0 -black_box
+lock_design -level routing
+write_checkpoint -force ./checkpoints/routed/static_route_design.dcp
+
+update_design -buffer_ports -cell pr_lut_0
+place_design
+route_design
+write_checkpoint -force ./checkpoints/implement/top_route_design.dcp
+close_project
+</code></pre>
+<h3 id="第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。"><a href="#第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。" class="headerlink" title="第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。"></a>第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。</h3><p>脚本和上面操作多有重复，这里不再给出。<br><strong>本操作的意义在于利用前面保存过的静态设计，载入新的重构模块进行综合，布局布线，大大减少了整个工程综合，布局布线的时间成本。</strong><br>针对此次设计任务需求，需要多次更改目标LUT的初始值，采用此种设计流程能够大大减少后期bitstream文件的生成时间，而不必牵一发而动全身，每次都浪费这么长的时间来进行类似的操作。</p>
+<h3 id="第七步，验证两个设计是否兼容。"><a href="#第七步，验证两个设计是否兼容。" class="headerlink" title="第七步，验证两个设计是否兼容。"></a>第七步，验证两个设计是否兼容。</h3><p>脚本命令如下：</p>
+<pre class=" language-lang-bash"><code class="language-lang-bash">pr_verify -initial ./checkpoints/implement/top_route_design.dcp  -additional {./checkpoints/implement/top_route_design2.dcp }
+close_project
+</code></pre>
+<p>验证结果如下图<br><img src="https://img-blog.csdnimg.cn/20200225195512172.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="验证结果"><br>至此整个重构系统基于Vivado的脱离上下文的设计流程结束。</p>
+<h2 id="四、AXI-HWICAP相关信息"><a href="#四、AXI-HWICAP相关信息" class="headerlink" title="四、AXI_HWICAP相关信息"></a>四、AXI_HWICAP相关信息</h2><p>相关寄存器如下表：<br><img src="https://img-blog.csdnimg.cn/20200225201034277.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="reg1"><br><img src="https://img-blog.csdnimg.cn/20200225201056262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200225201138870.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>读写配置：<br>1)    将bitstream写进写FIFO寄存器进行配置。<br>2)    从读FIFO寄存器读取配置bitstream。<br>3)    向CR寄存器写值去启动bitstream的读取或写入，控制寄存器决定了数据传输的方向。向控制寄存器写入0x00000001开始写配置。写0x00000002开始读配置。<br>4)    状态寄存器的Done位表明了ICAPEn接口是否处于忙碌状态，并不代表读配置或写配置是否成功完成。<br>5)    在成功进行读或者写配置之后硬件清零CR寄存器。<br>6)    在CR寄存器未被清零的情况下，软件不能初始化另一个读或写配置操作。</p>
+<p>精简模式下写序列：<br>1)    将指令写进写FIFO寄存器进行配置。<br>2)    向控制寄存器写控制字初始化写指令。<br>3)    成功完成配置后硬件清零控制寄存器位。<br>4)    向写FIFO寄存器写入第二个指令，写控制字执行向ICAPEn端口的写操作。<br>5)    继续执行上述操作直到所有指令被写到ICAPEn端口。</p>
+<p>中止：<br>1)    向控制寄存器写控制字开始bitstream读写。<br>2)    将bitstream写入到FIFO寄存器执行配置，从读FIFO寄存器获取读取到的bitstream。<br>3)    向控制寄存器的第五位写1来执行中止。<br>4)    状态寄存器的Done位显示了ICAPEn端口是否正处于忙碌状态，不表示读，写操作成功完成。<br>5)    在成功执行中止操作后硬件清零控制寄存器位。<br>6)    在CR寄存器未被清零的情况下，软件不能初始化另一个读或写配置操作。</p>
+<p>注意：<br>1)    <strong>帧是配置数据允许被读或写的最小粒度。</strong><br>2)    <strong>修改单个LUT内容必须读出整帧，修改后再将整帧数据读入。</strong></p>
+<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2><p>本篇博客主要记录了使用Vivado工具进行脱离上下文(Out Of Context)方式进行开发的流程。<strong>以本篇生成的硬件系统为基础，可以进一步通过PS端的软件编程来实现对目标LUT的内容进行修改，亦可通过软件来为PR区域加载不同的重构模块来实现FPGA内部电路的动态重构。</strong></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+          
+            <div class='article_footer'>
+              
+                
   
     
     
 
-<section class="widget blogger shadow blur desktop mobile">
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box rectangle' href='/myblogs/about/'>
-          <img no-lazy src='https://s1.ax1x.com/2020/08/04/aDcAdf.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">Jian's Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="mailto:2836480981@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
           
-            <a href="https://github.com/s01235"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>本文永久链接是：<a href=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/>http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/</a></p>
           
         
-          
-            <a href="https://y.qq.com/portal/profile.html#stat=y_new.top.user_pic"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -520,34 +644,195 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-23T15:58:10+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年10月23日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/myblogs/tags/FPGA-ZYNQ-LUT/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>FPGA, ZYNQ, LUT</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/&title=使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Jian's Blog&summary=本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/&title=使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Jian's Blog&summary=本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/&title=使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Jian's Blog&summary=本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作</p>
+                <p class='content'>该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。
+一，摘要该篇博客主要记录软件端的整...</p>
+              </a>
+            
+            
+              <a class='next' href='/myblogs/2020/08/13/blog2-adam-lun-wen-fan-yi/'>
+                <p class='title'>Adam论文翻译<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>本文为Adam算法原论文的翻译。
+第一部分：引言​    基于随机梯度的优化问题在许多科学和工程领域具有重要的实际意义。这些领域中的许多问题都可以归结为某个标量参数化目标函数的优化问题，这些目标...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    
+  <article class="post white-box reveal comments blur">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      <section id="comments">
+        <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+      </section>
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+</div>
+<aside class='l_side'>
+  
   
 
   
     
     
-  
 
-  <section class="widget tagcloud shadow blur desktop mobile">
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/myblogs/tags/Adam-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">Adam, 优化算法</a> <a href="/myblogs/tags/FPGA-ZYNQ-LUT/" style="font-size: 14px; color: #999">FPGA, ZYNQ, LUT</a> <a href="/myblogs/tags/FPGA-ZYNQ-Vitis/" style="font-size: 14px; color: #999">FPGA, ZYNQ, Vitis</a> <a href="/myblogs/tags/hexo-%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99/" style="font-size: 14px; color: #999">hexo, 部署网站</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一，摘要"><span class="toc-text">一，摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二，系统框图"><span class="toc-text">二，系统框图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三，PL工程的创建，综合，布局布线。"><span class="toc-text">三，PL工程的创建，综合，布局布线。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步，创建设计。"><span class="toc-text">第一步，创建设计。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步，综合重构模块"><span class="toc-text">第二步，综合重构模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四步，优化，布局布线，保存设计点，生成-bit及-rbt文件。"><span class="toc-text">第四步，优化，布局布线，保存设计点，生成.bit及.rbt文件。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第五步，保存静态设计。"><span class="toc-text">第五步，保存静态设计。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。"><span class="toc-text">第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第七步，验证两个设计是否兼容。"><span class="toc-text">第七步，验证两个设计是否兼容。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、AXI-HWICAP相关信息"><span class="toc-text">四、AXI_HWICAP相关信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、总结"><span class="toc-text">五、总结</span></a></li></ol>
     </div>
   </section>
 
 
   
 
-  
-
 
 </aside>
+
 
 
     </div>

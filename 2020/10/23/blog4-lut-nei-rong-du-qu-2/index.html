@@ -16,9 +16,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>Jian&#39;s Blog</title>
+  <title>使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Jian&#39;s Blog</title>
+  
+    <meta name="keywords" content="FPGA, ZYNQ, Vitis">
   
 
+  
+    <meta name="description" content="该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。">
   
 
   <!-- feed -->
@@ -74,7 +78,7 @@
   
   
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="cover-wrapper">
-    <cover class='cover list' style="display: none;">
+    <cover class='cover post' style="display: none;">
       <div class='cover-body'>
   <div class='a'>
     
@@ -386,10 +390,10 @@
 
 
 <div id="pjax-data" style="display: none">
-  <div id="pjax-ispage">false</div>
-  <div id="pjax-pageTitle"></div>
+  <div id="pjax-ispage">true</div>
+  <div id="pjax-pageTitle">使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作</div>
   <div id="pjax-enable-cover">true</div>
-  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/mylist/index.html</div>
+  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/</div>
   
   <div id="valine-path">none</div>
   <div id="valine-placeholder">none</div>
@@ -423,93 +427,647 @@
       
       
 
-
 <div class='l_main'>
   
-    <section class="post-list ">
+
+  
+    <article id="post" class="post white-box reveal blur article-type-post" itemscope itemprop="blogPost">
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </section>
+
+
+  <section class='meta'>
     
-  
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/">
+      使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg">
+    <p>Chenjian_Song</p>
+  </a>
 </div>
-<aside class='l_side'>
-  
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年10月23日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          
+          <p>该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。<br><a id="more"></a></p>
+<h2 id="一，摘要"><a href="#一，摘要" class="headerlink" title="一，摘要"></a>一，摘要</h2><p>该篇博客主要记录软件端的整个流程，主要依据官方给出的HW_ICAP驱动库进行开发。具体硬件原理方面的知识不做太多介绍。有需要的话可以参考官方的一些手册。</p>
+<h2 id="二，程序流程"><a href="#二，程序流程" class="headerlink" title="二，程序流程"></a>二，程序流程</h2><p>程序循环执行以下四种操作，</p>
+<ol>
+<li>输入FAR寄存器值，读取对应地址的数据帧。</li>
+<li>输入要修改的LUT的位置，该位置可通过生成硬件时的Layout找出。</li>
+<li>输入要修改LUT的新数据。将修改过的数据帧写入FPGA内部。</li>
+<li>重新读出数据帧，与写入的数据帧进行对比，完全一致即返回修改成功，返回操作1。<h2 id="三，工程的建立与调试"><a href="#三，工程的建立与调试" class="headerlink" title="三，工程的建立与调试"></a>三，工程的建立与调试</h2>主要记录一些关键步骤！<h3 id="第一步，导入上篇博客生成的硬件平台"><a href="#第一步，导入上篇博客生成的硬件平台" class="headerlink" title="第一步，导入上篇博客生成的硬件平台"></a>第一步，导入上篇博客生成的硬件平台</h3>导入上篇博客工程目录下的xsa文件。<br><img src="https://img-blog.csdnimg.cn/20200225213224296.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>接下来编译该硬件平台。<br><img src="https://img-blog.csdnimg.cn/202002252136222.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="加粗样式"><h3 id="第二步，导入并编译修改单LUT的程序"><a href="#第二步，导入并编译修改单LUT的程序" class="headerlink" title="第二步，导入并编译修改单LUT的程序"></a>第二步，导入并编译修改单LUT的程序</h3>导入.\src\vitis\目录下的C语言源文件，如下图所示。<br><img src="https://img-blog.csdnimg.cn/20200225220537262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+</ol>
+<p>接下来需要注意官方的驱动有个BUG，针对于ZYNQ系列的器件，其DeviceIDCode并没有在7系列里面包含，这就使得在执行XHwIcap_CfgInitialize（）函数时出错，所以在此处要将其ID号改成7系列列表中有的ID号，如下图239行所示。<br><img src="https://img-blog.csdnimg.cn/20200225220055114.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h3 id="第三步，调试工程。"><a href="#第三步，调试工程。" class="headerlink" title="第三步，调试工程。"></a>第三步，调试工程。</h3><p>右击工程选择Debug As/DebugConfiguration,然后设置如下图，点击调试。<br><img src="https://img-blog.csdnimg.cn/20200225221150746.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>此时我们把top2.bit文件下载到FPGA部分，可以看到其LUT的输出内容如下图，<br><img src="https://img-blog.csdnimg.cn/20200225221001606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>通过串口助手输入FAR地址字段，对FPGA内部该地址的配置帧进行读取。<br><img src="https://img-blog.csdnimg.cn/20200225221744292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>截取部分读出的配置数据如下图所示，可在转换过后的rbt文件中找到该配置帧的数据。<br>我们需要操作的目标LUT的前1/4配置数据为下图中0x55550000这一数据，我们此时要对其进行更改。<br><img src="https://img-blog.csdnimg.cn/20200225221900112.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>首先我们要输入该LUT数据在该帧数据中的位置08（此位置可以通过layout看出来）。<br><img src="https://img-blog.csdnimg.cn/20200225222329137.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>进一步输入要修改成的数据，如下图所示，正常情况下返回Success即为写入成功。<br><img src="https://img-blog.csdnimg.cn/20200225222354507.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>最终我们再来看一下该LUT输出的波形如下，可以看出其内部数据已经被修改了。<br><img src="https://img-blog.csdnimg.cn/2020022522262754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="四、中间遇到的问题"><a href="#四、中间遇到的问题" class="headerlink" title="四、中间遇到的问题"></a>四、中间遇到的问题</h2><ol>
+<li>读帧数据时显示不完整，后小部分出现0xfffffffd,此种情况是由于AXI_ICAP ip的读FIFO容量设置太小造成的，中间会有部分数据缺失。解决办法，调大读FIFO的容量。</li>
+<li>写帧数据时写不进去，经排查发现为设置正确的DeviceID号，改正后问题解决。</li>
+<li>配置数据与LUT实际存储内容的映射关系还没来得及整清楚，看后面是否用得到。<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2>基本打通了单LUT读写的底层通路，为后面重构控制器的设计打下了基础。考虑通过云端等接口实现远程LUT内容的读写等操作，基于此可实现FPGA内部错误的自修复，高效重构任务的执行等高级功能。<h2 id="六、附程序代码如下"><a href="#六、附程序代码如下" class="headerlink" title="六、附程序代码如下"></a>六、附程序代码如下</h2></li>
+</ol>
+<pre class=" language-lang-c"><code class="language-lang-c">#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "xparameters.h"
+#include "xil_printf.h"
+#include "xil_cache.h"
+#include "ff.h"
+#include "xdevcfg.h"
+#include "xhwicap.h"
+#include "xil_io.h"
+#include "xil_types.h"
+
+#define PYNQ
+
+#define FRAME_WORDS_NUM    202
+// Parameters for Partial Reconfiguration
+#ifdef PYNQ
+
+#define READ_FRAME_SIZE 30
+#define WRITE_FRAME_SIZE 91
+#define PARTIAL_MULT_ADDR   0x200000
+#define PARTIAL_ADDER_ADDR   0x300000
+#define PARTIAL_BLANK_ADDR   0x400000
+#define PARTIAL_MULT_BITFILE_LEN  0xC66F // in number of words
+#define PARTIAL_ADDER_BITFILE_LEN  0xC66F // in number of words
+#define PARTIAL_BLANK_BITFILE_LEN  0xC66F // in number of words
+
+#endif
+
+// Turn on/off Debug messages
+#ifdef DEBUG_PRINT
+#define  debug_printf  xil_printf
+#else
+#define  debug_printf(msg, args...) do {  } while (0)
+#endif
+
+// Read function for STDIN
+extern char inbyte(void);
+
+// Driver Instantiations
+static XDcfg_Config *XDcfg_0;
+XDcfg DcfgInstance;
+XDcfg *DcfgInstPtr;
+static XHwIcap HwIcap;    // The instance of the HWICAP device
+XHwIcap *HwIcapInstPtr;
+uint32_t read_FrameBuffer[FRAME_WORDS_NUM];
+uint32_t read_FrameBuffer_verify[FRAME_WORDS_NUM];
+unsigned char uartBuffer[16];
+uint32_t addr_word;    //FAR Word.
+uint32_t new_word;    //The word to be writen to lut;
+uint32_t lut_index;    //
+
+
+
+int XHwIcap_DeviceReadFrame1(XHwIcap *InstancePtr, uint32_t far_word , u32 *FrameBuffer)
+{
+
+    u32 Packet;
+    u32 Data;
+    u32 TotalWords;
+    int Status;
+    u32 WriteBuffer[WRITE_FRAME_SIZE];
+    u32 Index = 0;
+    u32 NumNoops;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+    Xil_AssertNonvoid(FrameBuffer != NULL);
+
+    /*
+     * DUMMY and SYNC
+     */
+    WriteBuffer[Index++] = XHI_DUMMY_PACKET;
+    WriteBuffer[Index++] = XHI_BUS_WTH_PACKET;
+    WriteBuffer[Index++] = XHI_BUS_DET_PACKET;
+    WriteBuffer[Index++] = XHI_DUMMY_PACKET;
+    WriteBuffer[Index++] = XHI_SYNC_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+
+    /*
+     * Reset CRC
+     */
+    Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = XHI_CMD_RCRC;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+
+    /*
+     * Setup CMD register to read configuration
+     */
+    Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = XHI_CMD_RCFG;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+
+    /*
+     * Setup FAR register.
+     */
+    Packet = XHwIcap_Type1Write(XHI_FAR) | 1;
+    Data = far_word;
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = Data;
+
+    /*
+     * Setup read data packet header.
+     * The frame will be preceeded by a dummy frame, and we need to read one
+     * extra word for V4 and V5 devices.
+     */
+    switch (InstancePtr->DeviceFamily) {
+        case DEVICE_TYPE_7SERIES :
+                TotalWords = InstancePtr->WordsPerFrame << 1;
+                NumNoops = 32;
+                break;
+        case DEVICE_TYPE_ULTRA :
+            TotalWords = (InstancePtr->WordsPerFrame << 1) + 10;
+            NumNoops = 64;
+                break;
+        case DEVICE_TYPE_ULTRA_PLUS :
+            TotalWords = (InstancePtr->WordsPerFrame << 1) + 25;
+            NumNoops = 64;
+                break;
+        default:
+            return XST_FAILURE;
+    }
+
+    /*
+     * Create Type one packet
+     */
+    Packet = XHwIcap_Type1Read(XHI_FDRO);
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = 0x48000000 | TotalWords;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+
+    for(unsigned int i = 0; i < NumNoops; i++) {
+        WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    }
+
+    /*
+     * Write the data to the FIFO and initiate the transfer of data
+     * present in the FIFO to the ICAP device
+     */
+    Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *)&WriteBuffer[0],
+            Index);
+    if (Status != XST_SUCCESS)  {
+        return XST_FAILURE;
+    }
+
+    /*
+     * Wait till the write is done.
+     */
+    while (XHwIcap_IsDeviceBusy(InstancePtr) != FALSE);
+
+
+    /*
+     * Read the frame of the data including the NULL frame.
+     */
+    Status = XHwIcap_DeviceRead(InstancePtr, FrameBuffer, TotalWords);
+    if (Status != XST_SUCCESS)  {
+        return XST_FAILURE;
+    }
+
+    /*
+     * Send DESYNC command
+     */
+    Status = XHwIcap_CommandDesync(InstancePtr);
+    if (Status != XST_SUCCESS)  {
+        return XST_FAILURE;
+    }
+
+    return XST_SUCCESS;
+};
+
+int XHwIcap_DeviceWriteFrame1(XHwIcap *InstancePtr, u32 far_word,
+                u32 *FrameData)
+{
+
+    u32 Packet;
+    u32 Data;
+    u32 TotalWords;
+    int Status;
+    u32 WriteBuffer[READ_FRAME_SIZE];
+    u32 Index =0;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+    Xil_AssertNonvoid(FrameData != NULL);
+
+
+    /*
+     * DUMMY and SYNC
+     */
+    WriteBuffer[Index++] = XHI_DUMMY_PACKET;
+    WriteBuffer[Index++] = XHI_SYNC_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+
+    /*
+     * Reset CRC
+     */
+    Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
+    Data = XHI_CMD_RCRC;
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = Data;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+
+    /*
+     * Bypass CRC
+     */
+
+    /*
+     * ID register
+     */
+    Packet = XHwIcap_Type1Write(XHI_IDCODE) | 1;
+    Data = InstancePtr->DeviceIdCode;
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = Data;
+
+    /*
+     * Setup FAR
+     */
+    Packet = XHwIcap_Type1Write(XHI_FAR) | 1;
+
+    Data = far_word;
+
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = Data;
+
+    /*
+     * Setup CMD register - write configuration
+     */
+    Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
+    Data = XHI_CMD_WCFG;
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = Data;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+
+    /*
+     * Setup Packet header.
+     */
+    TotalWords = InstancePtr->WordsPerFrame << 1;
+    if (TotalWords < XHI_TYPE_1_PACKET_MAX_WORDS)  {
+        /*
+         * Create Type 1 Packet.
+         */
+        Packet = XHwIcap_Type1Write(XHI_FDRI) | TotalWords;
+        WriteBuffer[Index++] = Packet;
+    }
+    else {
+
+        /*
+         * Create Type 2 Packet.
+         */
+        Packet = XHwIcap_Type1Write(XHI_FDRI);
+        WriteBuffer[Index++] = Packet;
+
+        Packet = XHI_TYPE_2_WRITE | TotalWords;
+        WriteBuffer[Index++] = Packet;
+    }
+
+    /*
+     * Write the Header data into the FIFO and intiate the transfer of
+     * data present in the FIFO to the ICAP device
+     */
+    Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *)&WriteBuffer[0], Index);
+    if (Status != XST_SUCCESS)  {
+        return XST_FAILURE;
+    }
+
+    /*
+     * Write the modified frame data.
+     */
+    Status = XHwIcap_DeviceWrite(InstancePtr,
+                (u32 *) &FrameData[InstancePtr->WordsPerFrame],
+                InstancePtr->WordsPerFrame);
+    if (Status != XST_SUCCESS) {
+        return XST_FAILURE;
+    }
+
+    /*
+     * Write out the pad frame. The pad frame was read from the device
+     * before the data frame.
+     */
+    Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *) &FrameData[0],
+                    InstancePtr->WordsPerFrame);
+    if (Status != XST_SUCCESS) {
+        return XST_FAILURE;
+    }
+
+    /* Add CRC */
+    Index = 0;
+    Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
+    Data = XHI_CMD_RCRC;
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = Data;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+
+    /* Park the FAR */
+    Packet = XHwIcap_Type1Write(XHI_FAR) | 1;
+    Data = XHwIcap_SetupFar(0, 0, 3, 33, 0);
+
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] =  Data;
+
+    /* Add CRC */
+    Packet = XHwIcap_Type1Write(XHI_CMD) | 1;
+    Data = XHI_CMD_RCRC;
+    WriteBuffer[Index++] = Packet;
+    WriteBuffer[Index++] = Data;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+    WriteBuffer[Index++] = XHI_NOOP_PACKET;
+
+
+    /*
+     * Intiate the transfer of data present in the FIFO to
+     * the ICAP device
+     */
+    Status = XHwIcap_DeviceWrite(InstancePtr, &WriteBuffer[0], Index);
+    if (Status != XST_SUCCESS)  {
+        return XST_FAILURE;
+    }
+
+    /*
+     * Send DESYNC command
+     */
+    Status = XHwIcap_CommandDesync(InstancePtr);
+    if (Status != XST_SUCCESS) {
+        return XST_FAILURE;
+    }
+
+    return XST_SUCCESS;
+};
+
+
+u32 getWord (){
+
+    unsigned char byte;
+
+    int digitIndex;
+    u32 far_word;
+
+    while(1){
+        byte = 0x00;
+        digitIndex = 0;
+
+        //get bytes from uart until RETURN is entered
+
+        while(byte != 0x0d){
+            byte = inbyte();
+            uartBuffer[digitIndex] = byte;
+            xil_printf("%x", byte);
+            digitIndex++;
+        }
+        xil_printf("\r\n");
+
+        if(digitIndex==5)
+        {
+            far_word = uartBuffer[0]<<24 | uartBuffer[1]<<16 |uartBuffer[2]<<8 | uartBuffer[3];
+            return far_word;
+        }
+        else
+        {
+            digitIndex =0 ;
+            break;
+        }
+
+    }
+}
+
+u32 getByte (){
+
+    unsigned char byte;
+
+    int digitIndex;
+    u32 data;
+
+    while(1){
+        byte = 0x00;
+        digitIndex = 0;
+
+        //get bytes from uart until RETURN is entered
+
+        while(byte != 0x0d){
+            byte = inbyte();
+            uartBuffer[digitIndex] = byte;
+            xil_printf("%x\r\n", byte);
+            digitIndex++;
+        }
+
+        if(digitIndex==2)
+        {
+            data = uartBuffer[0];
+            return data;
+        }
+
+    }
+}
+
+
+
+int main()
+{
+    int Status;
+    int i;
+    int equal_number;
+    XHwIcap_Config *ConfigPtr;
+
+    // Flush and disable Data Cache
+    Xil_DCacheDisable();
+
+    // Invalidate and enable Data Cache
+    Xil_DCacheEnable();
+
+    // Initialize Device Configuration Interface
+    DcfgInstPtr = &DcfgInstance;
+    XDcfg_0 = XDcfg_LookupConfig(XPAR_XDCFG_0_DEVICE_ID) ;
+    Status =  XDcfg_CfgInitialize(DcfgInstPtr, XDcfg_0, XDcfg_0->BaseAddr);
+    if (Status != XST_SUCCESS) {
+        return XST_FAILURE;
+    }
+
+    // Deselect PCAP as the configuration device as we are going to use the ICAP
+    XDcfg_ClearControlRegister(DcfgInstPtr, XDCFG_CTRL_PCAP_PR_MASK);
+
+    ConfigPtr = XHwIcap_LookupConfig(XPAR_AXI_HWICAP_0_DEVICE_ID);
+    if (ConfigPtr == NULL) {
+        return XST_FAILURE;
+    }
+
+    HwIcapInstPtr = &HwIcap;
+    Status = XHwIcap_CfgInitialize(HwIcapInstPtr, ConfigPtr,
+                ConfigPtr->BaseAddress);
+    if (Status != XST_SUCCESS) {
+        return XST_FAILURE;
+    }
+    HwIcapInstPtr->DeviceIdCode = 0x23727093;
+    XHwIcap_Reset(HwIcapInstPtr);
+
+    print("HWICAP Initialized\r\n");
+
+    while(1)
+    {
+        equal_number=0;
+        print("Please input the far words!\r\n");
+        addr_word = getWord();
+        Status = XHwIcap_DeviceReadFrame1(HwIcapInstPtr, addr_word,&read_FrameBuffer[0]);
+        XHwIcap_Reset(HwIcapInstPtr);
+        if (Status != XST_SUCCESS) {
+            print("Read Lut Failure\r\n");
+            return XST_FAILURE;
+        }
+        else if(Status == XST_SUCCESS)
+        {
+            for(i=0;i<FRAME_WORDS_NUM;i++)
+                xil_printf("%x\r\n",read_FrameBuffer[i]);
+        }
+        print("Please input the number of the lut:\r\n");
+        lut_index = getByte();
+        print("Please input the new data of the lut:\r\n");
+        new_word = getWord();
+        read_FrameBuffer[(101 + lut_index)] = new_word;
+        Status = XHwIcap_DeviceWriteFrame1(HwIcapInstPtr, addr_word, &read_FrameBuffer[1]);
+        XHwIcap_Reset(HwIcapInstPtr);
+        if (Status != XST_SUCCESS) {
+            print("Write Lut Failure\r\n");
+            return XST_FAILURE;
+        }
+        Status = XHwIcap_DeviceReadFrame1(HwIcapInstPtr, addr_word,read_FrameBuffer_verify);
+        if (Status != XST_SUCCESS) {
+            print("Read Lut Failure\r\n");
+            return XST_FAILURE;
+        }
+        for(i=0;i<FRAME_WORDS_NUM;i++)
+        {
+            if(read_FrameBuffer_verify[i] == read_FrameBuffer[i])
+            {
+                equal_number ++;
+            }
+        }
+        if(equal_number != 202)
+            print("Write Lut Failure!\r\n");
+        else
+            print("Write Lut Success!\r\n");
+
+    }
+    return 0;
+}
+</code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+          
+            <div class='article_footer'>
+              
+                
   
     
     
 
-<section class="widget blogger shadow blur desktop mobile">
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box rectangle' href='/myblogs/about/'>
-          <img no-lazy src='https://s1.ax1x.com/2020/08/04/aDcAdf.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">Jian's Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="mailto:2836480981@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
           
-            <a href="https://github.com/s01235"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>本文永久链接是：<a href=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/>http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/</a></p>
           
         
-          
-            <a href="https://y.qq.com/portal/profile.html#stat=y_new.top.user_pic"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -520,34 +1078,188 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-23T15:58:31+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年10月23日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/myblogs/tags/FPGA-ZYNQ-Vitis/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>FPGA, ZYNQ, Vitis</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/&title=使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Jian's Blog&summary=该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/&title=使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Jian's Blog&summary=该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/&title=使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Jian's Blog&summary=该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/'>
+                <p class='title'>使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/develope...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    
+  <article class="post white-box reveal comments blur">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      <section id="comments">
+        <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+      </section>
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+</div>
+<aside class='l_side'>
+  
   
 
   
     
     
-  
 
-  <section class="widget tagcloud shadow blur desktop mobile">
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/myblogs/tags/Adam-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">Adam, 优化算法</a> <a href="/myblogs/tags/FPGA-ZYNQ-LUT/" style="font-size: 14px; color: #999">FPGA, ZYNQ, LUT</a> <a href="/myblogs/tags/FPGA-ZYNQ-Vitis/" style="font-size: 14px; color: #999">FPGA, ZYNQ, Vitis</a> <a href="/myblogs/tags/hexo-%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99/" style="font-size: 14px; color: #999">hexo, 部署网站</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一，摘要"><span class="toc-text">一，摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二，程序流程"><span class="toc-text">二，程序流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三，工程的建立与调试"><span class="toc-text">三，工程的建立与调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步，导入上篇博客生成的硬件平台"><span class="toc-text">第一步，导入上篇博客生成的硬件平台</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步，导入并编译修改单LUT的程序"><span class="toc-text">第二步，导入并编译修改单LUT的程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步，调试工程。"><span class="toc-text">第三步，调试工程。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、中间遇到的问题"><span class="toc-text">四、中间遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、总结"><span class="toc-text">五、总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、附程序代码如下"><span class="toc-text">六、附程序代码如下</span></a></li></ol>
     </div>
   </section>
 
 
   
 
-  
-
 
 </aside>
+
 
 
     </div>
