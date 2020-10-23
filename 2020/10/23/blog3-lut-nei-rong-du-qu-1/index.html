@@ -519,20 +519,62 @@ write_checkpoint ./checkpoints/synth/rms/pr_lut1.dcp
 close_design
 close_project
 </code></pre>
-以下是重构模块的verilog代码，该模块例化一个内部的固定位置的LUT，便于我们以后寻址更改其内部内容：<br><code>``javascript</code>timescale 1ns/1ps </li>
+以下是重构模块的verilog代码，该模块例化一个内部的固定位置的LUT，便于我们以后寻址更改其内部内容：<pre class=" language-lang-verilog"><code class="language-lang-verilog">timescale 1ns/1ps 
+//*******************
+//DEFINE MODULE PORT
+//*******************
+module  pr_lut   (     
+          input           clk  ,
+          input           rst  ,
+          input   [5:0]   din  ,
+          output  reg     dout         
+            ) ;
+//*********************
+//INNER SIGNAL DECLARATION
+//*********************
+//REGS
+reg [5:0] din_ff ;
+//WIRES
+wire  dout_pre ;
+//*********************
+//MAIN CORE
+//********************* 
+always @(posedge clk or posedge rst) begin
+  if (rst == 1'b1) begin
+      din_ff <= 'd0 ;
+  end
+  else begin
+      din_ff <= din ;
+  end
+end
+always @(posedge clk or posedge rst) begin
+  if (rst == 1'b1) begin
+      dout <= 'd0 ;
+  end
+  else begin
+      dout <= dout_pre ;
+  end
+end
+// 0001 0010 0011
+(* DONT_TOUCH= "TRUE" *) (*BEL="D6LUT",LOC="SLICE_X57Y53"*)    LUT6 #(
+    .INIT(64'h1234123412341234)  // Specify LUT Contents 
+ ) LUT6_inst_D_right (
+    .O(dout_pre),   // LUT general output
+    .I0(din_ff[0]), // LUT input
+    .I1(din_ff[1]), // LUT input
+    .I2(din_ff[2]), // LUT input
+    .I3(din_ff[3]), // LUT input
+    .I4(din_ff[4]), // LUT input
+    .I5(din_ff[5])  // LUT input
+ );
+//*********************
+endmodule
+</code></pre>
+</li>
 </ol>
-<p>//<strong><strong><strong><strong><em>*</em></strong></strong></strong></strong><br>//DEFINE MODULE PORT<br>//<strong><strong><strong><strong><em>*</em></strong></strong></strong></strong><br>module  pr_lut   (<br>            input           clk  ,<br>            input           rst  ,<br>            input   [5:0]   din  ,<br>            output  reg     dout<br>              ) ;</p>
-<p>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>//INNER SIGNAL DECLARATION<br>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>//REGS<br>reg [5:0] din_ff ;</p>
-<p>//WIRES<br> wire  dout_pre ;<br>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>//MAIN CORE<br>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>always @(posedge clk or posedge rst) begin<br>    if (rst == 1’b1) begin<br>        din_ff &lt;= ‘d0 ;<br>    end<br>    else begin<br>        din_ff &lt;= din ;<br>    end<br>end</p>
-<p>always @(posedge clk or posedge rst) begin<br>    if (rst == 1’b1) begin<br>        dout &lt;= ‘d0 ;<br>    end<br>    else begin<br>        dout &lt;= dout_pre ;<br>    end<br>end<br>// 0001 0010 0011</p>
-<p> (<em> DONT_TOUCH= “TRUE” </em>) (<em>BEL=”D6LUT”,LOC=”SLICE_X57Y53”</em>)    LUT6 #(<br>      .INIT(64’h1234123412341234)  // Specify LUT Contents<br>   ) LUT6_inst_D_right (<br>      .O(dout_pre),   // LUT general output<br>      .I0(din_ff[0]), // LUT input<br>      .I1(din_ff[1]), // LUT input<br>      .I2(din_ff[2]), // LUT input<br>      .I3(din_ff[3]), // LUT input<br>      .I4(din_ff[4]), // LUT input<br>      .I5(din_ff[5])  // LUT input<br>   );</p>
-<p>//<strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong><br>endmodule   </p>
-<pre><code>该步操作主要生成的文件如下图,后面可用不同lut初始值的rm来创建完整设计，方便在bitstream文件中找到目标lut配置数据的位置及内容。便于分析bitstream配置数据同实际LUT中数据的映射关系：
-![rms](https://img-blog.csdnimg.cn/20200225180557292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70)
-###   第三步，打开设计点，读入重构模块，划分重构区域
-执行以下脚本
- ```javascript
-open_checkpoint ./checkpoints/synth/static/top.dcp
+<p>该步操作主要生成的文件如下图,后面可用不同lut初始值的rm来创建完整设计，方便在bitstream文件中找到目标lut配置数据的位置及内容。便于分析bitstream配置数据同实际LUT中数据的映射关系：<br><img src="https://img-blog.csdnimg.cn/20200225180557292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="rms"></p>
+<h3 id="第三步，打开设计点，读入重构模块，划分重构区域"><a href="#第三步，打开设计点，读入重构模块，划分重构区域" class="headerlink" title="第三步，打开设计点，读入重构模块，划分重构区域"></a>第三步，打开设计点，读入重构模块，划分重构区域</h3><p>执行以下脚本</p>
+<pre class=" language-lang-javascript"><code class="language-lang-javascript">open_checkpoint ./checkpoints/synth/static/top.dcp
 read_checkpoint -cell pr_lut_0 ./checkpoints/synth/rms/pr_lut1.dcp
 set_property HD.RECONFIGURABLE 1 [get_cells pr_lut_0]  
 write_checkpoint ./checkpoints/synth/top_link_lut.dcp -force 
@@ -543,7 +585,8 @@ create_pblock pblock_pr_lut_0
 resize_pblock pblock_pr_lut_0 -add {SLICE_X54Y50:SLICE_X59Y59 RAMB18_X3Y20:RAMB18_X3Y23 RAMB36_X3Y10:RAMB36_X3Y11}
 add_cells_to_pblock pblock_pr_lut_0 [get_cells [list pr_lut_0]] -clear_locs
 endgroup
-</code></pre><p>其中为重构模块划分重构区域手动操作如下图，然后在layout上面绘制相应的重构区域即可，注意：此例中由于指定了LUT的位置信息，所以重构区域必须覆盖到该LUT的物理区域。<br><img src="https://img-blog.csdnimg.cn/20200225181803384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="划分重构区域"><br>此例中划分的重构区域如下：<br><img src="https://img-blog.csdnimg.cn/20200225182306433.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="重构区域"></p>
+</code></pre>
+<p>其中为重构模块划分重构区域手动操作如下图，然后在layout上面绘制相应的重构区域即可，注意：此例中由于指定了LUT的位置信息，所以重构区域必须覆盖到该LUT的物理区域。<br><img src="https://img-blog.csdnimg.cn/20200225181803384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="划分重构区域"><br>此例中划分的重构区域如下：<br><img src="https://img-blog.csdnimg.cn/20200225182306433.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="重构区域"></p>
 <h3 id="第四步，优化，布局布线，保存设计点，生成-bit及-rbt文件。"><a href="#第四步，优化，布局布线，保存设计点，生成-bit及-rbt文件。" class="headerlink" title="第四步，优化，布局布线，保存设计点，生成.bit及.rbt文件。"></a>第四步，优化，布局布线，保存设计点，生成.bit及.rbt文件。</h3><p>直接执行以下命令：</p>
 <pre class=" language-lang-bash"><code class="language-lang-bash">opt_design 
 place_design 
@@ -571,7 +614,7 @@ close_project
 close_project
 </code></pre>
 <p>验证结果如下图<br><img src="https://img-blog.csdnimg.cn/20200225195512172.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="验证结果"><br>至此整个重构系统基于Vivado的脱离上下文的设计流程结束。</p>
-<h2 id="四、AXI-HWICAP相关信息"><a href="#四、AXI-HWICAP相关信息" class="headerlink" title="四、AXI_HWICAP相关信息"></a>四、AXI_HWICAP相关信息</h2><p>相关寄存器如下表：<br><img src="https://img-blog.csdnimg.cn/20200225201034277.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="reg1"><br><img src="https://img-blog.csdnimg.cn/20200225201056262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200225201138870.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>读写配置：<br>1)    将bitstream写进写FIFO寄存器进行配置。<br>2)    从读FIFO寄存器读取配置bitstream。<br>3)    向CR寄存器写值去启动bitstream的读取或写入，控制寄存器决定了数据传输的方向。向控制寄存器写入0x00000001开始写配置。写0x00000002开始读配置。<br>4)    状态寄存器的Done位表明了ICAPEn接口是否处于忙碌状态，并不代表读配置或写配置是否成功完成。<br>5)    在成功进行读或者写配置之后硬件清零CR寄存器。<br>6)    在CR寄存器未被清零的情况下，软件不能初始化另一个读或写配置操作。</p>
+<h2 id="四、AXI-HWICAP相关信息"><a href="#四、AXI-HWICAP相关信息" class="headerlink" title="四、AXI_HWICAP相关信息"></a>四、AXI_HWICAP相关信息</h2><p>相关寄存器如下表：<br><img src="https://img-blog.csdnimg.cn/20200225201034277.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="reg1"><br><img src="https://img-blog.csdnimg.cn/20200225201056262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt><br><img src="https://img-blog.csdnimg.cn/20200225201138870.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt><br>读写配置：<br>1)    将bitstream写进写FIFO寄存器进行配置。<br>2)    从读FIFO寄存器读取配置bitstream。<br>3)    向CR寄存器写值去启动bitstream的读取或写入，控制寄存器决定了数据传输的方向。向控制寄存器写入0x00000001开始写配置。写0x00000002开始读配置。<br>4)    状态寄存器的Done位表明了ICAPEn接口是否处于忙碌状态，并不代表读配置或写配置是否成功完成。<br>5)    在成功进行读或者写配置之后硬件清零CR寄存器。<br>6)    在CR寄存器未被清零的情况下，软件不能初始化另一个读或写配置操作。</p>
 <p>精简模式下写序列：<br>1)    将指令写进写FIFO寄存器进行配置。<br>2)    向控制寄存器写控制字初始化写指令。<br>3)    成功完成配置后硬件清零控制寄存器位。<br>4)    向写FIFO寄存器写入第二个指令，写控制字执行向ICAPEn端口的写操作。<br>5)    继续执行上述操作直到所有指令被写到ICAPEn端口。</p>
 <p>中止：<br>1)    向控制寄存器写控制字开始bitstream读写。<br>2)    将bitstream写入到FIFO寄存器执行配置，从读FIFO寄存器获取读取到的bitstream。<br>3)    向控制寄存器的第五位写1来执行中止。<br>4)    状态寄存器的Done位显示了ICAPEn端口是否正处于忙碌状态，不表示读，写操作成功完成。<br>5)    在成功执行中止操作后硬件清零控制寄存器位。<br>6)    在CR寄存器未被清零的情况下，软件不能初始化另一个读或写配置操作。</p>
 <p>注意：<br>1)    <strong>帧是配置数据允许被读或写的最小粒度。</strong><br>2)    <strong>修改单个LUT内容必须读出整帧，修改后再将整帧数据读入。</strong></p>
@@ -681,7 +724,7 @@ close_project
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-23T15:58:10+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-23T16:43:12+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2020年10月23日</p>
@@ -823,7 +866,7 @@ close_project
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一，摘要"><span class="toc-text">一，摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二，系统框图"><span class="toc-text">二，系统框图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三，PL工程的创建，综合，布局布线。"><span class="toc-text">三，PL工程的创建，综合，布局布线。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步，创建设计。"><span class="toc-text">第一步，创建设计。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步，综合重构模块"><span class="toc-text">第二步，综合重构模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四步，优化，布局布线，保存设计点，生成-bit及-rbt文件。"><span class="toc-text">第四步，优化，布局布线，保存设计点，生成.bit及.rbt文件。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第五步，保存静态设计。"><span class="toc-text">第五步，保存静态设计。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。"><span class="toc-text">第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第七步，验证两个设计是否兼容。"><span class="toc-text">第七步，验证两个设计是否兼容。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、AXI-HWICAP相关信息"><span class="toc-text">四、AXI_HWICAP相关信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、总结"><span class="toc-text">五、总结</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一，摘要"><span class="toc-text">一，摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二，系统框图"><span class="toc-text">二，系统框图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三，PL工程的创建，综合，布局布线。"><span class="toc-text">三，PL工程的创建，综合，布局布线。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步，创建设计。"><span class="toc-text">第一步，创建设计。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步，综合重构模块"><span class="toc-text">第二步，综合重构模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步，打开设计点，读入重构模块，划分重构区域"><span class="toc-text">第三步，打开设计点，读入重构模块，划分重构区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四步，优化，布局布线，保存设计点，生成-bit及-rbt文件。"><span class="toc-text">第四步，优化，布局布线，保存设计点，生成.bit及.rbt文件。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第五步，保存静态设计。"><span class="toc-text">第五步，保存静态设计。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。"><span class="toc-text">第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第七步，验证两个设计是否兼容。"><span class="toc-text">第七步，验证两个设计是否兼容。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、AXI-HWICAP相关信息"><span class="toc-text">四、AXI_HWICAP相关信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、总结"><span class="toc-text">五、总结</span></a></li></ol>
     </div>
   </section>
 
