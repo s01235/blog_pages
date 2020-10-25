@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,9 +16,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2020/7 - Jian&#39;s Blog</title>
+  <title>ROS2常用指令 - Jian&#39;s Blog</title>
+  
+    <meta name="keywords" content="ROS2, Bash。">
   
 
+  
+    <meta name="description" content="本文记录ROS2常用的命令行操作指令。包括话题，服务，参数，动作等命令行命令。本文参考博客链接为：https://www.guyuehome.com/category/column/ros2-tutorials。">
   
 
   <!-- feed -->
@@ -76,7 +78,7 @@
   
   
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="cover-wrapper">
-    <cover class='cover ' style="display: none;">
+    <cover class='cover post' style="display: none;">
       <div class='cover-body'>
   <div class='a'>
     
@@ -388,10 +390,10 @@
 
 
 <div id="pjax-data" style="display: none">
-  <div id="pjax-ispage">false</div>
-  <div id="pjax-pageTitle"></div>
+  <div id="pjax-ispage">true</div>
+  <div id="pjax-pageTitle">ROS2常用指令</div>
   <div id="pjax-enable-cover">true</div>
-  <div id="pjax-permalink"></div>
+  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/</div>
   
   <div id="valine-path">none</div>
   <div id="valine-placeholder">none</div>
@@ -426,22 +428,11 @@
       
 
 <div class='l_main'>
-	
-		
-  <section class="post-list ">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box blur reveal ">
   
+
+  
+    <article id="post" class="post white-box reveal blur article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -451,11 +442,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h2 class="title">
-    <a href="/myblogs/2020/07/22/hello-world/">
-      Hello World
+  <h1 class="title">
+    <a href="/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/">
+      ROS2常用指令
     </a>
-  </h2>
+  </h1>
 
 
         
@@ -483,45 +474,9 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年7月22日</p>
+    <p>发布于：2020年10月25日</p>
   </a>
 </div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-  <div class="new-meta-item browse valine">
-    <a class='notlink'>
-      <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-      
-      <span id="/myblogs/2020/07/22/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-      <p>
-        <span class="leancloud-visitors-count"></span>
-      </p>
-      </span>
-    </a>
-  </div>
-
-
-            
-          
-            
-              
-<div class="new-meta-item comments-count">
-  
-  <a href="/myblogs/2020/07/22/hello-world/#comments">
-    <i class="fas fa-comment-dots fa-fw"></i>
-    <span class="valine-comment-count" data-xid="/myblogs/2020/07/22/hello-world/">0</span>
-    <span class="leancloud-comments-count">&nbsp;</span>
-  </a>
-</div>
-
 
             
           
@@ -539,91 +494,263 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-      
-    </div>
-    
-      
-        <a class= "readmore" href="/myblogs/2020/07/22/hello-world/">
-          阅读全文 <i class="fas fa-chevron-right"></i>
-        </a>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          
+          <p>本文记录ROS2常用的命令行操作指令。包括话题，服务，参数，动作等命令行命令。本文参考博客链接为：<a href="https://www.guyuehome.com/category/column/ros2-tutorials。" target="_blank" rel="noopener">https://www.guyuehome.com/category/column/ros2-tutorials。</a><br><a id="more"></a></p>
+<h2 id="一、安装调试过程"><a href="#一、安装调试过程" class="headerlink" title="一、安装调试过程"></a>一、安装调试过程</h2><ul>
+<li>将指令写入环境变量：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
+</code></pre>
+<ul>
+<li>查看环境变量是否写入成功：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    printenv | grep -i ROS
+</code></pre>
+<ul>
+<li>设置ROS组网ID:</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    export ROS_DOMAIN_ID=<your_domain_id>
+    echo "export ROS_DOMAIN_ID=<your_domain_id>" >> ~/.bashrc
+</code></pre>
+<ul>
+<li>安装海龟仿真器：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    sudo apt update
+    sudo apt install ros-foxy-turtlesim
+</code></pre>
+<ul>
+<li>检查功能包是否安装成功：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 pkg executables turtlesim
+</code></pre>
+<ul>
+<li>启动海龟仿真器节点：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 run turtlesim turtlesim_node
+</code></pre>
+<ul>
+<li>查看节点，话题，服务，动作：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 node list
+    ros2 topic list
+    ros2 service list
+    ros2 action list
+</code></pre>
+<ul>
+<li>安装rqt工具：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    sudo apt update
+    sudo apt install ~nros-foxy-rqt*
+</code></pre>
+<ul>
+<li>通过remapping 给节点重命名：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 run turtlesim turtle_teleop_key --ros-args --remap turtle1/cmd_vel:=turtle2/cmd_vel
+</code></pre>
+<h2 id="二、节点相关指令"><a href="#二、节点相关指令" class="headerlink" title="二、节点相关指令"></a>二、节点相关指令</h2><ul>
+<li>启动节点程序：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 run <package_name> <executable_name>
+    ros2 run turtlesim turtlesim_node
+</code></pre>
+<ul>
+<li>列出节点：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 node list
+</code></pre>
+<ul>
+<li>重映射：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 run turtlesim turtlesim_node --ros-args --remap __node:=my_turtle
+</code></pre>
+<ul>
+<li>查看节点信息：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 node info <node_name>
+    ros2 node info /my_turtle
+</code></pre>
+<h2 id="三、话题相关指令"><a href="#三、话题相关指令" class="headerlink" title="三、话题相关指令"></a>三、话题相关指令</h2><ul>
+<li>列出所有话题：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 topic list
+    ros2 topic list -t    #显示消息数据类型
+</code></pre>
+<ul>
+<li>返回话题数据：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 topic echo <topic_name>
+    ros2 topic echo /turtle1/cmd_vel
+</code></pre>
+<ul>
+<li>显示话题信息：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 topic info /turtle1/cmd_vel
+</code></pre>
+<ul>
+<li>查看话题中消息的具体数据结构：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 interface show geometry_msgs/msg/Twist
+</code></pre>
+<ul>
+<li>发布话题消息：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 topic pub <topic_name> <msg_type> '<args>'
+    #这里的 ‘<args>’就是具体的消息内容啦，我们需要使用YAML的语法来描述，比如要发布速度指令Twist:
+    #–once表示这个消息只发布一次就退出。
+    ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 2.0, z: 2.0}, angular: {x: 0, y: 0, z: 2.0}}"
+    #持续发布
+    #–rate参数就表示频率啦，单位是hz
+    ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.8}}"
+</code></pre>
+<ul>
+<li>查看话题消息的发布频率：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 topic hz /turtle1/pose
+</code></pre>
+<h2 id="四、服务相关指令"><a href="#四、服务相关指令" class="headerlink" title="四、服务相关指令"></a>四、服务相关指令</h2><ul>
+<li>列出服务：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 service list
+    ros2 service list -t
+</code></pre>
+<ul>
+<li>查看服务的数据结构：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 service type <service_name>
+</code></pre>
+<ul>
+<li>查找提供某类型数据的所有服务:</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 service find <type_name>    
+    ros2 service find std_srvs/srv/Empty
+</code></pre>
+<ul>
+<li>查看服务数据类型的具体结构:</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 interface show <type_name>.srv
+    ros2 interface show std_srvs/srv/Empty.srv
+</code></pre>
+<ul>
+<li>通过终端发送服务请求：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 service call <service_name> <service_type> <arguments>
+    ros2 service call /clear std_srvs/srv/Empty
+    ros2 service call /spawn turtlesim/srv/Spawn "{x: 2, y: 2, theta: 0.2, name: ''}"
+</code></pre>
+<h2 id="五、参数服务相关指令"><a href="#五、参数服务相关指令" class="headerlink" title="五、参数服务相关指令"></a>五、参数服务相关指令</h2><ul>
+<li>查看参数列表：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 param list
+</code></pre>
+<ul>
+<li>获取参数值：</li>
+</ul>
+<pre><code>    ros2 param get &lt;node_name&gt; &lt;parameter_name&gt;
+    ros2 param get /turtlesim background_g
+</code></pre><ul>
+<li>设置参数值：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 param set <node_name> <parameter_name> <value>
+    ros2 param set /turtlesim background_r 150
+</code></pre>
+<ul>
+<li>保存参数：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 param dump <node_name>
+    ros2 param dump /turtlesim
+</code></pre>
+<ul>
+<li>加载参数文件：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 run <package_name> <executable_name> --ros-args --params-file <file_name>
+    ros2 run turtlesim turtlesim_node --ros-args --params-file ./turtlesim.yaml
+</code></pre>
+<h2 id="六、Action相关指令"><a href="#六、Action相关指令" class="headerlink" title="六、Action相关指令"></a>六、Action相关指令</h2><ul>
+<li>查看action列表：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 action list
+    ros2 action list -t
+</code></pre>
+<ul>
+<li>查看action信息：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 action info /turtle1/rotate_absolute
+</code></pre>
+<ul>
+<li>查看action数据类型：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 interface show turtlesim/action/RotateAbsolute.action
+</code></pre>
+<ul>
+<li>命令行发送action目标：</li>
+</ul>
+<pre class=" language-lang-bash"><code class="language-lang-bash">    ros2 action send_goal <action_name> <action_type> <values>
+    #<values>同样是YAML格式描述的数据。发送一个试试：
+    ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: 1.57}"
+    #如果先要看到action中的周期反馈，以上命令还需要加一个–feedback参数：
+    ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute "{theta: -1.57}" --feedback
+</code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+          
+            <div class='article_footer'>
+              
+                
   
     
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
     
-    
+
+
 
   
 
-
-	
-</div>
-<aside class='l_side'>
-  
   
     
     
 
-<section class="widget blogger shadow blur desktop mobile">
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box rectangle' href='/myblogs/about/'>
-          <img no-lazy src='https://s1.ax1x.com/2020/08/04/aDcAdf.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">Jian's Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="mailto:2836480981@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
           
-            <a href="https://github.com/s01235"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>本文永久链接是：<a href=http://cj_song.gitee.io/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/>http://cj_song.gitee.io/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/</a></p>
           
         
-          
-            <a href="https://y.qq.com/portal/profile.html#stat=y_new.top.user_pic"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -634,43 +761,189 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-25T09:56:17+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年10月25日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/myblogs/tags/ROS2-Bash%E3%80%82/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ROS2, Bash。</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/&title=ROS2常用指令 - Jian's Blog&summary=本文记录ROS2常用的命令行操作指令。包括话题，服务，参数，动作等命令行命令。本文参考博客链接为：https://www.guyuehome.com/category/column/ros2-tutorials。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/&title=ROS2常用指令 - Jian's Blog&summary=本文记录ROS2常用的命令行操作指令。包括话题，服务，参数，动作等命令行命令。本文参考博客链接为：https://www.guyuehome.com/category/column/ros2-tutorials。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/&title=ROS2常用指令 - Jian's Blog&summary=本文记录ROS2常用的命令行操作指令。包括话题，服务，参数，动作等命令行命令。本文参考博客链接为：https://www.guyuehome.com/category/column/ros2-tutorials。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/'>
+                <p class='title'>使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。
+一，摘要该篇博客主要记录软件端的整...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    
+  <article class="post white-box reveal comments blur">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      <section id="comments">
+        <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+      </section>
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+</div>
+<aside class='l_side'>
+  
   
 
   
     
     
-  
 
-  <section class="widget tagcloud shadow blur desktop mobile">
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/myblogs/tags/Adam-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">Adam, 优化算法</a> <a href="/myblogs/tags/FPGA-ZYNQ-LUT/" style="font-size: 14px; color: #999">FPGA, ZYNQ, LUT</a> <a href="/myblogs/tags/FPGA-ZYNQ-Vitis/" style="font-size: 14px; color: #999">FPGA, ZYNQ, Vitis</a> <a href="/myblogs/tags/ROS2-Bash%E3%80%82/" style="font-size: 14px; color: #999">ROS2, Bash。</a> <a href="/myblogs/tags/hexo-%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99/" style="font-size: 14px; color: #999">hexo, 部署网站</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、安装调试过程"><span class="toc-text">一、安装调试过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、节点相关指令"><span class="toc-text">二、节点相关指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、话题相关指令"><span class="toc-text">三、话题相关指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、服务相关指令"><span class="toc-text">四、服务相关指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、参数服务相关指令"><span class="toc-text">五、参数服务相关指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、Action相关指令"><span class="toc-text">六、Action相关指令</span></a></li></ol>
     </div>
   </section>
 
 
   
 
-  
-
 
 </aside>
 
-
-
-
-
-	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-	
-
-	
 
 
     </div>
