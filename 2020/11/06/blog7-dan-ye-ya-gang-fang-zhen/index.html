@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,9 +16,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：FPGA, ZYNQ, LUT - Jian&#39;s Blog</title>
+  <title>单液压缸仿真 - Jian&#39;s Blog</title>
+  
+    <meta name="keywords" content="液压缸，matlab">
   
 
+  
+    <meta name="description" content="本文参考网址：https://www.mathworks.com/help/simulink/slref/single-hydraulic-cylinder-simulation.html">
   
 
   <!-- feed -->
@@ -76,7 +78,7 @@
   
   
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="cover-wrapper">
-    <cover class='cover ' style="display: none;">
+    <cover class='cover post' style="display: none;">
       <div class='cover-body'>
   <div class='a'>
     
@@ -388,10 +390,10 @@
 
 
 <div id="pjax-data" style="display: none">
-  <div id="pjax-ispage">false</div>
-  <div id="pjax-pageTitle"></div>
+  <div id="pjax-ispage">true</div>
+  <div id="pjax-pageTitle">单液压缸仿真</div>
   <div id="pjax-enable-cover">true</div>
-  <div id="pjax-permalink"></div>
+  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/</div>
   
   <div id="valine-path">none</div>
   <div id="valine-placeholder">none</div>
@@ -425,25 +427,12 @@
       
       
 
-
 <div class='l_main'>
   
-    
-      
-  <section class="post-list ">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box blur reveal ">
+
   
+    <article id="post" class="post white-box reveal blur article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -453,11 +442,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h2 class="title">
-    <a href="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/">
-      使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程
+  <h1 class="title">
+    <a href="/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/">
+      单液压缸仿真
     </a>
-  </h2>
+  </h1>
 
 
         
@@ -485,45 +474,9 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年10月23日</p>
+    <p>发布于：2020年11月6日</p>
   </a>
 </div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-  <div class="new-meta-item browse valine">
-    <a class='notlink'>
-      <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-      
-      <span id="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/" class="leancloud_visitors" data-flag-title="使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程">
-      <p>
-        <span class="leancloud-visitors-count"></span>
-      </p>
-      </span>
-    </a>
-  </div>
-
-
-            
-          
-            
-              
-<div class="new-meta-item comments-count">
-  
-  <a href="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/#comments">
-    <i class="fas fa-comment-dots fa-fw"></i>
-    <span class="valine-comment-count" data-xid="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/">0</span>
-    <span class="leancloud-comments-count">&nbsp;</span>
-  </a>
-</div>
-
 
             
           
@@ -541,92 +494,137 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：<a href="https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。</a><br></p>
-      
-    </div>
-    
-      
-        <a class= "readmore" href="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/">
-          阅读全文 <i class="fas fa-chevron-right"></i>
-        </a>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          
+          <p>本文参考网址：<a href="https://www.mathworks.com/help/simulink/slref/single-hydraulic-cylinder-simulation.html" target="_blank" rel="noopener">https://www.mathworks.com/help/simulink/slref/single-hydraulic-cylinder-simulation.html</a><br><a id="more"></a></p>
+<h2 id="一、模型的分析与物理描述"><a href="#一、模型的分析与物理描述" class="headerlink" title="一、模型的分析与物理描述"></a>一、模型的分析与物理描述</h2><p>图1展示了该系统的原理结构，此模型中油泵流量$Q$在控制阀处提供压力$p_1$，$C_2$为溢流阀，其流量被定义为$q_{1ex}$，活塞/缸体组件的控制阀建模为对可变直径管道的液体流的控制，液体流$q_{12}$，引起了液体压力$p_2$，它在将其连接到执行器气缸的管路中承受随后的压降。液缸压力$p_3$，推动弹性负载的移动并产生位移量$x$。</p>
+<p><a href="https://imgchr.com/i/BWeRW4" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/11/05/BWeRW4.png" alt="BWeRW4.png"></a></p>
+<p>在泵的输出端，流量被分流到溢流阀和控制阀两部分，我们将溢出流量$q_{1ex}$建模为层流，如下：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+Q=q_{12}+q_{1 e x} \\
+q_{1 e x}=C_{2} \cdot p_{1} \\
+p_{1}=\frac{\left(Q-q_{12}\right)}{C_{2}} \\
+Q=\text { pump flow } \\
+q_{12}=\text { control valve flow } \\
+q_{1 e x}=\text { leakage } \\
+C_{2}=\text { flow coefficient } \\
+p_{1}=\text { pump pressure }
+\end{array}</script><p>我们用节流孔方程对通过控制阀的液流进行了建模。符号和绝对值函数可适应任一方向的流量，如下：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+q_{12}=C_{d} \cdot A \cdot \operatorname{sgn}\left(p_{1}-p_{2}\right) \cdot \sqrt{\frac{2}{\rho}\left|p_{1}-p_{2}\right|} \\
+C_{d}=\text { orifice discharge coefficient，孔流系数。 } \\
+A=\text { orifice area 孔面积。} \\
+p_{2}=\text { pressure downstream of control valve，控制阀下游的压力。 } \\
+\rho=\text { fluid density }
+\end{array}</script><p>气缸内的流体由于该流量而增压，$q_{12} = q_{23}$，减去活塞运动的顺应性。在这种情况下，我们还对流体的可压缩性进行了建模。</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\frac{d p_{3}}{d t}=\frac{\beta}{V_{3}}\left(q_{12}-A_{c} \frac{d x}{d t}\right) \\
+V_{3}=V_{30}+A_{c} \cdot x \\
+p_{3}=\text { piston pressure } \\
+\beta=\text { fluid bulk modulus, 液体弹性模量。} \\
+V_{3}=\text { fluid volume at } p_{3} \\
+V_{30}=\text { fluid volume in the piston for } x=0 \\
+A_{c}=\text { cylinder cross-sectional area，液缸截面积。}
+\end{array}</script><p>由于较大的液压力，我们忽略了活塞和弹簧的质量。我们通过微分这种关系并结合p2和p3之间的压降来完成方程组。 Equation Block 3对从阀到执行器的管路中的层流进行建模。下列方程给出了活塞处的力平衡。</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+x=p_{3} \frac{A_{c}}{K} \\
+\frac{d x}{d t}=\frac{d p_{3}}{d t} \frac{A_{c}}{K} \\
+q_{23}=q_{12}=C_{1}\left(p_{2}-p_{3}\right) \\
+p_{2}=p_{3}+\frac{q_{12}}{C_{1}} \\
+K=\text { spring constant } \\
+C_{1}=\text { laminar flow coefficient }
+\end{array}</script><h2 id="二、泵子系统"><a href="#二、泵子系统" class="headerlink" title="二、泵子系统"></a>二、泵子系统</h2><p>右键单击$Pump Masked$子系统，然后选择 <strong>Mask</strong> &gt; <strong>Look Under Mask</strong>。泵模型根据泵流量和负载（输出）流量计算供应压力（下图）。 $Qpump$是泵流量数据（保存在模型工作区中）。具有时间点列向量和相应流量$[T，Q]$的矩阵指定流量数据。该模型按公式块1所示计算压力$p_1$。由于$Qout = q_{12}$是$p1$的直接函数（通过控制阀），因此形成了代数环路。估计初始值$p10$可以实现更有效的解决方案。</p>
+<p><a href="https://imgchr.com/i/BW14Zd" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/11/05/BW14Zd.png" alt="BW14Zd.png"></a></p>
+<h2 id="三、阀门、油缸、活塞，弹簧等组成的子系统"><a href="#三、阀门、油缸、活塞，弹簧等组成的子系统" class="headerlink" title="三、阀门、油缸、活塞，弹簧等组成的子系统"></a>三、阀门、油缸、活塞，弹簧等组成的子系统</h2><p>微分代数方程组用压力$p_3$来模拟气缸增压，压力在方程式3中作为导数出现，并用作状态（积分器）。如果忽略活塞质量，则弹簧力和活塞位置是$p_3$的直接倍数，而速度是$p_3$的时间导数的直接倍数。后一种关系在$“ Beta”$增益块周围形成代数循环。中间压力$p_2$是$p_3$与由于从阀流向气缸的流量而引起的压降之和（公式框4）。这种关系还通过控制阀和$1/C_1$增益施加了代数约束。</p>
+<p><a href="https://imgchr.com/i/BfoNn0" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/11/06/BfoNn0.png" alt="BfoNn0.png"></a></p>
+<h2 id="四、仿真结果"><a href="#四、仿真结果" class="headerlink" title="四、仿真结果"></a>四、仿真结果</h2><p>仿真数据参数设置如下：该信息是从$MAT$文件$sldemo_hydcyl_data.mat$加载的，该文件也用于其他两个液压缸模型。用户可以通过泵和气缸$Mask$输入数据。</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+C_{d}=0.61 \\
+\rho=800 \mathrm{kg} / \mathrm{m}^{3} \\
+C_{1}=2 e-8 \mathrm{m}^{3} / \mathrm{sec} / \mathrm{Pa} \\
+C_{2}=3 e-9 \mathrm{m}^{3} / \mathrm{sec} / \mathrm{Pa} \\
+\beta=7 e 8 \mathrm{Pa} \\
+A_{c}=1 e-3 \mathrm{m}^{2} \\
+K=5 e 4 \mathrm{N} / \mathrm{m} \\
+V_{30}=2.5 e-5 \mathrm{m}^{3}\\
+\begin{array}{l}
+T=\left[\begin{array}{llllll}
+0 & 0.04 & 0.04 & 0.05 & 0.05 & 0.1
+\end{array}\right] \text { sec } \\
+Q=\left[\begin{array}{lllll}
+0.005 & 0.005 & 0 & 0 & 0.005 & 0.005
+\end{array}\right] \mathrm{m}^{\wedge} 3 / \mathrm{sec}
+\end{array}
+\end{array}</script><h3 id="仿真结果图："><a href="#仿真结果图：" class="headerlink" title="仿真结果图："></a>仿真结果图：</h3><p>系统最初逐步达到$0.005\; \mathrm{m}^{\wedge} 3 / \mathrm{sec}=300 \;\mathrm{l} / \mathrm{min}$的泵流量,在$t=0.04s$时流速突然下降到$0$，然后在$t = 0.05$秒时恢复其初始流速。</p>
+<p>控制阀在$0.1s$的仿真时间内，从$0$初始面积逐步增到$1e-4 \; sq.m$。随着阀门的关闭，所有的流量都从溢流阀泄露，初始的泵压力增加到$p_{10}=Q/C_2=1667kPa$。</p>
+<p>如图7所示，当阀打开时，压力$p_2$和$p_3$增大，而$p_1$则根据负载的增加而减小，当泵流量切断时，弹簧和活塞就像一个蓄能器，而$p_3$则连续减小。然后，流体反向流动，因此尽管$p_2$相对接近$p_3$，却突然下降。在泵本身，所有的回流泄漏和$p_1$都急剧下降。还原续流后，行为会相反。</p>
+<p><a href="https://imgchr.com/i/BfLfEt" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/11/06/BfLfEt.png" alt="BfLfEt.png"></a></p>
+<p><a href="https://imgchr.com/i/BfLIC8" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/11/06/BfLIC8.png" alt="BfLIC8.png"></a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+          
+            <div class='article_footer'>
+              
+                
   
     
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
     
-    
+
+
 
   
 
-
-    
-  
-</div>
-<aside class='l_side'>
-  
   
     
     
 
-<section class="widget blogger shadow blur desktop mobile">
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box rectangle' href='/myblogs/about/'>
-          <img no-lazy src='https://s1.ax1x.com/2020/08/04/aDcAdf.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">Jian's Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="mailto:2836480981@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
           
-            <a href="https://github.com/s01235"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>本文永久链接是：<a href=http://cj_song.gitee.io/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/>http://cj_song.gitee.io/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/</a></p>
           
         
-          
-            <a href="https://y.qq.com/portal/profile.html#stat=y_new.top.user_pic"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -637,34 +635,241 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-08T16:55:05+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年11月8日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/myblogs/tags/%E6%B6%B2%E5%8E%8B%E7%BC%B8%EF%BC%8Cmatlab/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>液压缸，matlab</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/&title=单液压缸仿真 - Jian's Blog&summary=本文参考网址：https://www.mathworks.com/help/simulink/slref/single-hydraulic-cylinder-simulation.html"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/&title=单液压缸仿真 - Jian's Blog&summary=本文参考网址：https://www.mathworks.com/help/simulink/slref/single-hydraulic-cylinder-simulation.html"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/&title=单液压缸仿真 - Jian's Blog&summary=本文参考网址：https://www.mathworks.com/help/simulink/slref/single-hydraulic-cylinder-simulation.html"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/myblogs/2020/11/06/blog6-shi-yong-li-zi-guo-lu-qi-gen-zong-lei-che-ji-qi-ren/'>
+                <p class='title'>使用粒子过滤器跟踪类车机器人<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>本例参考网址：https://ww2.mathworks.cn/help/robotics/ug/track-a-car-like-robot-using-particle-filter.htm...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    
+  <article class="post white-box reveal comments blur">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      <section id="comments">
+        <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+      </section>
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
   
 
   
     
     
-  
 
-  <section class="widget tagcloud shadow blur desktop mobile">
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/myblogs/tags/Adam-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">Adam, 优化算法</a> <a href="/myblogs/tags/FPGA-ZYNQ-LUT/" style="font-size: 14px; color: #999">FPGA, ZYNQ, LUT</a> <a href="/myblogs/tags/FPGA-ZYNQ-Vitis/" style="font-size: 14px; color: #999">FPGA, ZYNQ, Vitis</a> <a href="/myblogs/tags/ROS2-Bash%E3%80%82/" style="font-size: 14px; color: #999">ROS2, Bash。</a> <a href="/myblogs/tags/hexo-%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99/" style="font-size: 14px; color: #999">hexo, 部署网站</a> <a href="/myblogs/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%8Cmatlab/" style="font-size: 14px; color: #999">机器人，matlab</a> <a href="/myblogs/tags/%E6%B6%B2%E5%8E%8B%E7%BC%B8%EF%BC%8Cmatlab/" style="font-size: 14px; color: #999">液压缸，matlab</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、模型的分析与物理描述"><span class="toc-text">一、模型的分析与物理描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、泵子系统"><span class="toc-text">二、泵子系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、阀门、油缸、活塞，弹簧等组成的子系统"><span class="toc-text">三、阀门、油缸、活塞，弹簧等组成的子系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、仿真结果"><span class="toc-text">四、仿真结果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#仿真结果图："><span class="toc-text">仿真结果图：</span></a></li></ol></li></ol>
     </div>
   </section>
 
 
   
 
-  
-
 
 </aside>
+
 
 
     </div>

@@ -18,7 +18,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：FPGA, ZYNQ, LUT - Jian&#39;s Blog</title>
+  <title>标签：液压缸，matlab - Jian&#39;s Blog</title>
   
 
   
@@ -454,8 +454,8 @@
         
           
   <h2 class="title">
-    <a href="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/">
-      使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程
+    <a href="/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/">
+      单液压缸仿真
     </a>
   </h2>
 
@@ -485,7 +485,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年10月23日</p>
+    <p>发布于：2020年11月6日</p>
   </a>
 </div>
 
@@ -502,7 +502,7 @@
     <a class='notlink'>
       <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
       
-      <span id="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/" class="leancloud_visitors" data-flag-title="使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程">
+      <span id="/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/" class="leancloud_visitors" data-flag-title="单液压缸仿真">
       <p>
         <span class="leancloud-visitors-count"></span>
       </p>
@@ -517,9 +517,9 @@
               
 <div class="new-meta-item comments-count">
   
-  <a href="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/#comments">
+  <a href="/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/#comments">
     <i class="fas fa-comment-dots fa-fw"></i>
-    <span class="valine-comment-count" data-xid="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/">0</span>
+    <span class="valine-comment-count" data-xid="/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/">0</span>
     <span class="leancloud-comments-count">&nbsp;</span>
   </a>
 </div>
@@ -544,12 +544,12 @@
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：<a href="https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。</a><br></p>
+        <p>本文参考网址：<a href="https://www.mathworks.com/help/simulink/slref/single-hydraulic-cylinder-simulation.html" target="_blank" rel="noopener">https://www.mathworks.com/help/simulink/slref/single-hydraulic-cylinder-simulation.html</a><br></p>
       
     </div>
     
       
-        <a class= "readmore" href="/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/">
+        <a class= "readmore" href="/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/">
           阅读全文 <i class="fas fa-chevron-right"></i>
         </a>
       
@@ -566,6 +566,59 @@
     
     <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
     
+    
+      <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
     
 
   
