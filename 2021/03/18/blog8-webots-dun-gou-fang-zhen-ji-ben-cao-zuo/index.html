@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,7 +16,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：ROS2, Bash。 - Jian&#39;s Blog</title>
+  <title>Webots盾构仿真基本操作 - Jian&#39;s Blog</title>
+  
+    <meta name="keywords" content="盾构，webots">
   
 
   
@@ -76,7 +76,7 @@
   
   
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="cover-wrapper">
-    <cover class='cover ' style="display: none;">
+    <cover class='cover post' style="display: none;">
       <div class='cover-body'>
   <div class='a'>
     
@@ -388,10 +388,10 @@
 
 
 <div id="pjax-data" style="display: none">
-  <div id="pjax-ispage">false</div>
-  <div id="pjax-pageTitle"></div>
+  <div id="pjax-ispage">true</div>
+  <div id="pjax-pageTitle">Webots盾构仿真基本操作</div>
   <div id="pjax-enable-cover">true</div>
-  <div id="pjax-permalink"></div>
+  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/</div>
   
   <div id="valine-path">none</div>
   <div id="valine-placeholder">none</div>
@@ -425,25 +425,12 @@
       
       
 
-
 <div class='l_main'>
   
-    
-      
-  <section class="post-list ">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box blur reveal ">
+
   
+    <article id="post" class="post white-box reveal blur article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -453,11 +440,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h2 class="title">
-    <a href="/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/">
-      ROS2常用指令
+  <h1 class="title">
+    <a href="/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/">
+      Webots盾构仿真基本操作
     </a>
-  </h2>
+  </h1>
 
 
         
@@ -485,45 +472,9 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年10月25日</p>
+    <p>发布于：2021年3月18日</p>
   </a>
 </div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-  <div class="new-meta-item browse valine">
-    <a class='notlink'>
-      <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-      
-      <span id="/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/" class="leancloud_visitors" data-flag-title="ROS2常用指令">
-      <p>
-        <span class="leancloud-visitors-count"></span>
-      </p>
-      </span>
-    </a>
-  </div>
-
-
-            
-          
-            
-              
-<div class="new-meta-item comments-count">
-  
-  <a href="/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/#comments">
-    <i class="fas fa-comment-dots fa-fw"></i>
-    <span class="valine-comment-count" data-xid="/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/">0</span>
-    <span class="leancloud-comments-count">&nbsp;</span>
-  </a>
-</div>
-
 
             
           
@@ -541,92 +492,117 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文记录ROS2常用的命令行操作指令。包括话题，服务，参数，动作等命令行命令。本文参考博客链接为：<a href="https://www.guyuehome.com/category/column/ros2-tutorials。" target="_blank" rel="noopener">https://www.guyuehome.com/category/column/ros2-tutorials。</a><br></p>
-      
-    </div>
-    
-      
-        <a class= "readmore" href="/myblogs/2020/10/25/blog5-ros2-chang-yong-zhi-ling/">
-          阅读全文 <i class="fas fa-chevron-right"></i>
-        </a>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          
+          <a id="more"></a>
+<h2 id="一、文件目录结构"><a href="#一、文件目录结构" class="headerlink" title="一、文件目录结构"></a>一、文件目录结构</h2><p>盾构仿真工程中的相关文件目录如下：</p>
+<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210317214252300.png" alt="image-20210317214252300"></p>
+<p>其中，</p>
+<ol>
+<li>Controllers里面存放了各个机构对应的控制器程序。</li>
+<li>docs存放了该工程中记录的一些文档以及参考的一些资料。</li>
+<li>protos文件夹存放了protos文件（通过机器人的urdf文件导出生成）。</li>
+<li>wbo文件夹存放从webots里面导出的节点文件，如管片节点，轴线显示点的节点等等。</li>
+<li>webots_world为webots仿真场景文件，里面包含所有的机器人，环境等实际对象。</li>
+<li>wrl里面存放了从3D建模软件中导出的一些3D模型文件，其文件类型有stl，wrl等;</li>
+</ol>
+<h2 id="二、Webots环境简介"><a href="#二、Webots环境简介" class="headerlink" title="二、Webots环境简介"></a>二、Webots环境简介</h2><p>Webots是一个基于ODE（开源物理引擎）所开发的一款开源机器人仿真环境，通过此软件，可以实现自主设计机器人的虚拟仿真，验证算法等，其能够较为真实的模拟真实世界的重力，摩擦力，光线，流体等物理对象，同时也提供了非常多的演示例子，包括针对于每个传感器，每种接口的基础例子，以及针对自动驾驶等大型城市，村庄场景演示。除此之外，此平台提供了非常便利的编程语言接口，可以通过控制器程序实现对机器人本身的基础控制，也可通过主管控制器接口来在程序中对场景中任意节点的任意属性执行更改，除此之外，用户还可以通过编写物理插件来实现更符合自己需求的功能。</p>
+<h3 id="2-1、盾构仿真场景主界面"><a href="#2-1、盾构仿真场景主界面" class="headerlink" title="2.1、盾构仿真场景主界面"></a>2.1、盾构仿真场景主界面</h3><p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318084736742.png" alt="image-20210318084736742"></p>
+<p>可以在3D视图窗口点击鼠标右键，选择添加节点，像场景添加可视对象或相关属性节点。</p>
+<h3 id="2-2、盾构仿真需要用到基本程序接口"><a href="#2-2、盾构仿真需要用到基本程序接口" class="headerlink" title="2.2、盾构仿真需要用到基本程序接口"></a>2.2、盾构仿真需要用到基本程序接口</h3><ol>
+<li>直线电机旋转电机（油缸、刀盘驱动）的位置，速度，力矩控制等。</li>
+<li>主管控制器接口动态的向场景添加管片，标签，或是虚拟的标识线，标示物体等。</li>
+<li>使用matlab仿真过程可以在控制器的头部添加如下代码，实现代码的调试。</li>
+</ol>
+<pre class=" language-lang-matlab"><code class="language-lang-matlab">desktop;
+keyboard;
+</code></pre>
+<h3 id="2-3、盾构控制器程序设计"><a href="#2-3、盾构控制器程序设计" class="headerlink" title="2.3、盾构控制器程序设计"></a>2.3、盾构控制器程序设计</h3><p>stm_controller ：实现主函数，完成沿轴线自主推进。</p>
+<p>|———CylinderController: 此类为油缸分组控制器类，可以通过此类实现油缸的分组控制。</p>
+<p>|———SupervisorController:主控控制器类，在此类中实现对场景的基本操作，如向其中添加节点，设置节点的属性（更改节点的位置等）等。</p>
+<p>|———DTADesign: 隧道期望中心轴线类，在此类中可实现纠偏路径、期望轴线的设计、期望轴线的可视化显示等等功能。</p>
+<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318091421254.png" alt="image-20210318091421254"></p>
+<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318091455219.png" alt="image-20210318091455219"></p>
+<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318091530931.png" alt="image-20210318091530931"></p>
+<p>后面可逐步扩展类，及类里面的成员函数。</p>
+<h3 id="2-4、运行此世界可能遇到的问题"><a href="#2-4、运行此世界可能遇到的问题" class="headerlink" title="2.4、运行此世界可能遇到的问题"></a>2.4、运行此世界可能遇到的问题</h3><ol>
+<li>某些节点调用的资源文件在更换电脑后其路径会发生改变，要注意命令行窗口的报错信息，更改对应资源文件的路径设置。</li>
+<li>Matlab缺少相应的软件功能包，可在matlab附加功能里面搜索对应的软件包名称，登录账号安装即可。</li>
+</ol>
+<h3 id="2-5、下一步仿真路线"><a href="#2-5、下一步仿真路线" class="headerlink" title="2.5、下一步仿真路线"></a>2.5、下一步仿真路线</h3><ol>
+<li>设计期望的推进轴线。</li>
+<li>控制每组油缸推进长度，刀盘的旋转速度，实现对盾构位姿的控制。</li>
+<li>在前两步基础上，让盾构延期望轴线精确推进。</li>
+<li>更新环境模拟机构，使其能更为合理的模拟土体作用。</li>
+<li>在对应的机构上部署推导出的数学模型以及控制率，实现更接近真实的仿真。</li>
+<li>可视化显示推进参数等。</li>
+</ol>
+<h3 id="2-6、小技巧"><a href="#2-6、小技巧" class="headerlink" title="2.6、小技巧"></a>2.6、小技巧</h3><ol>
+<li>需要向场景添加模型文件，可以从solidworks导出vrml97类型文件，然后导入到webots中，注意设置webots里面边界对象，否则检测不到碰撞，会出现穿模的情况。</li>
+<li>可视化轴线可以采用主管控制器接口，向其中添加多个轴线点节点来实现，也可以参考supervisor_draw_trail.wbt例程，可视化轴线。</li>
+<li>可视化接触力大小可借鉴技巧2中的实现方法。</li>
+</ol>
+<h2 id="三、Webots参考文档"><a href="#三、Webots参考文档" class="headerlink" title="三、Webots参考文档"></a>三、Webots参考文档</h2><p>用户指南：<a href="https://cyberbotics.com/doc/guide/index" target="_blank" rel="noopener">https://cyberbotics.com/doc/guide/index</a><br>参考手册：<a href="https://cyberbotics.com/doc/reference/index" target="_blank" rel="noopener">https://cyberbotics.com/doc/reference/index</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+          
+            <div class='article_footer'>
+              
+                
   
     
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
     
-    
+
+
 
   
 
-
-    
-  
-</div>
-<aside class='l_side'>
-  
   
     
     
 
-<section class="widget blogger shadow blur desktop mobile">
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box rectangle' href='/myblogs/about/'>
-          <img no-lazy src='https://s3.ax1x.com/2021/03/17/6cmvCD.md.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">Jian's Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="mailto:2836480981@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
           
-            <a href="https://github.com/s01235"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>本文永久链接是：<a href=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/>http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/</a></p>
           
         
-          
-            <a href="https://y.qq.com/portal/profile.html#stat=y_new.top.user_pic"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -637,34 +613,242 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-18T16:04:54+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年3月18日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/myblogs/tags/%E7%9B%BE%E6%9E%84%EF%BC%8Cwebots/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>盾构，webots</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/&title=Webots盾构仿真基本操作 - Jian's Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/&title=Webots盾构仿真基本操作 - Jian's Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/&title=Webots盾构仿真基本操作 - Jian's Blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/myblogs/2020/11/06/blog7-dan-ye-ya-gang-fang-zhen/'>
+                <p class='title'>单液压缸仿真<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>本文参考网址：https://www.mathworks.com/help/simulink/slref/single-hydraulic-cylinder-simulation.html
+一、...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    
+  <article class="post white-box reveal comments blur">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      <section id="comments">
+        <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+      </section>
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
   
 
   
     
     
-  
 
-  <section class="widget tagcloud shadow blur desktop mobile">
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <a href="/myblogs/tags/Adam-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">Adam, 优化算法</a> <a href="/myblogs/tags/FPGA-ZYNQ-LUT/" style="font-size: 14px; color: #999">FPGA, ZYNQ, LUT</a> <a href="/myblogs/tags/FPGA-ZYNQ-Vitis/" style="font-size: 14px; color: #999">FPGA, ZYNQ, Vitis</a> <a href="/myblogs/tags/ROS2-Bash%E3%80%82/" style="font-size: 14px; color: #999">ROS2, Bash。</a> <a href="/myblogs/tags/hexo-%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99/" style="font-size: 14px; color: #999">hexo, 部署网站</a> <a href="/myblogs/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%8Cmatlab/" style="font-size: 14px; color: #999">机器人，matlab</a> <a href="/myblogs/tags/%E6%B6%B2%E5%8E%8B%E7%BC%B8%EF%BC%8Cmatlab/" style="font-size: 14px; color: #999">液压缸，matlab</a> <a href="/myblogs/tags/%E7%9B%BE%E6%9E%84%EF%BC%8Cwebots/" style="font-size: 14px; color: #999">盾构，webots</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、文件目录结构"><span class="toc-text">一、文件目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Webots环境简介"><span class="toc-text">二、Webots环境简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1、盾构仿真场景主界面"><span class="toc-text">2.1、盾构仿真场景主界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2、盾构仿真需要用到基本程序接口"><span class="toc-text">2.2、盾构仿真需要用到基本程序接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3、盾构控制器程序设计"><span class="toc-text">2.3、盾构控制器程序设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4、运行此世界可能遇到的问题"><span class="toc-text">2.4、运行此世界可能遇到的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5、下一步仿真路线"><span class="toc-text">2.5、下一步仿真路线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6、小技巧"><span class="toc-text">2.6、小技巧</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、Webots参考文档"><span class="toc-text">三、Webots参考文档</span></a></li></ol>
     </div>
   </section>
 
 
   
 
-  
-
 
 </aside>
+
 
 
     </div>
