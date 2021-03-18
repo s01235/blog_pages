@@ -22,6 +22,8 @@
   
 
   
+    <meta name="description" content="本文介绍了一下webots中盾构仿真的工程目录结构及基本操作。">
+  
 
   <!-- feed -->
   
@@ -496,9 +498,9 @@
         <div class="article-entry" itemprop="articleBody">
           
           
-          <a id="more"></a>
+          <p>本文介绍了一下webots中盾构仿真的工程目录结构及基本操作。<br><a id="more"></a></p>
 <h2 id="一、文件目录结构"><a href="#一、文件目录结构" class="headerlink" title="一、文件目录结构"></a>一、文件目录结构</h2><p>盾构仿真工程中的相关文件目录如下：</p>
-<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210317214252300.png" alt="image-20210317214252300"></p>
+<p><a href="https://imgtu.com/i/62GnsK" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/18/62GnsK.md.png" alt="62GnsK.md.png"></a></p>
 <p>其中，</p>
 <ol>
 <li>Controllers里面存放了各个机构对应的控制器程序。</li>
@@ -509,8 +511,7 @@
 <li>wrl里面存放了从3D建模软件中导出的一些3D模型文件，其文件类型有stl，wrl等;</li>
 </ol>
 <h2 id="二、Webots环境简介"><a href="#二、Webots环境简介" class="headerlink" title="二、Webots环境简介"></a>二、Webots环境简介</h2><p>Webots是一个基于ODE（开源物理引擎）所开发的一款开源机器人仿真环境，通过此软件，可以实现自主设计机器人的虚拟仿真，验证算法等，其能够较为真实的模拟真实世界的重力，摩擦力，光线，流体等物理对象，同时也提供了非常多的演示例子，包括针对于每个传感器，每种接口的基础例子，以及针对自动驾驶等大型城市，村庄场景演示。除此之外，此平台提供了非常便利的编程语言接口，可以通过控制器程序实现对机器人本身的基础控制，也可通过主管控制器接口来在程序中对场景中任意节点的任意属性执行更改，除此之外，用户还可以通过编写物理插件来实现更符合自己需求的功能。</p>
-<h3 id="2-1、盾构仿真场景主界面"><a href="#2-1、盾构仿真场景主界面" class="headerlink" title="2.1、盾构仿真场景主界面"></a>2.1、盾构仿真场景主界面</h3><p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318084736742.png" alt="image-20210318084736742"></p>
-<p>可以在3D视图窗口点击鼠标右键，选择添加节点，像场景添加可视对象或相关属性节点。</p>
+<h3 id="2-1、盾构仿真场景主界面"><a href="#2-1、盾构仿真场景主界面" class="headerlink" title="2.1、盾构仿真场景主界面"></a>2.1、盾构仿真场景主界面</h3><p><a href="https://imgtu.com/i/62G3id" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/18/62G3id.png" alt="62G3id.png"></a><br>可以在3D视图窗口点击鼠标右键，选择添加节点，像场景添加可视对象或相关属性节点。</p>
 <h3 id="2-2、盾构仿真需要用到基本程序接口"><a href="#2-2、盾构仿真需要用到基本程序接口" class="headerlink" title="2.2、盾构仿真需要用到基本程序接口"></a>2.2、盾构仿真需要用到基本程序接口</h3><ol>
 <li>直线电机旋转电机（油缸、刀盘驱动）的位置，速度，力矩控制等。</li>
 <li>主管控制器接口动态的向场景添加管片，标签，或是虚拟的标识线，标示物体等。</li>
@@ -523,10 +524,7 @@ keyboard;
 <p>|———CylinderController: 此类为油缸分组控制器类，可以通过此类实现油缸的分组控制。</p>
 <p>|———SupervisorController:主控控制器类，在此类中实现对场景的基本操作，如向其中添加节点，设置节点的属性（更改节点的位置等）等。</p>
 <p>|———DTADesign: 隧道期望中心轴线类，在此类中可实现纠偏路径、期望轴线的设计、期望轴线的可视化显示等等功能。</p>
-<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318091421254.png" alt="image-20210318091421254"></p>
-<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318091455219.png" alt="image-20210318091455219"></p>
-<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318091530931.png" alt="image-20210318091530931"></p>
-<p>后面可逐步扩展类，及类里面的成员函数。</p>
+<p><a href="https://imgtu.com/i/62GMZD" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/18/62GMZD.png" alt="62GMZD.png"></a><br><a href="https://imgtu.com/i/62GlIH" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/18/62GlIH.png" alt="62GlIH.png"></a><br><a href="https://imgtu.com/i/62G3id" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/18/62G3id.png" alt="62G3id.png"></a><br>后面可逐步扩展类，及类里面的成员函数。</p>
 <h3 id="2-4、运行此世界可能遇到的问题"><a href="#2-4、运行此世界可能遇到的问题" class="headerlink" title="2.4、运行此世界可能遇到的问题"></a>2.4、运行此世界可能遇到的问题</h3><ol>
 <li>某些节点调用的资源文件在更换电脑后其路径会发生改变，要注意命令行窗口的报错信息，更改对应资源文件的路径设置。</li>
 <li>Matlab缺少相应的软件功能包，可在matlab附加功能里面搜索对应的软件包名称，登录账号安装即可。</li>
@@ -650,7 +648,7 @@ keyboard;
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-18T16:04:54+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-18T16:15:20+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年3月18日</p>
@@ -680,7 +678,7 @@ keyboard;
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/&title=Webots盾构仿真基本操作 - Jian's Blog&summary="
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/&title=Webots盾构仿真基本操作 - Jian's Blog&summary=本文介绍了一下webots中盾构仿真的工程目录结构及基本操作。"
           
           >
           
@@ -692,7 +690,7 @@ keyboard;
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/&title=Webots盾构仿真基本操作 - Jian's Blog&summary="
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/&title=Webots盾构仿真基本操作 - Jian's Blog&summary=本文介绍了一下webots中盾构仿真的工程目录结构及基本操作。"
           
           >
           
@@ -704,7 +702,7 @@ keyboard;
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/&title=Webots盾构仿真基本操作 - Jian's Blog&summary="
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/&title=Webots盾构仿真基本操作 - Jian's Blog&summary=本文介绍了一下webots中盾构仿真的工程目录结构及基本操作。"
           
           >
           

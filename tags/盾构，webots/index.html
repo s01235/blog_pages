@@ -544,77 +544,14 @@
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<h2 id="一、文件目录结构"><a href="#一、文件目录结构" class="headerlink" title="一、文件目录结构"></a>一、文件目录结构</h2><p>盾构仿真工程中的相关文件目录如下：</p>
-<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210317214252300.png" alt="image-20210317214252300"></p>
-<p>其中，</p>
-<ol>
-<li>Controllers里面存放了各个机构对应的控制器程序。</li>
-<li>docs存放了该工程中记录的一些文档以及参考的一些资料。</li>
-<li>protos文件夹存放了protos文件（通过机器人的urdf文件导出生成）。</li>
-<li>wbo文件夹存放从webots里面导出的节点文件，如管片节点，轴线显示点的节点等等。</li>
-<li>webots_world为webots仿真场景文件，里面包含所有的机器人，环境等实际对象。</li>
-<li>wrl里面存放了从3D建模软件中导出的一些3D模型文件，其文件类型有stl，wrl等;</li>
-</ol>
-<h2 id="二、Webots环境简介"><a href="#二、Webots环境简介" class="headerlink" title="二、Webots环境简介"></a>二、Webots环境简介</h2><p>Webots是一个基于ODE（开源物理引擎）所开发的一款开源机器人仿真环境，通过此软件，可以实现自主设计机器人的虚拟仿真，验证算法等，其能够较为真实的模拟真实世界的重力，摩擦力，光线，流体等物理对象，同时也提供了非常多的演示例子，包括针对于每个传感器，每种接口的基础例子，以及针对自动驾驶等大型城市，村庄场景演示。除此之外，此平台提供了非常便利的编程语言接口，可以通过控制器程序实现对机器人本身的基础控制，也可通过主管控制器接口来在程序中对场景中任意节点的任意属性执行更改，除此之外，用户还可以通过编写物理插件来实现更符合自己需求的功能。</p>
-<h3 id="2-1、盾构仿真场景主界面"><a href="#2-1、盾构仿真场景主界面" class="headerlink" title="2.1、盾构仿真场景主界面"></a>2.1、盾构仿真场景主界面</h3><p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318084736742.png" alt="image-20210318084736742"></p>
-<p>可以在3D视图窗口点击鼠标右键，选择添加节点，像场景添加可视对象或相关属性节点。</p>
-<h3 id="2-2、盾构仿真需要用到基本程序接口"><a href="#2-2、盾构仿真需要用到基本程序接口" class="headerlink" title="2.2、盾构仿真需要用到基本程序接口"></a>2.2、盾构仿真需要用到基本程序接口</h3><ol>
-<li>直线电机旋转电机（油缸、刀盘驱动）的位置，速度，力矩控制等。</li>
-<li>主管控制器接口动态的向场景添加管片，标签，或是虚拟的标识线，标示物体等。</li>
-<li>使用matlab仿真过程可以在控制器的头部添加如下代码，实现代码的调试。</li>
-</ol>
-<pre class=" language-lang-matlab"><code class="language-lang-matlab">desktop;
-keyboard;
-</code></pre>
-<h3 id="2-3、盾构控制器程序设计"><a href="#2-3、盾构控制器程序设计" class="headerlink" title="2.3、盾构控制器程序设计"></a>2.3、盾构控制器程序设计</h3><p>stm_controller ：实现主函数，完成沿轴线自主推进。</p>
-<p>|———CylinderController: 此类为油缸分组控制器类，可以通过此类实现油缸的分组控制。</p>
-<p>|———SupervisorController:主控控制器类，在此类中实现对场景的基本操作，如向其中添加节点，设置节点的属性（更改节点的位置等）等。</p>
-<p>|———DTADesign: 隧道期望中心轴线类，在此类中可实现纠偏路径、期望轴线的设计、期望轴线的可视化显示等等功能。</p>
-<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318091421254.png" alt="image-20210318091421254"></p>
-<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318091455219.png" alt="image-20210318091455219"></p>
-<p><img src="/myblogs/.io//Users\ISST\AppData\Roaming\Typora\typora-user-images\image-20210318091530931.png" alt="image-20210318091530931"></p>
-<p>后面可逐步扩展类，及类里面的成员函数。</p>
-<h3 id="2-4、运行此世界可能遇到的问题"><a href="#2-4、运行此世界可能遇到的问题" class="headerlink" title="2.4、运行此世界可能遇到的问题"></a>2.4、运行此世界可能遇到的问题</h3><ol>
-<li>某些节点调用的资源文件在更换电脑后其路径会发生改变，要注意命令行窗口的报错信息，更改对应资源文件的路径设置。</li>
-<li>Matlab缺少相应的软件功能包，可在matlab附加功能里面搜索对应的软件包名称，登录账号安装即可。</li>
-</ol>
-<h3 id="2-5、下一步仿真路线"><a href="#2-5、下一步仿真路线" class="headerlink" title="2.5、下一步仿真路线"></a>2.5、下一步仿真路线</h3><ol>
-<li>设计期望的推进轴线。</li>
-<li>控制每组油缸推进长度，刀盘的旋转速度，实现对盾构位姿的控制。</li>
-<li>在前两步基础上，让盾构延期望轴线精确推进。</li>
-<li>更新环境模拟机构，使其能更为合理的模拟土体作用。</li>
-<li>在对应的机构上部署推导出的数学模型以及控制率，实现更接近真实的仿真。</li>
-<li>可视化显示推进参数等。</li>
-</ol>
-<h3 id="2-6、小技巧"><a href="#2-6、小技巧" class="headerlink" title="2.6、小技巧"></a>2.6、小技巧</h3><ol>
-<li>需要向场景添加模型文件，可以从solidworks导出vrml97类型文件，然后导入到webots中，注意设置webots里面边界对象，否则检测不到碰撞，会出现穿模的情况。</li>
-<li>可视化轴线可以采用主管控制器接口，向其中添加多个轴线点节点来实现，也可以参考supervisor_draw_trail.wbt例程，可视化轴线。</li>
-<li>可视化接触力大小可借鉴技巧2中的实现方法。</li>
-</ol>
-<h2 id="三、Webots参考文档"><a href="#三、Webots参考文档" class="headerlink" title="三、Webots参考文档"></a>三、Webots参考文档</h2><p>用户指南：<a href="https://cyberbotics.com/doc/guide/index" target="_blank" rel="noopener">https://cyberbotics.com/doc/guide/index</a><br>参考手册：<a href="https://cyberbotics.com/doc/reference/index" target="_blank" rel="noopener">https://cyberbotics.com/doc/reference/index</a></p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+        <p>本文介绍了一下webots中盾构仿真的工程目录结构及基本操作。<br></p>
       
     </div>
     
+      
+        <a class= "readmore" href="/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/">
+          阅读全文 <i class="fas fa-chevron-right"></i>
+        </a>
       
     
   </section>
