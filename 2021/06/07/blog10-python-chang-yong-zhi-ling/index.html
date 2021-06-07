@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,9 +16,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2021 - Jian&#39;s Blog</title>
+  <title>Python常用指令 - Jian&#39;s Blog</title>
+  
+    <meta name="keywords" content="Python, 虚拟环境, 指令">
   
 
+  
+    <meta name="description" content="本文记录Python中常用的一些指令，方便以后调用查找。">
   
 
   <!-- feed -->
@@ -76,7 +78,7 @@
   
   
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="cover-wrapper">
-    <cover class='cover ' style="display: none;">
+    <cover class='cover post' style="display: none;">
       <div class='cover-body'>
   <div class='a'>
     
@@ -388,10 +390,10 @@
 
 
 <div id="pjax-data" style="display: none">
-  <div id="pjax-ispage">false</div>
-  <div id="pjax-pageTitle"></div>
+  <div id="pjax-ispage">true</div>
+  <div id="pjax-pageTitle">Python常用指令</div>
   <div id="pjax-enable-cover">true</div>
-  <div id="pjax-permalink"></div>
+  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/</div>
   
   <div id="valine-path">none</div>
   <div id="valine-placeholder">none</div>
@@ -426,26 +428,11 @@
       
 
 <div class='l_main'>
-	
-		
-  <section class="post-list ">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box blur reveal ">
   
+
+  
+    <article id="post" class="post white-box reveal blur article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -455,11 +442,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h2 class="title">
+  <h1 class="title">
     <a href="/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/">
       Python常用指令
     </a>
-  </h2>
+  </h1>
 
 
         
@@ -498,42 +485,6 @@
 
             
           
-            
-              
-  <div class="new-meta-item browse valine">
-    <a class='notlink'>
-      <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-      
-      <span id="/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/" class="leancloud_visitors" data-flag-title="Python常用指令">
-      <p>
-        <span class="leancloud-visitors-count"></span>
-      </p>
-      </span>
-    </a>
-  </div>
-
-
-            
-          
-            
-              
-<div class="new-meta-item comments-count">
-  
-  <a href="/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/#comments">
-    <i class="fas fa-comment-dots fa-fw"></i>
-    <span class="valine-comment-count" data-xid="/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/">0</span>
-    <span class="leancloud-comments-count">&nbsp;</span>
-  </a>
-</div>
-
-
-            
-          
-            
-              
-
-            
-          
         </div>
         
           <hr>
@@ -543,384 +494,126 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文记录Python中常用的一些指令，方便以后调用查找。<br></p>
-      
-    </div>
-    
-      
-        <a class= "readmore" href="/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/">
-          阅读全文 <i class="fas fa-chevron-right"></i>
-        </a>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box blur reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
           
-  <h2 class="title">
-    <a href="/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/">
-      Matlab绘图常用指令
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
           
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a class='author' href="/" rel="nofollow">
-    <img no-lazy src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg">
-    <p>Chenjian_Song</p>
-  </a>
-</div>
+          <p>本文记录Python中常用的一些指令，方便以后调用查找。<br><a id="more"></a></p>
+<h2 id="1、常用命令"><a href="#1、常用命令" class="headerlink" title="1、常用命令"></a>1、常用命令</h2><p>1、查看安装的所有包</p>
+<pre class=" language-lang-python"><code class="language-lang-python">pip list
+</code></pre>
+<p>2、安装删除包</p>
+<pre class=" language-lang-python"><code class="language-lang-python">pip install cx-oracle
+pip uninstall cx-oracle
+</code></pre>
+<p>3、导出包名字</p>
+<pre class=" language-lang-python"><code class="language-lang-python">pip freeze > requirements.txt
+</code></pre>
+<p>4、安装PyTorch</p>
+<pre><code>pip3 install torch==1.8.1+cpu torchvision==0.9.1+cpu torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+</code></pre><p>5、通过requirements.txt安装依赖包</p>
+<pre><code>pip install -r requirements.txt
+</code></pre><h2 id="2、虚拟环境"><a href="#2、虚拟环境" class="headerlink" title="2、虚拟环境"></a>2、虚拟环境</h2><h3 id="1、虚拟环境的安装"><a href="#1、虚拟环境的安装" class="headerlink" title="1、虚拟环境的安装"></a>1、虚拟环境的安装</h3><pre><code>pip install virtualenv
+virtualenv   --测试
+</code></pre><h3 id="2、创建虚拟环境"><a href="#2、创建虚拟环境" class="headerlink" title="2、创建虚拟环境"></a>2、创建虚拟环境</h3><pre><code>virtualenv venv
+</code></pre><h3 id="3、激活退出虚拟环境"><a href="#3、激活退出虚拟环境" class="headerlink" title="3、激活退出虚拟环境"></a>3、激活退出虚拟环境</h3><pre><code>venv\Scripts\activate ---找到此位置并执行
+deactivate  ---执行此命令
+</code></pre><h3 id="4、扩展"><a href="#4、扩展" class="headerlink" title="4、扩展"></a>4、扩展</h3><p>virtualenvwrapper模块，可以管理全部的虚拟环境，更加方便地创建，删除，拷贝虚拟环境。</p>
+<p>安装：</p>
+<pre><code>pip install virtualenvwrapper
+</code></pre><p>准备：</p>
+<p>需要在环境变量中添加一个环境变量，名字为WORKON_HOME,对应路径为虚拟环境的路径。</p>
+<p>可用命令：</p>
+<pre><code>mkvirtualenv ：创建虚拟环境
 
-            
-          
-            
-              
+lsvirtualenv：列出全部的虚拟环境
 
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2021年6月7日</p>
-  </a>
-</div>
+showvirtualenv：列出单个虚拟机环境的信息
 
-            
-          
-            
-              
+rmvirtualenv：删除一个虚拟环境
 
-            
-          
-            
-              
-  <div class="new-meta-item browse valine">
-    <a class='notlink'>
-      <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-      
-      <span id="/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/" class="leancloud_visitors" data-flag-title="Matlab绘图常用指令">
-      <p>
-        <span class="leancloud-visitors-count"></span>
-      </p>
-      </span>
-    </a>
-  </div>
+cpvirtualenv：拷贝一个虚拟环境
 
+allvirtualenv：对当前虚拟环境执行统一的命令
 
-            
-          
-            
-              
-<div class="new-meta-item comments-count">
-  
-  <a href="/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/#comments">
-    <i class="fas fa-comment-dots fa-fw"></i>
-    <span class="valine-comment-count" data-xid="/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/">0</span>
-    <span class="leancloud-comments-count">&nbsp;</span>
-  </a>
-</div>
+cdvirtualenv：可以直接切换到虚拟环境的子目录里
 
+cdsitepackages：和cdvirtualenv同理，切换到虚拟环境的site-packages目录下
 
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文记录Matlab绘图中常用的一些指令，方便以后调用查找。<br></p>
-      
-    </div>
-    
-      
-        <a class= "readmore" href="/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/">
-          阅读全文 <i class="fas fa-chevron-right"></i>
-        </a>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post white-box blur reveal ">
-  
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h2 class="title">
-    <a href="/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/">
-      Webots盾构仿真基本操作
-    </a>
-  </h2>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a class='author' href="/" rel="nofollow">
-    <img no-lazy src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg">
-    <p>Chenjian_Song</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2021年3月18日</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-            
-              
-  <div class="new-meta-item browse valine">
-    <a class='notlink'>
-      <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-      
-      <span id="/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/" class="leancloud_visitors" data-flag-title="Webots盾构仿真基本操作">
-      <p>
-        <span class="leancloud-visitors-count"></span>
-      </p>
-      </span>
-    </a>
-  </div>
-
-
-            
-          
-            
-              
-<div class="new-meta-item comments-count">
-  
-  <a href="/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/#comments">
-    <i class="fas fa-comment-dots fa-fw"></i>
-    <span class="valine-comment-count" data-xid="/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/">0</span>
-    <span class="leancloud-comments-count">&nbsp;</span>
-  </a>
-</div>
-
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文介绍了一下webots中盾构仿真的工程目录结构及基本操作。<br></p>
-      
-    </div>
-    
-      
-        <a class= "readmore" href="/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/">
-          阅读全文 <i class="fas fa-chevron-right"></i>
-        </a>
-      
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
-      <script>
-  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
+lssitepackages：列出site-packages目录下的目录
+</code></pre><p>列出所有虚拟环境：</p>
+<pre><code>workon
+</code></pre><h2 id="3、conda常用指令"><a href="#3、conda常用指令" class="headerlink" title="3、conda常用指令"></a>3、conda常用指令</h2><h3 id="1、常用命令-1"><a href="#1、常用命令-1" class="headerlink" title="1、常用命令"></a>1、常用命令</h3><pre><code>conda list 查看安装了哪些包。
+conda env list 或 conda info -e 查看当前存在哪些虚拟环境
+conda update conda 检查更新当前conda
+</code></pre><h3 id="2、创建虚拟环境-1"><a href="#2、创建虚拟环境-1" class="headerlink" title="2、创建虚拟环境"></a>2、创建虚拟环境</h3><pre class=" language-lang-python"><code class="language-lang-python">conda create -n xxx python=3.6
+</code></pre>
+<h3 id="3、使用激活的虚拟环境"><a href="#3、使用激活的虚拟环境" class="headerlink" title="3、使用激活的虚拟环境"></a>3、使用激活的虚拟环境</h3><pre><code>python --version  # 可以检查当前python的版本
+Linux:  source activate your_env_name(虚拟环境名称)
+Windows: activate your_env_name(虚拟环境名称)
+</code></pre><h3 id="4、虚拟环境中安装额外的包"><a href="#4、虚拟环境中安装额外的包" class="headerlink" title="4、虚拟环境中安装额外的包"></a>4、虚拟环境中安装额外的包</h3><pre><code>conda install -n your_env_name [package]
+</code></pre><h3 id="5、关闭虚拟环境"><a href="#5、关闭虚拟环境" class="headerlink" title="5、关闭虚拟环境"></a>5、关闭虚拟环境</h3><pre><code>Linux: source deactivate
+Windows: deactivate
+</code></pre><h3 id="6、删除虚拟环境"><a href="#6、删除虚拟环境" class="headerlink" title="6、删除虚拟环境"></a>6、删除虚拟环境</h3><pre><code>conda remove -n your_env_name(虚拟环境名称) --all
+conda remove --name your_env_name  package_name  # 删除环境中的某个包
+</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
             });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
+            img.addEventListener('load', () => {
+              img.remove();
             });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    // 文章章节标题不能为 “MathJax” ，否则会报错。
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-
-
-	
-</div>
-<aside class='l_side'>
-  
+            document.body.appendChild(img);
+          });
+      </script>
+          
+            <div class='article_footer'>
+              
+                
   
     
     
 
-<section class="widget blogger shadow blur desktop mobile">
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
   <div class='content'>
     
-      
-        <a class='avatar flat-box rectangle' href='/myblogs/about/'>
-          <img no-lazy src='https://s3.ax1x.com/2021/03/17/6cmvCD.md.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">Jian's Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
+      <blockquote>
         
           
-            <a href="mailto:2836480981@qq.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
           
         
           
-            <a href="https://github.com/s01235"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
+            <p>本文永久链接是：<a href=http://cj_song.gitee.io/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/>http://cj_song.gitee.io/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/</a></p>
           
         
-          
-            <a href="https://y.qq.com/portal/profile.html#stat=y_new.top.user_pic"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-            </a>
-          
-        
-      </div>
+      </blockquote>
     
   </div>
 </section>
@@ -931,44 +624,159 @@
     
     
 
+<section class="widget qrcode  desktop mobile">
   
 
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
   
-    
-    
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-06-07T17:06:38+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年6月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
   
-
-  <section class="widget tagcloud shadow blur desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/myblogs/tags/Python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83-%E6%8C%87%E4%BB%A4/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Python, 虚拟环境, 指令</p></a></div>
 
 
-    <div class='content'>
-      <a href="/myblogs/tags/Adam-%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">Adam, 优化算法</a> <a href="/myblogs/tags/FPGA-ZYNQ-LUT/" style="font-size: 14px; color: #999">FPGA, ZYNQ, LUT</a> <a href="/myblogs/tags/FPGA-ZYNQ-Vitis/" style="font-size: 14px; color: #999">FPGA, ZYNQ, Vitis</a> <a href="/myblogs/tags/Matlab-%E7%BB%98%E5%9B%BE-%E6%8C%87%E4%BB%A4/" style="font-size: 14px; color: #999">Matlab, 绘图, 指令</a> <a href="/myblogs/tags/Python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83-%E6%8C%87%E4%BB%A4/" style="font-size: 14px; color: #999">Python, 虚拟环境, 指令</a> <a href="/myblogs/tags/ROS2-Bash%E3%80%82/" style="font-size: 14px; color: #999">ROS2, Bash。</a> <a href="/myblogs/tags/hexo-%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99/" style="font-size: 14px; color: #999">hexo, 部署网站</a> <a href="/myblogs/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA%EF%BC%8Cmatlab/" style="font-size: 14px; color: #999">机器人，matlab</a> <a href="/myblogs/tags/%E6%B6%B2%E5%8E%8B%E7%BC%B8%EF%BC%8Cmatlab/" style="font-size: 14px; color: #999">液压缸，matlab</a> <a href="/myblogs/tags/%E7%9B%BE%E6%9E%84%EF%BC%8Cwebots/" style="font-size: 14px; color: #999">盾构，webots</a>
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/&title=Python常用指令 - Jian's Blog&summary=本文记录Python中常用的一些指令，方便以后调用查找。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/&title=Python常用指令 - Jian's Blog&summary=本文记录Python中常用的一些指令，方便以后调用查找。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/&title=Python常用指令 - Jian's Blog&summary=本文记录Python中常用的一些指令，方便以后调用查找。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
     </div>
   </section>
 
 
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/'>
+                <p class='title'>Matlab绘图常用指令<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>本文记录Matlab绘图中常用的一些指令，方便以后调用查找。
+一、设置绘图窗口相关属性set(gcf,'Position',[100 100 1400 450]);
+set(gca, 'YLim...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
   
 
   
+    
+  <article class="post white-box reveal comments blur">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      <section id="comments">
+        <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+      </section>
+    </section>
+  </article>
 
 
-</aside>
+  
 
 
 
 
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
 
-	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-	
-
-	
-	    <script>
+  <script>
   // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
   if (typeof MathJax === 'undefined') {
     window.MathJax = {
@@ -1020,7 +828,39 @@
   }
 </script>
 
-	
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、常用命令"><span class="toc-text">1、常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、虚拟环境"><span class="toc-text">2、虚拟环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、虚拟环境的安装"><span class="toc-text">1、虚拟环境的安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、创建虚拟环境"><span class="toc-text">2、创建虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、激活退出虚拟环境"><span class="toc-text">3、激活退出虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、扩展"><span class="toc-text">4、扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、conda常用指令"><span class="toc-text">3、conda常用指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、常用命令-1"><span class="toc-text">1、常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、创建虚拟环境-1"><span class="toc-text">2、创建虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、使用激活的虚拟环境"><span class="toc-text">3、使用激活的虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、虚拟环境中安装额外的包"><span class="toc-text">4、虚拟环境中安装额外的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、关闭虚拟环境"><span class="toc-text">5、关闭虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、删除虚拟环境"><span class="toc-text">6、删除虚拟环境</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
 
 
     </div>

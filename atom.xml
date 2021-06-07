@@ -6,7 +6,7 @@
   <link href="/myblogs/atom.xml" rel="self"/>
   
   <link href="http://cj_song.gitee.io/myblogs/"/>
-  <updated>2021-03-18T08:15:20.086Z</updated>
+  <updated>2021-06-07T09:06:38.253Z</updated>
   <id>http://cj_song.gitee.io/myblogs/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python常用指令</title>
+    <link href="http://cj_song.gitee.io/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/"/>
+    <id>http://cj_song.gitee.io/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/</id>
+    <published>2021-06-07T09:01:00.000Z</published>
+    <updated>2021-06-07T09:06:38.253Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文记录Python中常用的一些指令，方便以后调用查找。<br><a id="more"></a></p><h2 id="1、常用命令"><a href="#1、常用命令" class="headerlink" title="1、常用命令"></a>1、常用命令</h2><p>1、查看安装的所有包</p><pre class=" language-lang-python"><code class="language-lang-python">pip list</code></pre><p>2、安装删除包</p><pre class=" language-lang-python"><code class="language-lang-python">pip install cx-oraclepip uninstall cx-oracle</code></pre><p>3、导出包名字</p><pre class=" language-lang-python"><code class="language-lang-python">pip freeze > requirements.txt</code></pre><p>4、安装PyTorch</p><pre><code>pip3 install torch==1.8.1+cpu torchvision==0.9.1+cpu torchaudio===0.8.1 -f https://download.pytorch.org/whl/torch_stable.html</code></pre><p>5、通过requirements.txt安装依赖包</p><pre><code>pip install -r requirements.txt</code></pre><h2 id="2、虚拟环境"><a href="#2、虚拟环境" class="headerlink" title="2、虚拟环境"></a>2、虚拟环境</h2><h3 id="1、虚拟环境的安装"><a href="#1、虚拟环境的安装" class="headerlink" title="1、虚拟环境的安装"></a>1、虚拟环境的安装</h3><pre><code>pip install virtualenvvirtualenv   --测试</code></pre><h3 id="2、创建虚拟环境"><a href="#2、创建虚拟环境" class="headerlink" title="2、创建虚拟环境"></a>2、创建虚拟环境</h3><pre><code>virtualenv venv</code></pre><h3 id="3、激活退出虚拟环境"><a href="#3、激活退出虚拟环境" class="headerlink" title="3、激活退出虚拟环境"></a>3、激活退出虚拟环境</h3><pre><code>venv\Scripts\activate ---找到此位置并执行deactivate  ---执行此命令</code></pre><h3 id="4、扩展"><a href="#4、扩展" class="headerlink" title="4、扩展"></a>4、扩展</h3><p>virtualenvwrapper模块，可以管理全部的虚拟环境，更加方便地创建，删除，拷贝虚拟环境。</p><p>安装：</p><pre><code>pip install virtualenvwrapper</code></pre><p>准备：</p><p>需要在环境变量中添加一个环境变量，名字为WORKON_HOME,对应路径为虚拟环境的路径。</p><p>可用命令：</p><pre><code>mkvirtualenv ：创建虚拟环境lsvirtualenv：列出全部的虚拟环境showvirtualenv：列出单个虚拟机环境的信息rmvirtualenv：删除一个虚拟环境cpvirtualenv：拷贝一个虚拟环境allvirtualenv：对当前虚拟环境执行统一的命令cdvirtualenv：可以直接切换到虚拟环境的子目录里cdsitepackages：和cdvirtualenv同理，切换到虚拟环境的site-packages目录下lssitepackages：列出site-packages目录下的目录</code></pre><p>列出所有虚拟环境：</p><pre><code>workon</code></pre><h2 id="3、conda常用指令"><a href="#3、conda常用指令" class="headerlink" title="3、conda常用指令"></a>3、conda常用指令</h2><h3 id="1、常用命令-1"><a href="#1、常用命令-1" class="headerlink" title="1、常用命令"></a>1、常用命令</h3><pre><code>conda list 查看安装了哪些包。conda env list 或 conda info -e 查看当前存在哪些虚拟环境conda update conda 检查更新当前conda</code></pre><h3 id="2、创建虚拟环境-1"><a href="#2、创建虚拟环境-1" class="headerlink" title="2、创建虚拟环境"></a>2、创建虚拟环境</h3><pre class=" language-lang-python"><code class="language-lang-python">conda create -n xxx python=3.6</code></pre><h3 id="3、使用激活的虚拟环境"><a href="#3、使用激活的虚拟环境" class="headerlink" title="3、使用激活的虚拟环境"></a>3、使用激活的虚拟环境</h3><pre><code>python --version  # 可以检查当前python的版本Linux:  source activate your_env_name(虚拟环境名称)Windows: activate your_env_name(虚拟环境名称)</code></pre><h3 id="4、虚拟环境中安装额外的包"><a href="#4、虚拟环境中安装额外的包" class="headerlink" title="4、虚拟环境中安装额外的包"></a>4、虚拟环境中安装额外的包</h3><pre><code>conda install -n your_env_name [package]</code></pre><h3 id="5、关闭虚拟环境"><a href="#5、关闭虚拟环境" class="headerlink" title="5、关闭虚拟环境"></a>5、关闭虚拟环境</h3><pre><code>Linux: source deactivateWindows: deactivate</code></pre><h3 id="6、删除虚拟环境"><a href="#6、删除虚拟环境" class="headerlink" title="6、删除虚拟环境"></a>6、删除虚拟环境</h3><pre><code>conda remove -n your_env_name(虚拟环境名称) --allconda remove --name your_env_name  package_name  # 删除环境中的某个包</code></pre><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文记录Python中常用的一些指令，方便以后调用查找。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Python, 虚拟环境, 指令" scheme="http://cj_song.gitee.io/myblogs/tags/Python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83-%E6%8C%87%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Matlab绘图常用指令</title>
+    <link href="http://cj_song.gitee.io/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/"/>
+    <id>http://cj_song.gitee.io/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/</id>
+    <published>2021-06-07T09:00:00.000Z</published>
+    <updated>2021-06-07T09:04:32.540Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文记录Matlab绘图中常用的一些指令，方便以后调用查找。<br><a id="more"></a></p><h3 id="一、设置绘图窗口相关属性"><a href="#一、设置绘图窗口相关属性" class="headerlink" title="一、设置绘图窗口相关属性"></a>一、设置绘图窗口相关属性</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">set(gcf,'Position',[100 100 1400 450]);set(gca, 'YLim',[0.25 0.7]);set(gca, 'XLim',[0 0.6]);set(gca, 'XLim',[0 60]);set(gca, 'YLim',[-10 20]);set(gca, 'YTick', 0.25 :0.1:0.7);grid on;set(gca,'fontsize',15,'fontweight','normal','FontName','Times New Roman');</code></pre><h3 id="二、绘图"><a href="#二、绘图" class="headerlink" title="二、绘图"></a>二、绘图</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">figure(1)subplot(121)plot(x, y,'-*','linewidth',1.5,'color',color{1,i})xlabel({'Position-x (m)','(a)'});ylabel('Position-y (m)');hold on;axis equal;</code></pre><h3 id="三、设置legend"><a href="#三、设置legend" class="headerlink" title="三、设置legend"></a>三、设置legend</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">h=legend('iter1','iter2','iter3','iter4','iter5','desired');set(h, 'location', 'southwest', 'fontsize',15,'fontweight','normal','FontName','Times New Roman');set(h,'Orientation','horizon')</code></pre><h3 id="四、保存绘图"><a href="#四、保存绘图" class="headerlink" title="四、保存绘图"></a>四、保存绘图</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">saveas(gcf,'./figure/position-compare.eps','epsc')</code></pre><h3 id="五、绘制误差图"><a href="#五、绘制误差图" class="headerlink" title="五、绘制误差图"></a>五、绘制误差图</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">figure('name','error_bar');errorbar(iter_num, data_mean(1,:,1), data_error(1,:,1),'-r.','LineWidth',2,'MarkerSize',25);set(h,'fontsize',15,'fontweight','normal','FontName','Times New Roman')xlabel({'Iteration number (t)','(a)'});ylabel('Average position error (m)');set(gca,'fontsize',15,'fontweight','normal','FontName','Times New Roman'); set(gca, 'XTick', 0:1:5)</code></pre><h3 id="六、添加latex字符"><a href="#六、添加latex字符" class="headerlink" title="六、添加latex字符"></a>六、添加latex字符</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">text(0.6, 0.5, '\leftarrow\alpha_2^\beta');text('Interpreter', 'latex', 'String', '$$\int_0^x\! \int_y dF(u, v)$$', ...     'Position', [3 0.5], 'FontSize', 16)ax1 = subplot(2,1,1,'FontSize',14);xticks(0:0.2:1);xticklabels({'0','1\B','2\B','3\B','4\B','5\B'});ax2 = subplot(2,1,2,'FontSize',14);xticks(0:0.2:1);xticklabels({'${0}$','$\frac{1}{B}$','$\frac{2}{B}$',...    '$\frac{3}{B}$','$\frac{4}{B}$','$\frac{5}{B}$'});ax2.TickLabelInterpreter = 'latex';h=legend('$$\sqrt{x^2+y^2}$$');set(h,'Interpreter','latex');xlabel('$$\sqrt{x}$$','Interpreter', 'latex');</code></pre><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文记录Matlab绘图中常用的一些指令，方便以后调用查找。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Matlab, 绘图, 指令" scheme="http://cj_song.gitee.io/myblogs/tags/Matlab-%E7%BB%98%E5%9B%BE-%E6%8C%87%E4%BB%A4/"/>
+    
+  </entry>
   
   <entry>
     <title>Webots盾构仿真基本操作</title>
