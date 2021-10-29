@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#1.0.0'>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>虚拟向导（Virtual Guide）相关论文总结 - Chenjian&#39;s Blog</title>
+  
+    <meta name="keywords" content="hexo, 部署网站">
+  
+
+  
+    <meta name="description" content="本文主为人机协作领域中关于虚拟向导的相关研究文章总结。并附有文章的引用链接及对应的PDF链接。">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/myblogs/atom.xml" title="Chenjian's Blog">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-light.css">
+
+    
+  
+  
+    
+<link rel="stylesheet" href="/myblogs/css/style.css">
+
+  
+
+  
+  
+<link rel="stylesheet" href="/myblogs/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+
+<body>
+  
+  
+  
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="cover-wrapper">
+    <cover class='cover post' style="display: none;">
+      <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">Chenjian's Blog</p>
+    
+    
+  </div>
+  <div class='b'>
+    <div class='menu navigation focus'>
+      <div class='list-h'>
+        
+          
+            <a href="/myblogs/archives/"
+              
+              
+              id="myblogsarchives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>文档</p>
+            </a>
+          
+            <a href="/myblogs/categories/"
+              
+              
+              id="myblogscategories">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>分类</p>
+            </a>
+          
+            <a href="/myblogs/friends/"
+              
+              
+              id="myblogsfriends">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>友链</p>
+            </a>
+          
+            <a href="/myblogs/about/"
+              
+              
+              id="myblogsabout">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>帮助</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div class="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+    </cover>
+    <header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h' id="pjax-header-nav-list">
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/myblogs/'>
+          
+          
+          
+            Chenjian's Blog
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/
+                  
+                  
+                  
+                    id="myblogs"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/categories/
+                  
+                  
+                  
+                    id="myblogscategories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/tags/
+                  
+                  
+                  
+                    id="myblogstags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/archives/
+                  
+                  
+                  
+                    id="myblogsarchives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/friends/
+                  
+                  
+                  
+                    id="myblogsfriends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/about/
+                  
+                  
+                  
+                    id="myblogsabout"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/
+                  
+                  
+                  
+                    id="myblogs"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/categories/
+                  
+                  
+                  
+                    id="myblogscategories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/tags/
+                  
+                  
+                  
+                    id="myblogstags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/archives/
+                  
+                  
+                  
+                    id="myblogsarchives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/friends/
+                  
+                  
+                  
+                    id="myblogsfriends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box" href=/myblogs/about/
+                  
+                  
+                  
+                    id="myblogsabout"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  </div>
+  
+
+
+  <div class="l_body">
+    <div class='body-wrapper' id="pjax-container">
+      
+        <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+
+
+<div id="pjax-data" style="display: none">
+  <div id="pjax-ispage">true</div>
+  <div id="pjax-pageTitle">虚拟向导（Virtual Guide）相关论文总结</div>
+  <div id="pjax-enable-cover">true</div>
+  <div id="pjax-permalink">http://cj_song.gitee.io/myblogs/2021/10/29/ren-ji-xie-zuo/lun-wen-zong-jie/xu-ni-xiang-dao/virtualguidepaper-conclusion/</div>
+  
+  <div id="valine-path">none</div>
+  <div id="valine-placeholder">none</div>
+  
+  
+</div>
+
+
+<script>
+  // 处理封面 此时 jquery 还没加载
+  if ("blog" == "none") { // 移除封面
+    document.getElementsByClassName('cover')[0].style.display = "none";
+    document.getElementsByClassName('l_body')[0].classList.add("nocover");
+    document.getElementsByClassName('l_header', 'cover-wrapper')[0].classList.add("show");
+  } else {
+    if ("blog" == "blog") { // 半屏
+      document.getElementsByClassName('cover')[0].classList.remove("full");
+      document.getElementsByClassName('cover')[0].classList.add("half");
+      document.getElementsByClassName('scroll-down')[0].style.display = "none";
+    } else if ("blog" == "docs") { // 全屏
+      document.getElementsByClassName('cover')[0].classList.remove("half");
+      document.getElementsByClassName('cover')[0].classList.add("full");
+      document.getElementsByClassName('scroll-down')[0].style.display = "";
+    }
+    document.getElementsByClassName('cover')[0].style.display = "";
+    document.getElementsByClassName('l_body', 'show')[0].classList.remove("nocover");
+    document.getElementsByClassName('l_header', 'cover-wrapper')[0].classList.remove("show");
+  }
+</script>
+
+      
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal blur article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/myblogs/2021/10/29/ren-ji-xie-zuo/lun-wen-zong-jie/xu-ni-xiang-dao/virtualguidepaper-conclusion/">
+      虚拟向导（Virtual Guide）相关论文总结
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicons/safari-pinned-tab.svg">
+    <p>Chenjian_Song</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/myblogs/categories/%E4%BA%BA%E6%9C%BA%E5%8D%8F%E4%BD%9C/%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>人机协作/相关论文</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年10月29日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          
+          <p>本文主为人机协作领域中关于虚拟向导的相关研究文章总结。并附有文章的引用链接及对应的PDF链接。<br><a id="more"></a></p>
+<h2 id="一、虚拟向导的设计"><a href="#一、虚拟向导的设计" class="headerlink" title="一、虚拟向导的设计"></a>一、虚拟向导的设计</h2><h3 id="1-Robotica-Susana-2020"><a href="#1-Robotica-Susana-2020" class="headerlink" title="1. Robotica-Susana-2020"></a>1. Robotica-Susana-2020</h3><p>文章标题：Toward an intuitive and iterative 6D virtual guide programming framework for assisted human—robot comanipulation.</p>
+<p>摘要：虚拟向导具有提高任务精度并避免环境等产生的干扰，但构建虚拟想到通常需要专家知识和对任务进行建模，从而限制了虚拟向导的应用。现有文献很少考虑到方向的约束，即便考虑了，也仅仅是对位移和方向进行单独考虑，并且两者的运动并没有同步起来。本文针对上述问题，提出了一种新的框架，并允许用户创建6维的虚拟向导，通过采用结合针对位移的$Akima\;splines$插值，以及针对方向四元数的球面三次插值（$spherical\;cubic\; interpolation\; of\; quaternions$）的方法。最终通过先示教位移轨迹，然后在位移路径的约束下示教方向轨迹。最终模拟一个工业场景并给出了一个直观的解决办法。</p>
+<p>关键词：Virtual Guide</p>
+<p>创新点：同时考虑位移空间和方向空间等6个自由度的约束。</p>
+<p>相关插图：</p>
+<p><a href="https://imgtu.com/i/hQn7nA" target="_blank" rel="noopener"><img src="https://z3.ax1x.com/2021/08/27/hQn7nA.png" alt="hQn7nA.png"></a></p>
+<p>引用链接：</p>
+<pre><code>@article{restrepo2020toward,
+  title={Toward an intuitive and iterative 6D virtual guide programming framework for assisted human--robot comanipulation},
+  author={Restrepo, Susana S{\'a}nchez and Raiola, Gennaro and Guerry, Joris and D’Elia, Evelyn and Lamy, Xavier and Sidobre, Daniel},
+  journal={Robotica},
+  volume={38},
+  number={10},
+  pages={1778--1806},
+  year={2020},
+  publisher={Cambridge University Press}
+}
+</code></pre><h2 id="二、虚拟向导的应用"><a href="#二、虚拟向导的应用" class="headerlink" title="二、虚拟向导的应用"></a>二、虚拟向导的应用</h2><h3 id="1-RAL-Xingguang-Duan-2021"><a href="#1-RAL-Xingguang-Duan-2021" class="headerlink" title="1. RAL-Xingguang-Duan-2021"></a>1. RAL-Xingguang-Duan-2021</h3><p>文章标题：Virtual-Fixture Based Drilling Control for Robot-Assisted Craniotomy: Learning From Demonstration</p>
+<p>摘要：穿颅手术中最有保障的一种方法就是采用人类引导—机器人辅助结合手术，本文研究包括高精度协作钻孔中的对齐和钻孔任务，通过人类的交互力进行意图识别，进而有效的在对齐和钻孔进行切换。切换条件的训练依据高斯混合模型GMMs实现。意图的识别通过使用GMMS和人类实时的引导力的KL（ Kullback-Leibler）散度实现。未验证方法的正确性，做了两次实验，对应钻孔任务的各个步骤。</p>
+<p>关键词：Virtual-Fixture,  Learning From Demonstration;</p>
+<p>创新点：1、提出了一种人机协作进行穿颅手术的解决方法。</p>
+<p>引用链接：</p>
+<pre><code>@article{duan2021virtual,
+  title={Virtual-Fixture Based Drilling Control for Robot-Assisted Craniotomy: Learning From Demonstration},
+  author={Duan, Xingguang and Tian, Huanyu and Li, Changsheng and Han, Zhe and Cui, Tengfei and Shi, Qingxin and Wen, Hao and Wang, Jin},
+  journal={IEEE Robotics and Automation Letters},
+  volume={6},
+  number={2},
+  pages={2327--2334},
+  year={2021},
+  publisher={IEEE}
+}
+</code></pre><h3 id="2-Robotica-papageorgiou-2020"><a href="#2-Robotica-papageorgiou-2020" class="headerlink" title="2. Robotica-papageorgiou-2020"></a>2. Robotica-papageorgiou-2020</h3><p>文章标题：Kinesthetic guidance utilizing dmp synchronization and assistive virtual fixtures for progressive automation</p>
+<p>摘要：渐进自动化框架允许机器人在编程过程中通过演示离散运动任务，从动觉引导无缝过渡到自主操作模式。这是通过动态运动原语(dmp)、虚拟夹具和可变阻抗控制的协同作用实现的。提出的dmp编码演示轨迹，并与用户当前演示同步，使参考生成的运动跟随人的演示。提出的虚拟夹具帮助用户重复学习的运动学行为，但允许穿透，以便用户可以在需要时修改学习的轨迹。采用变刚度策略，利用跟踪误差与相互作用力和力矩相结合的方式来调整渐进自动化水平，实现人机主导作用的转移。利用一种能量罐方法来应用所设计的控制器，并证明了总体控制方法的无源性。对所提出的框架进行了实验评价，结果表明，该框架在少数实例中实现了向自主模式的过渡。</p>
+<p>创新点：1、创新型的提出渐进自动化的概念；2、结合DMP编码演示轨迹与用户当前演示进行同步，虚拟夹具帮助用户重复学习的运动学行为。</p>
+<p>引用链接：</p>
+<pre><code>@article{papageorgiou2020kinesthetic,
+  title={Kinesthetic guidance utilizing dmp synchronization and assistive virtual fixtures for progressive automation},
+  author={Papageorgiou, Dimitrios and Dimeas, Fotios and Kastritsi, Theodora and Doulgeri, Zoe},
+  journal={Robotica},
+  volume={38},
+  number={10},
+  pages={1824--1841},
+  year={2020},
+  publisher={Cambridge University Press}
+}
+</code></pre><h3 id="3-TRO-Bischof-2018"><a href="#3-TRO-Bischof-2018" class="headerlink" title="3. TRO-Bischof-2018"></a>3. TRO-Bischof-2018</h3><p>文章标题：A path/surface following control approach to generate virtual fixtures</p>
+<p>摘要：机器人的工作空间可以通过虚拟夹具进行限制，以辅助操作者进行物理的人机交互任务。本文将曲面跟随控制与柔度控制相结合，提出了一种系统生成虚拟夹具的路径/曲面跟随控制方法。这种方法允许实现许多类型的约束，如引导和禁止区域虚拟夹具，硬和软约束，以及静态和动态虚拟夹具及其组合。此外，给出了所提出的控制方案的闭环稳定性证明。</p>
+<p>创新点：通过PFC/SFC的方法去产生虚拟向导。</p>
+<p><a href="https://imgtu.com/i/hQqGFK" target="_blank" rel="noopener"><img src="https://z3.ax1x.com/2021/08/27/hQqGFK.png" alt="hQqGFK.png"></a></p>
+<p>引用链接：</p>
+<pre><code>@article{bischof2018path,
+  title={A path/surface following control approach to generate virtual fixtures},
+  author={Bischof, Bernhard and Gl{\"u}ck, Tobias and B{\"o}ck, Martin and Kugi, Andreas},
+  journal={IEEE Transactions on Robotics},
+  volume={34},
+  number={6},
+  pages={1577--1592},
+  year={2018},
+  publisher={IEEE}
+}
+</code></pre><h3 id="4-RAL-Bazzi-2021"><a href="#4-RAL-Bazzi-2021" class="headerlink" title="4.  RAL-Bazzi-2021"></a>4.  RAL-Bazzi-2021</h3><p>题目：A Unified Approach for Virtual Fixtures and Goal-Driven Variable Admittance Control in Manual Guidance Applications</p>
+<p>摘要：在人机物理交互的应用中，不仅要保证末端执行器的位置精度，而且要保证末端执行器的姿态精度。平动的运动对人来说很容易理解，而旋转的运动则不能立即解释。这使得操作者在设定目标方位时无法获得足够的定位精度。通过制定旋转虚拟夹具，提出了一种适合于人完成旋转运动的策略。这是由于一个聪明的方向描述，允许绘制一个等价的公式化的平移虚拟夹具和他们的旋转对等物。为了进一步提高人们对旋转世界中最佳运动方向的理解，还设计了变导纳控制。最后，我们建议联合利用这些技术来实现最佳的定位精度。通过涉及多个对象和ABB IRB-140机器人的旋转点对点合作运动来评估性能。</p>
+<p>创新点：通过制定面向任务位置的旋转的虚拟夹具，提高了人们对旋转世界中最佳运动方向的理解。</p>
+<p>引用链接：</p>
+<pre><code>@article{bazzi2021unified,
+  title={A Unified Approach for Virtual Fixtures and Goal-Driven Variable Admittance Control in Manual Guidance Applications},
+  author={Bazzi, Davide and Roveda, Filippo and Zanchettin, Andrea Maria and Rocco, Paolo},
+  journal={IEEE Robotics and Automation Letters},
+  volume={6},
+  number={4},
+  pages={6378--6385},
+  year={2021},
+  publisher={IEEE}
+}
+</code></pre><h3 id="5-Pruks2018"><a href="#5-Pruks2018" class="headerlink" title="5. Pruks2018"></a>5. Pruks2018</h3><p>题目：Preliminary study on real-time interactive virtual fixture generation method for shared teleoperation in unstructured environments.(非结构化环境中共享遥操作实时交互式虚拟夹具生成方法初步研究)</p>
+<p>摘要：提出了一种非结构化远程环境中交互式生成共享远程操作虚拟夹具的方法。该方法允许操作者在运动中直观地分配各种类型的虚拟夹具，以提供虚拟引导力，帮助操作者完成给定任务，同时最小化认知工作量。该方法利用从机器人底座旁边的深度和颜色视频传感器自动提取的几何特征（形状、表面等），增强从机器人摄像机的视觉反馈图像。人类操作员可以在计算机屏幕上选择一个特征，然后自动将其与虚拟触觉夹具关联。通过一个钉孔任务对该方法的性能进行了评估，实验表明该方法在遥操作性能上有了改进。</p>
+<p>创新点：</p>
+<p>引用链接：</p>
+<pre><code>@inproceedings{pruks2018preliminary,
+  title={Preliminary study on real-time interactive virtual fixture generation method for shared teleoperation in unstructured environments},
+  author={Pruks, Vitalii and Farkhatdinov, Ildar and Ryu, Jee-Hwan},
+  booktitle={International Conference on Human Haptic Sensing and Touch Enabled Computer Applications},
+  pages={648--659},
+  year={2018},
+  organization={Springer}
+}
+</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=http://cj_song.gitee.io/myblogs/2021/10/29/ren-ji-xie-zuo/lun-wen-zong-jie/xu-ni-xiang-dao/virtualguidepaper-conclusion/>http://cj_song.gitee.io/myblogs/2021/10/29/ren-ji-xie-zuo/lun-wen-zong-jie/xu-ni-xiang-dao/virtualguidepaper-conclusion/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/qrcode/github@volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-29T20:27:48+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年10月29日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/myblogs/tags/hexo-%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>hexo, 部署网站</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2021/10/29/ren-ji-xie-zuo/lun-wen-zong-jie/xu-ni-xiang-dao/virtualguidepaper-conclusion/&title=虚拟向导（Virtual Guide）相关论文总结 - Chenjian's Blog&summary=本文主为人机协作领域中关于虚拟向导的相关研究文章总结。并附有文章的引用链接及对应的PDF链接。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2021/10/29/ren-ji-xie-zuo/lun-wen-zong-jie/xu-ni-xiang-dao/virtualguidepaper-conclusion/&title=虚拟向导（Virtual Guide）相关论文总结 - Chenjian's Blog&summary=本文主为人机协作领域中关于虚拟向导的相关研究文章总结。并附有文章的引用链接及对应的PDF链接。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2021/10/29/ren-ji-xie-zuo/lun-wen-zong-jie/xu-ni-xiang-dao/virtualguidepaper-conclusion/&title=虚拟向导（Virtual Guide）相关论文总结 - Chenjian's Blog&summary=本文主为人机协作领域中关于虚拟向导的相关研究文章总结。并附有文章的引用链接及对应的PDF链接。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/myblogs/2021/06/07/blog10-python-chang-yong-zhi-ling/'>
+                <p class='title'>Python常用指令<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>本文记录Python中常用的一些指令，方便以后调用查找。
+1、常用命令1、查看安装的所有包
+pip list
+2、安装删除包
+pip install cx-oracle
+pip uninstal...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    
+  <article class="post white-box reveal comments blur">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      <section id="comments">
+        <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+      </section>
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、虚拟向导的设计"><span class="toc-text">一、虚拟向导的设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Robotica-Susana-2020"><span class="toc-text">1. Robotica-Susana-2020</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、虚拟向导的应用"><span class="toc-text">二、虚拟向导的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-RAL-Xingguang-Duan-2021"><span class="toc-text">1. RAL-Xingguang-Duan-2021</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Robotica-papageorgiou-2020"><span class="toc-text">2. Robotica-papageorgiou-2020</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-TRO-Bischof-2018"><span class="toc-text">3. TRO-Bischof-2018</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-RAL-Bazzi-2021"><span class="toc-text">4.  RAL-Bazzi-2021</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Pruks2018"><span class="toc-text">5. Pruks2018</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+    </div>
+    
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:2836480981@qq.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/s01235"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://y.qq.com/portal/profile.html#stat=y_new.top.user_pic"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://cj_song.gitee.io/myblogs/">Copyright © 2017-2020 Cj_Song</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <div>
+    
+      
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' 
+        
+        
+        
+          onclick="document.execCommand('copy')"
+        
+        
+          id="menu-copy-text"
+        >
+        <i class='fa fa-copy fa-fw'></i> 复制文本
+      </a>
+    </li>
+  
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' 
+        
+        
+        
+        
+          id="menu-copy-src"
+        >
+        <i class='fa fa-image fa-fw'></i> 复制图片地址
+      </a>
+    </li>
+  
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' 
+        
+        
+        
+        
+          id="menu-copy-href"
+        >
+        <i class='fa fa-link fa-fw'></i> 复制链接
+      </a>
+    </li>
+  
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' 
+        
+        
+        
+        
+          id="menu-open-new"
+        >
+        <i class='fa fa-external-link-square-alt fa-fw'></i> 在新标签页打开
+      </a>
+    </li>
+  
+        
+      
+        
+          <li class='navigation'>
+            <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+            <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+            <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+            <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+          </li>
+        
+      
+        
+          <hr>
+        
+      
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' href=https://volantis.js.org/faqs/
+        
+        
+        
+        
+          id="https:volantisjsorgfaqs"
+        >
+        <i class='fa fa-question fa-fw'></i> 常见问题
+      </a>
+    </li>
+  
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' href=https://volantis.js.org/examples/
+        
+        
+        
+        
+          id="https:volantisjsorgexamples"
+        >
+        <i class='fa fa-rss fa-fw'></i> 示例博客
+      </a>
+    </li>
+  
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' href=https://volantis.js.org/contributors/
+        
+        
+        
+        
+          id="https:volantisjsorgcontributors"
+        >
+        <i class='fa fa-fan fa-spin fa-fw'></i> 加入社区
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' href=https://github.com/volantis-x/volantis-docs/
+        
+        
+        
+        
+          id="https:githubcomvolantis-xvolantis-docs"
+        >
+        <i class='fa fa-code-branch fa-fw'></i> 本站源码
+      </a>
+    </li>
+  
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' href=https://github.com/volantis-x/hexo-theme-volantis/
+        
+        
+        
+        
+          id="https:githubcomvolantis-xhexo-theme-volantis"
+        >
+        <i class='fa fa-code-branch fa-fw'></i> 主题源码
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default' 
+        
+        
+        
+          onclick="document.execCommand('print')"
+        
+        >
+        <i class='fa fa-print fa-fw'></i> 打印页面
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      // 选中文本
+      if (window.getSelection().toString()) {
+        document.getElementById('menu-copy-text').style.display = 'block';
+      } else {
+        document.getElementById('menu-copy-text').style.display = 'none';
+      }
+
+      // 选中图片
+      if (event.target.currentSrc) {
+        document.getElementById('menu-copy-src').style.display = 'block';
+        document.getElementById('menu-copy-src').addEventListener("click", function (e) {
+          copyString(event.target.currentSrc);
+        },{once: true});
+      } else {
+        document.getElementById('menu-copy-src').style.display = 'none';
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+      if (href.length > 0) {
+        // 在新标签页打开
+        let openNew = document.getElementById('menu-open-new');
+        if (openNew != undefined) {
+          openNew.style.display = 'block';
+          openNew.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+        }
+        // 复制链接
+        let copyHref = document.getElementById('menu-copy-href');
+        if (copyHref != undefined) {
+          if (href.length > 0) {
+            copyHref.style.display = 'block';
+          } else {
+            copyHref.style.display = 'none';
+          }
+        }
+      } else {
+        let openNew = document.getElementById('menu-open-new');
+        if (openNew != undefined) {
+          openNew.style.display = 'none';
+        }
+      }
+
+      // 有音乐播放器
+      if (false == true) {
+        // 如果有aplayer，初始化一下
+      	try {
+      		checkAPlayer();
+          updateTitle();
+      	} catch (error) {
+      		console.log(error);
+      	}
+      }
+
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/myblogs/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://gitee.com/wallpapers/minimalist/raw/master/2020/002.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/003.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/006.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/016.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/019.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/025.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/046.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/051.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/052.jpg", "https://gitee.com/wallpapers/minimalist/raw/master/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "40000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "40000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+  
+  
+<script src="/myblogs/js/valine.js"></script>
+
+
+<script>
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link'.split(',').filter(function (item) {
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+
+  function pjax_valine() {
+    var valinePath = $.trim($('#valine-path').text()) === "none" ?
+            window.location.pathname : $.trim($('#valine-path').text());
+
+    var valinePlaceholder = $.trim($('#valine-placeholder').text()) === "none" ?
+            "快来评论吧~" : $.trim($('#valine-placeholder').text());
+
+    var ALLPATH = '';
+    if(ALLPATH != '') valinePath = ALLPATH;
+
+    var valine = new Valine();
+    valine.init({
+      el: '#valine_container',
+      meta: meta,
+      placeholder: valinePlaceholder,
+      path: valinePath,
+      appId: "3M3j7zd1tJSDunVCQBA34hs7-gzGzoHsz",
+      appKey: "l7jDOciqUowP2CY7O4dDDr9e",
+      pageSize: '10',
+      avatar: 'robohash',
+      lang: 'zh-cn',
+      visitor: 'true',
+      highlight: 'true',
+      mathJax: 'true',
+      enableQQ: 'true',
+      requiredFields: requiredFields,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps
+    })
+  }
+
+  $(function () {
+    pjax_valine();
+  });
+</script>
+
+
+
+
+<!-- darkmodejs -->
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
+<!-- scrollreveal -->
+
+<!-- ******************************** -->
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+<!-- ******************************** -->
+
+
+  
+<script src="/myblogs/js/app.js"></script>
+
+
+
+
+  
+    
+<script src="/myblogs/js/search.js"></script>
+
+  
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function () {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+<!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+    <div id="loading-bar-wrapper"><script>NProgress.configure({parent:"#loading-bar-wrapper",trickleSpeed: 100})</script></div>
+    <script>
+      window.ShowLoading = function() {
+        NProgress.start();
+      };
+      window.HideLoading = function() {
+        NProgress.done();
+      }
+    </script>
+  
+</div>
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      $.fancybox.close();    // 关闭弹窗
+      $('.nav-main').find('.list-v').not('.menu-phone').css("display","none"); // 移除小尾巴
+      $('.menu-phone.list-v').css("display","none"); // 移除小尾巴
+      $('.l_header .switcher .s-search').removeClass('active'); // 关闭移动端激活的搜索框
+      $('.l_header').removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      $('.wrapper').removeClass('sub'); // 跳转页面时关闭二级导航
+
+      $('.s-top').unbind('click');   // 解绑
+      $('.menu a').unbind('click');  // 解绑
+      $(window).unbind('resize');    // 解绑
+      $(window).unbind('scroll');    // 解绑
+      $(document).unbind('scroll');  // 解绑
+      $(document).unbind('click');   // 解绑
+      $('body').unbind('click');     // 解绑
+      window.ShowLoading();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+
+      try{
+        pjax_fancybox();
+        
+          
+          if ('') {
+            $('').backstretch("resize");
+          } else {
+            $.backstretch("resize");
+          }
+        
+        
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+        
+        
+        
+          pjax_initCopyCode();
+        
+        
+          pjax_valine();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+      window.HideLoading();
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.HideLoading();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

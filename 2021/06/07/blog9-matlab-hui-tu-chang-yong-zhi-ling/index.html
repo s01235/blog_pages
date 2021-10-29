@@ -16,7 +16,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>Matlab绘图常用指令 - Jian&#39;s Blog</title>
+  <title>Matlab绘图常用指令 - Chenjian&#39;s Blog</title>
   
     <meta name="keywords" content="Matlab, 绘图, 指令">
   
@@ -27,7 +27,7 @@
 
   <!-- feed -->
   
-    <link rel="alternate" href="/myblogs/atom.xml" title="Jian's Blog">
+    <link rel="alternate" href="/myblogs/atom.xml" title="Chenjian's Blog">
   
 
   <!-- import meta -->
@@ -83,10 +83,8 @@
   <div class='a'>
     
     
-      <p class="title">Jian's Blog</p>
+      <p class="title">Chenjian's Blog</p>
     
-    
-      <p class="subtitle">Up</p>
     
   </div>
   <div class='b'>
@@ -149,7 +147,7 @@
           
           
           
-            Jian's Blog
+            Chenjian's Blog
           
         </a>
       
@@ -467,6 +465,14 @@
           
             
               
+  
+  <div class='new-meta-item category'>
+    <a href='/myblogs/categories/%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/Matlab/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>常用软件/Matlab</p>
+    </a>
+  </div>
+
 
             
           
@@ -499,7 +505,7 @@
           
           
           <p>本文记录Matlab绘图中常用的一些指令，方便以后调用查找。<br><a id="more"></a></p>
-<h3 id="一、设置绘图窗口相关属性"><a href="#一、设置绘图窗口相关属性" class="headerlink" title="一、设置绘图窗口相关属性"></a>一、设置绘图窗口相关属性</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">set(gcf,'Position',[100 100 1400 450]);
+<h3 id="一、设置绘图窗口相关属性"><a href="#一、设置绘图窗口相关属性" class="headerlink" title="一、设置绘图窗口相关属性"></a>一、设置绘图窗口相关属性</h3><pre><code>set(gcf,'Position',[100 100 1400 450]);
 set(gca, 'YLim',[0.25 0.7]);
 set(gca, 'XLim',[0 0.6]);
 set(gca, 'XLim',[0 60]);
@@ -507,8 +513,7 @@ set(gca, 'YLim',[-10 20]);
 set(gca, 'YTick', 0.25 :0.1:0.7);
 grid on;
 set(gca,'fontsize',15,'fontweight','normal','FontName','Times New Roman');
-</code></pre>
-<h3 id="二、绘图"><a href="#二、绘图" class="headerlink" title="二、绘图"></a>二、绘图</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">figure(1)
+</code></pre><h3 id="二、绘图"><a href="#二、绘图" class="headerlink" title="二、绘图"></a>二、绘图</h3><pre><code>figure(1)
 subplot(121)
 plot(x, y,'-*','linewidth',1.5,'color',color{1,i})
 xlabel({'Position-x (m)','(a)'});
@@ -516,22 +521,18 @@ ylabel('Position-y (m)');
 
 hold on;
 axis equal;
-</code></pre>
-<h3 id="三、设置legend"><a href="#三、设置legend" class="headerlink" title="三、设置legend"></a>三、设置legend</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">h=legend('iter1','iter2','iter3','iter4','iter5','desired');
+</code></pre><h3 id="三、设置legend"><a href="#三、设置legend" class="headerlink" title="三、设置legend"></a>三、设置legend</h3><pre><code>h=legend('iter1','iter2','iter3','iter4','iter5','desired');
 set(h, 'location', 'southwest', 'fontsize',15,'fontweight','normal','FontName','Times New Roman');
 set(h,'Orientation','horizon')
-</code></pre>
-<h3 id="四、保存绘图"><a href="#四、保存绘图" class="headerlink" title="四、保存绘图"></a>四、保存绘图</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">saveas(gcf,'./figure/position-compare.eps','epsc')
-</code></pre>
-<h3 id="五、绘制误差图"><a href="#五、绘制误差图" class="headerlink" title="五、绘制误差图"></a>五、绘制误差图</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">figure('name','error_bar');
+</code></pre><h3 id="四、保存绘图"><a href="#四、保存绘图" class="headerlink" title="四、保存绘图"></a>四、保存绘图</h3><pre><code>saveas(gcf,'./figure/position-compare.eps','epsc')
+</code></pre><h3 id="五、绘制误差图"><a href="#五、绘制误差图" class="headerlink" title="五、绘制误差图"></a>五、绘制误差图</h3><pre><code>figure('name','error_bar');
 errorbar(iter_num, data_mean(1,:,1), data_error(1,:,1),'-r.','LineWidth',2,'MarkerSize',25);
 
 set(h,'fontsize',15,'fontweight','normal','FontName','Times New Roman')
 xlabel({'Iteration number (t)','(a)'});ylabel('Average position error (m)');
 set(gca,'fontsize',15,'fontweight','normal','FontName','Times New Roman'); 
 set(gca, 'XTick', 0:1:5)
-</code></pre>
-<h3 id="六、添加latex字符"><a href="#六、添加latex字符" class="headerlink" title="六、添加latex字符"></a>六、添加latex字符</h3><pre class=" language-lang-matlab"><code class="language-lang-matlab">text(0.6, 0.5, '\leftarrow\alpha_2^\beta');
+</code></pre><h3 id="六、添加latex字符"><a href="#六、添加latex字符" class="headerlink" title="六、添加latex字符"></a>六、添加latex字符</h3><pre><code>text(0.6, 0.5, '\leftarrow\alpha_2^\beta');
 text('Interpreter', 'latex', 'String', '$$\int_0^x\! \int_y dF(u, v)$$', ...
      'Position', [3 0.5], 'FontSize', 16)
 
@@ -548,8 +549,7 @@ h=legend('$$\sqrt{x^2+y^2}$$');
 set(h,'Interpreter','latex');
 
 xlabel('$$\sqrt{x}$$','Interpreter', 'latex');
-</code></pre>
-<script>
+</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -654,10 +654,10 @@ xlabel('$$\sqrt{x}$$','Interpreter', 'latex');
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-06-07T17:04:32+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-29T20:28:55+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年6月7日</p>
+    <p>更新于：2021年10月29日</p>
   </a>
 </div>
 
@@ -684,7 +684,7 @@ xlabel('$$\sqrt{x}$$','Interpreter', 'latex');
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/&title=Matlab绘图常用指令 - Jian's Blog&summary=本文记录Matlab绘图中常用的一些指令，方便以后调用查找。"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/&title=Matlab绘图常用指令 - Chenjian's Blog&summary=本文记录Matlab绘图中常用的一些指令，方便以后调用查找。"
           
           >
           
@@ -696,7 +696,7 @@ xlabel('$$\sqrt{x}$$','Interpreter', 'latex');
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/&title=Matlab绘图常用指令 - Jian's Blog&summary=本文记录Matlab绘图中常用的一些指令，方便以后调用查找。"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/&title=Matlab绘图常用指令 - Chenjian's Blog&summary=本文记录Matlab绘图中常用的一些指令，方便以后调用查找。"
           
           >
           
@@ -708,7 +708,7 @@ xlabel('$$\sqrt{x}$$','Interpreter', 'latex');
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/&title=Matlab绘图常用指令 - Jian's Blog&summary=本文记录Matlab绘图中常用的一些指令，方便以后调用查找。"
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2021/06/07/blog9-matlab-hui-tu-chang-yong-zhi-ling/&title=Matlab绘图常用指令 - Chenjian's Blog&summary=本文记录Matlab绘图中常用的一些指令，方便以后调用查找。"
           
           >
           
@@ -737,22 +737,15 @@ xlabel('$$\sqrt{x}$$','Interpreter', 'latex');
                 <p class='content'>本文记录Python中常用的一些指令，方便以后调用查找。
 1、常用命令1、查看安装的所有包
 pip list
-
 2、安装删除包
 pip install cx-oracle
-pip uninsta...</p>
+pip uninstal...</p>
               </a>
             
             
-              <a class='next' href='/myblogs/2021/03/18/blog8-webots-dun-gou-fang-zhen-ji-ben-cao-zuo/'>
-                <p class='title'>Webots盾构仿真基本操作<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>本文介绍了一下webots中盾构仿真的工程目录结构及基本操作。
-一、文件目录结构盾构仿真工程中的相关文件目录如下：
-
-其中，
-
-Controllers里面存放了各个机构对应的控制器程序。
-doc...</p>
+              <a class='next' href='/myblogs/2021/06/04/hello-world/'>
+                <p class='title'>Hello World<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any ...</p>
               </a>
             
           </div>

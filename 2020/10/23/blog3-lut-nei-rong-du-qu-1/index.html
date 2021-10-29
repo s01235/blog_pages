@@ -16,7 +16,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Jian&#39;s Blog</title>
+  <title>使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Chenjian&#39;s Blog</title>
   
     <meta name="keywords" content="FPGA, ZYNQ, LUT">
   
@@ -27,7 +27,7 @@
 
   <!-- feed -->
   
-    <link rel="alternate" href="/myblogs/atom.xml" title="Jian's Blog">
+    <link rel="alternate" href="/myblogs/atom.xml" title="Chenjian's Blog">
   
 
   <!-- import meta -->
@@ -83,10 +83,8 @@
   <div class='a'>
     
     
-      <p class="title">Jian's Blog</p>
+      <p class="title">Chenjian's Blog</p>
     
-    
-      <p class="subtitle">Up</p>
     
   </div>
   <div class='b'>
@@ -149,7 +147,7 @@
           
           
           
-            Jian's Blog
+            Chenjian's Blog
           
         </a>
       
@@ -467,6 +465,14 @@
           
             
               
+  
+  <div class='new-meta-item category'>
+    <a href='/myblogs/categories/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/ZYNQ/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>数字电路/ZYNQ</p>
+    </a>
+  </div>
+
 
             
           
@@ -511,15 +517,13 @@
 <li>生成bitstream文件，及ila调试相关文件。</li>
 <li>将重构模块清除保留为黑盒，将其他部分在布局布线后的级别上保存其设计点。</li>
 <li>打开上一步保存的设计点，读入新的重构模块，优化，布局布线，保存设计点，生成bitstream等。</li>
-<li>使用pr_verify指令对生成的bitstream进行验证。<h3 id="第一步，创建设计。"><a href="#第一步，创建设计。" class="headerlink" title="第一步，创建设计。"></a>第一步，创建设计。</h3>可直接在给出的工程目录下面执行脚本自动创建，综合，以及硬件的导出。在工程目录下执行以下代码(windows下需要在Vivado的命令行下操作)：<pre class=" language-lang-javascript"><code class="language-lang-javascript">source ./tcl/step1_create_project.tcl
-</code></pre>
-具体工程文件结构如下图所示：<br><img src="https://img-blog.csdnimg.cn/20200225173307967.png" alt="工程结构"><br>其中原理图部分如下：<br><img src="https://img-blog.csdnimg.cn/20200225173451606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="原理图"><br>这一步我们要<strong>用到的文件为.\vivado\lut_modify.runs\synth_1\top.dcp，我们需要将此文件复制到.\checkpoints\synth\static\路径下</strong>，便于后续操作。<br>当然也可以自己手动来创建工程，编写相关文件。<h3 id="第二步，综合重构模块"><a href="#第二步，综合重构模块" class="headerlink" title="第二步，综合重构模块"></a>第二步，综合重构模块</h3>直接执行脚本文件即可，脚本代码如下：<pre class=" language-lang-javascript"><code class="language-lang-javascript">read_verilog ./src/rms/pr_lut1/pr_lut.v
+<li>使用pr_verify指令对生成的bitstream进行验证。<h3 id="第一步，创建设计。"><a href="#第一步，创建设计。" class="headerlink" title="第一步，创建设计。"></a>第一步，创建设计。</h3>可直接在给出的工程目录下面执行脚本自动创建，综合，以及硬件的导出。在工程目录下执行以下代码(windows下需要在Vivado的命令行下操作)：<pre><code>source ./tcl/step1_create_project.tcl
+</code></pre>具体工程文件结构如下图所示：<br><img src="https://img-blog.csdnimg.cn/20200225173307967.png" alt="工程结构"><br>其中原理图部分如下：<br><img src="https://img-blog.csdnimg.cn/20200225173451606.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="原理图"><br>这一步我们要<strong>用到的文件为.\vivado\lut_modify.runs\synth_1\top.dcp，我们需要将此文件复制到.\checkpoints\synth\static\路径下</strong>，便于后续操作。<br>当然也可以自己手动来创建工程，编写相关文件。<h3 id="第二步，综合重构模块"><a href="#第二步，综合重构模块" class="headerlink" title="第二步，综合重构模块"></a>第二步，综合重构模块</h3>直接执行脚本文件即可，脚本代码如下：<pre><code>read_verilog ./src/rms/pr_lut1/pr_lut.v
 synth_design -mode out_of_context -flatten_hierarchy rebuilt -top pr_lut -part xc7z020clg400-1
 write_checkpoint ./checkpoints/synth/rms/pr_lut1.dcp
 close_design
 close_project
-</code></pre>
-以下是重构模块的verilog代码，该模块例化一个内部的固定位置的LUT，便于我们以后寻址更改其内部内容：<pre class=" language-lang-verilog"><code class="language-lang-verilog">timescale 1ns/1ps 
+</code></pre>以下是重构模块的verilog代码，该模块例化一个内部的固定位置的LUT，便于我们以后寻址更改其内部内容：<pre><code>timescale 1ns/1ps 
 //*******************
 //DEFINE MODULE PORT
 //*******************
@@ -541,18 +545,18 @@ wire  dout_pre ;
 //********************* 
 always @(posedge clk or posedge rst) begin
   if (rst == 1'b1) begin
-      din_ff <= 'd0 ;
+      din_ff &lt;= 'd0 ;
   end
   else begin
-      din_ff <= din ;
+      din_ff &lt;= din ;
   end
 end
 always @(posedge clk or posedge rst) begin
   if (rst == 1'b1) begin
-      dout <= 'd0 ;
+      dout &lt;= 'd0 ;
   end
   else begin
-      dout <= dout_pre ;
+      dout &lt;= dout_pre ;
   end
 end
 // 0001 0010 0011
@@ -569,12 +573,11 @@ end
  );
 //*********************
 endmodule
-</code></pre>
-</li>
+</code></pre></li>
 </ol>
 <p>该步操作主要生成的文件如下图,后面可用不同lut初始值的rm来创建完整设计，方便在bitstream文件中找到目标lut配置数据的位置及内容。便于分析bitstream配置数据同实际LUT中数据的映射关系：<br><img src="https://img-blog.csdnimg.cn/20200225180557292.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="rms"></p>
 <h3 id="第三步，打开设计点，读入重构模块，划分重构区域"><a href="#第三步，打开设计点，读入重构模块，划分重构区域" class="headerlink" title="第三步，打开设计点，读入重构模块，划分重构区域"></a>第三步，打开设计点，读入重构模块，划分重构区域</h3><p>执行以下脚本</p>
-<pre class=" language-lang-javascript"><code class="language-lang-javascript">open_checkpoint ./checkpoints/synth/static/top.dcp
+<pre><code>open_checkpoint ./checkpoints/synth/static/top.dcp
 read_checkpoint -cell pr_lut_0 ./checkpoints/synth/rms/pr_lut1.dcp
 set_property HD.RECONFIGURABLE 1 [get_cells pr_lut_0]  
 write_checkpoint ./checkpoints/synth/top_link_lut.dcp -force 
@@ -585,20 +588,18 @@ create_pblock pblock_pr_lut_0
 resize_pblock pblock_pr_lut_0 -add {SLICE_X54Y50:SLICE_X59Y59 RAMB18_X3Y20:RAMB18_X3Y23 RAMB36_X3Y10:RAMB36_X3Y11}
 add_cells_to_pblock pblock_pr_lut_0 [get_cells [list pr_lut_0]] -clear_locs
 endgroup
-</code></pre>
-<p>其中为重构模块划分重构区域手动操作如下图，然后在layout上面绘制相应的重构区域即可，注意：此例中由于指定了LUT的位置信息，所以重构区域必须覆盖到该LUT的物理区域。<br><img src="https://img-blog.csdnimg.cn/20200225181803384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="划分重构区域"><br>此例中划分的重构区域如下：<br><img src="https://img-blog.csdnimg.cn/20200225182306433.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="重构区域"></p>
+</code></pre><p>其中为重构模块划分重构区域手动操作如下图，然后在layout上面绘制相应的重构区域即可，注意：此例中由于指定了LUT的位置信息，所以重构区域必须覆盖到该LUT的物理区域。<br><img src="https://img-blog.csdnimg.cn/20200225181803384.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="划分重构区域"><br>此例中划分的重构区域如下：<br><img src="https://img-blog.csdnimg.cn/20200225182306433.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="重构区域"></p>
 <h3 id="第四步，优化，布局布线，保存设计点，生成-bit及-rbt文件。"><a href="#第四步，优化，布局布线，保存设计点，生成-bit及-rbt文件。" class="headerlink" title="第四步，优化，布局布线，保存设计点，生成.bit及.rbt文件。"></a>第四步，优化，布局布线，保存设计点，生成.bit及.rbt文件。</h3><p>直接执行以下命令：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">opt_design 
+<pre><code>opt_design 
 place_design 
 route_design
 write_checkpoint -force ./checkpoints/implement/top_route_design.dcp 
 write_checkpoint -force -cell pr_lut_0 ./checkpoints/implement/pr_lut_instance_route_design.dcp
 write_bitstream  -raw_bitfile ./bitstreams/top1 -force
 write_debug_probes -force ./bitstreams/top
-</code></pre>
-<p>执行上述命令后可以观察到器件已经完成布局布线，此时可生成对应的bitstream文件及部分bitstream文件。我们可通过生成的top.rbt来分析top.bit的结构，（<strong>top.rbt为top.bit的二进制asii格式表示，可通过python脚本来将rbt文件转换为16进制格式表示数据并保存为txt文件，后续我们从器件中读配置数据的时候要与之进行对比，来验证读操作的正确性</strong>）<br><img src="https://img-blog.csdnimg.cn/20200225184904323.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="布局布线结果"></p>
+</code></pre><p>执行上述命令后可以观察到器件已经完成布局布线，此时可生成对应的bitstream文件及部分bitstream文件。我们可通过生成的top.rbt来分析top.bit的结构，（<strong>top.rbt为top.bit的二进制asii格式表示，可通过python脚本来将rbt文件转换为16进制格式表示数据并保存为txt文件，后续我们从器件中读配置数据的时候要与之进行对比，来验证读操作的正确性</strong>）<br><img src="https://img-blog.csdnimg.cn/20200225184904323.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="布局布线结果"></p>
 <h3 id="第五步，保存静态设计。"><a href="#第五步，保存静态设计。" class="headerlink" title="第五步，保存静态设计。"></a>第五步，保存静态设计。</h3><p>脚本命令如下：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">update_design -cell pr_lut_0 -black_box
+<pre><code>update_design -cell pr_lut_0 -black_box
 lock_design -level routing
 write_checkpoint -force ./checkpoints/routed/static_route_design.dcp
 
@@ -607,13 +608,11 @@ place_design
 route_design
 write_checkpoint -force ./checkpoints/implement/top_route_design.dcp
 close_project
-</code></pre>
-<h3 id="第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。"><a href="#第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。" class="headerlink" title="第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。"></a>第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。</h3><p>脚本和上面操作多有重复，这里不再给出。<br><strong>本操作的意义在于利用前面保存过的静态设计，载入新的重构模块进行综合，布局布线，大大减少了整个工程综合，布局布线的时间成本。</strong><br>针对此次设计任务需求，需要多次更改目标LUT的初始值，采用此种设计流程能够大大减少后期bitstream文件的生成时间，而不必牵一发而动全身，每次都浪费这么长的时间来进行类似的操作。</p>
+</code></pre><h3 id="第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。"><a href="#第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。" class="headerlink" title="第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。"></a>第六步，读入新的重构模块，生成的完整bit文件及部分bit文件。</h3><p>脚本和上面操作多有重复，这里不再给出。<br><strong>本操作的意义在于利用前面保存过的静态设计，载入新的重构模块进行综合，布局布线，大大减少了整个工程综合，布局布线的时间成本。</strong><br>针对此次设计任务需求，需要多次更改目标LUT的初始值，采用此种设计流程能够大大减少后期bitstream文件的生成时间，而不必牵一发而动全身，每次都浪费这么长的时间来进行类似的操作。</p>
 <h3 id="第七步，验证两个设计是否兼容。"><a href="#第七步，验证两个设计是否兼容。" class="headerlink" title="第七步，验证两个设计是否兼容。"></a>第七步，验证两个设计是否兼容。</h3><p>脚本命令如下：</p>
-<pre class=" language-lang-bash"><code class="language-lang-bash">pr_verify -initial ./checkpoints/implement/top_route_design.dcp  -additional {./checkpoints/implement/top_route_design2.dcp }
+<pre><code>pr_verify -initial ./checkpoints/implement/top_route_design.dcp  -additional {./checkpoints/implement/top_route_design2.dcp }
 close_project
-</code></pre>
-<p>验证结果如下图<br><img src="https://img-blog.csdnimg.cn/20200225195512172.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="验证结果"><br>至此整个重构系统基于Vivado的脱离上下文的设计流程结束。</p>
+</code></pre><p>验证结果如下图<br><img src="https://img-blog.csdnimg.cn/20200225195512172.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="验证结果"><br>至此整个重构系统基于Vivado的脱离上下文的设计流程结束。</p>
 <h2 id="四、AXI-HWICAP相关信息"><a href="#四、AXI-HWICAP相关信息" class="headerlink" title="四、AXI_HWICAP相关信息"></a>四、AXI_HWICAP相关信息</h2><p>相关寄存器如下表：<br><img src="https://img-blog.csdnimg.cn/20200225201034277.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt="reg1"><br><img src="https://img-blog.csdnimg.cn/20200225201056262.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt><br><img src="https://img-blog.csdnimg.cn/20200225201138870.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDg1OTA1,size_16,color_FFFFFF,t_70" alt><br>读写配置：<br>1)    将bitstream写进写FIFO寄存器进行配置。<br>2)    从读FIFO寄存器读取配置bitstream。<br>3)    向CR寄存器写值去启动bitstream的读取或写入，控制寄存器决定了数据传输的方向。向控制寄存器写入0x00000001开始写配置。写0x00000002开始读配置。<br>4)    状态寄存器的Done位表明了ICAPEn接口是否处于忙碌状态，并不代表读配置或写配置是否成功完成。<br>5)    在成功进行读或者写配置之后硬件清零CR寄存器。<br>6)    在CR寄存器未被清零的情况下，软件不能初始化另一个读或写配置操作。</p>
 <p>精简模式下写序列：<br>1)    将指令写进写FIFO寄存器进行配置。<br>2)    向控制寄存器写控制字初始化写指令。<br>3)    成功完成配置后硬件清零控制寄存器位。<br>4)    向写FIFO寄存器写入第二个指令，写控制字执行向ICAPEn端口的写操作。<br>5)    继续执行上述操作直到所有指令被写到ICAPEn端口。</p>
 <p>中止：<br>1)    向控制寄存器写控制字开始bitstream读写。<br>2)    将bitstream写入到FIFO寄存器执行配置，从读FIFO寄存器获取读取到的bitstream。<br>3)    向控制寄存器的第五位写1来执行中止。<br>4)    状态寄存器的Done位显示了ICAPEn端口是否正处于忙碌状态，不表示读，写操作成功完成。<br>5)    在成功执行中止操作后硬件清零控制寄存器位。<br>6)    在CR寄存器未被清零的情况下，软件不能初始化另一个读或写配置操作。</p>
@@ -724,10 +723,10 @@ close_project
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-23T16:43:12+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-29T20:32:53+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年10月23日</p>
+    <p>更新于：2021年10月29日</p>
   </a>
 </div>
 
@@ -754,7 +753,7 @@ close_project
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/&title=使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Jian's Blog&summary=本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/&title=使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Chenjian's Blog&summary=本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。"
           
           >
           
@@ -766,7 +765,7 @@ close_project
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/&title=使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Jian's Blog&summary=本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/&title=使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Chenjian's Blog&summary=本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。"
           
           >
           
@@ -778,7 +777,7 @@ close_project
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/&title=使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Jian's Blog&summary=本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。"
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog3-lut-nei-rong-du-qu-1/&title=使用ZYNQ实现单LUT内容的动态修改（一）PL端OOC设计流程 - Chenjian's Blog&summary=本文主要用于记录作者本人实现ZYNQ动态修改LUT内容过程中主要参考的资料，实现的步骤，遇到的问题等。主要参考的文章链接如下：https://cloud.tencent.com/developer/article/1528881，其中该工作大部分的原理部分该篇博客都有介绍，本篇博客不再赘述。"
           
           >
           

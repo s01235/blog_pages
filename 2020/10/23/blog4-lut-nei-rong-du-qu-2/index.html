@@ -16,7 +16,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Jian&#39;s Blog</title>
+  <title>使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Chenjian&#39;s Blog</title>
   
     <meta name="keywords" content="FPGA, ZYNQ, Vitis">
   
@@ -27,7 +27,7 @@
 
   <!-- feed -->
   
-    <link rel="alternate" href="/myblogs/atom.xml" title="Jian's Blog">
+    <link rel="alternate" href="/myblogs/atom.xml" title="Chenjian's Blog">
   
 
   <!-- import meta -->
@@ -83,10 +83,8 @@
   <div class='a'>
     
     
-      <p class="title">Jian's Blog</p>
+      <p class="title">Chenjian's Blog</p>
     
-    
-      <p class="subtitle">Up</p>
     
   </div>
   <div class='b'>
@@ -149,7 +147,7 @@
           
           
           
-            Jian's Blog
+            Chenjian's Blog
           
         </a>
       
@@ -467,6 +465,14 @@
           
             
               
+  
+  <div class='new-meta-item category'>
+    <a href='/myblogs/categories/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/ZYNQ/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>数字电路/ZYNQ</p>
+    </a>
+  </div>
+
 
             
           
@@ -514,9 +520,9 @@
 <li>写帧数据时写不进去，经排查发现为设置正确的DeviceID号，改正后问题解决。</li>
 <li>配置数据与LUT实际存储内容的映射关系还没来得及整清楚，看后面是否用得到。<h2 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h2>基本打通了单LUT读写的底层通路，为后面重构控制器的设计打下了基础。考虑通过云端等接口实现远程LUT内容的读写等操作，基于此可实现FPGA内部错误的自修复，高效重构任务的执行等高级功能。<h2 id="六、附程序代码如下"><a href="#六、附程序代码如下" class="headerlink" title="六、附程序代码如下"></a>六、附程序代码如下</h2></li>
 </ol>
-<pre class=" language-lang-c"><code class="language-lang-c">#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+<pre><code>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
 
 #include "xparameters.h"
 #include "xil_printf.h"
@@ -581,7 +587,7 @@ int XHwIcap_DeviceReadFrame1(XHwIcap *InstancePtr, uint32_t far_word , u32 *Fram
     u32 NumNoops;
 
     Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+    Xil_AssertNonvoid(InstancePtr-&gt;IsReady == XIL_COMPONENT_IS_READY);
     Xil_AssertNonvoid(FrameBuffer != NULL);
 
     /*
@@ -628,17 +634,17 @@ int XHwIcap_DeviceReadFrame1(XHwIcap *InstancePtr, uint32_t far_word , u32 *Fram
      * The frame will be preceeded by a dummy frame, and we need to read one
      * extra word for V4 and V5 devices.
      */
-    switch (InstancePtr->DeviceFamily) {
+    switch (InstancePtr-&gt;DeviceFamily) {
         case DEVICE_TYPE_7SERIES :
-                TotalWords = InstancePtr->WordsPerFrame << 1;
+                TotalWords = InstancePtr-&gt;WordsPerFrame &lt;&lt; 1;
                 NumNoops = 32;
                 break;
         case DEVICE_TYPE_ULTRA :
-            TotalWords = (InstancePtr->WordsPerFrame << 1) + 10;
+            TotalWords = (InstancePtr-&gt;WordsPerFrame &lt;&lt; 1) + 10;
             NumNoops = 64;
                 break;
         case DEVICE_TYPE_ULTRA_PLUS :
-            TotalWords = (InstancePtr->WordsPerFrame << 1) + 25;
+            TotalWords = (InstancePtr-&gt;WordsPerFrame &lt;&lt; 1) + 25;
             NumNoops = 64;
                 break;
         default:
@@ -654,7 +660,7 @@ int XHwIcap_DeviceReadFrame1(XHwIcap *InstancePtr, uint32_t far_word , u32 *Fram
     WriteBuffer[Index++] = XHI_NOOP_PACKET;
     WriteBuffer[Index++] = XHI_NOOP_PACKET;
 
-    for(unsigned int i = 0; i < NumNoops; i++) {
+    for(unsigned int i = 0; i &lt; NumNoops; i++) {
         WriteBuffer[Index++] = XHI_NOOP_PACKET;
     }
 
@@ -662,7 +668,7 @@ int XHwIcap_DeviceReadFrame1(XHwIcap *InstancePtr, uint32_t far_word , u32 *Fram
      * Write the data to the FIFO and initiate the transfer of data
      * present in the FIFO to the ICAP device
      */
-    Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *)&WriteBuffer[0],
+    Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *)&amp;WriteBuffer[0],
             Index);
     if (Status != XST_SUCCESS)  {
         return XST_FAILURE;
@@ -705,7 +711,7 @@ int XHwIcap_DeviceWriteFrame1(XHwIcap *InstancePtr, u32 far_word,
     u32 Index =0;
 
     Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+    Xil_AssertNonvoid(InstancePtr-&gt;IsReady == XIL_COMPONENT_IS_READY);
     Xil_AssertNonvoid(FrameData != NULL);
 
 
@@ -735,7 +741,7 @@ int XHwIcap_DeviceWriteFrame1(XHwIcap *InstancePtr, u32 far_word,
      * ID register
      */
     Packet = XHwIcap_Type1Write(XHI_IDCODE) | 1;
-    Data = InstancePtr->DeviceIdCode;
+    Data = InstancePtr-&gt;DeviceIdCode;
     WriteBuffer[Index++] = Packet;
     WriteBuffer[Index++] = Data;
 
@@ -761,8 +767,8 @@ int XHwIcap_DeviceWriteFrame1(XHwIcap *InstancePtr, u32 far_word,
     /*
      * Setup Packet header.
      */
-    TotalWords = InstancePtr->WordsPerFrame << 1;
-    if (TotalWords < XHI_TYPE_1_PACKET_MAX_WORDS)  {
+    TotalWords = InstancePtr-&gt;WordsPerFrame &lt;&lt; 1;
+    if (TotalWords &lt; XHI_TYPE_1_PACKET_MAX_WORDS)  {
         /*
          * Create Type 1 Packet.
          */
@@ -785,7 +791,7 @@ int XHwIcap_DeviceWriteFrame1(XHwIcap *InstancePtr, u32 far_word,
      * Write the Header data into the FIFO and intiate the transfer of
      * data present in the FIFO to the ICAP device
      */
-    Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *)&WriteBuffer[0], Index);
+    Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *)&amp;WriteBuffer[0], Index);
     if (Status != XST_SUCCESS)  {
         return XST_FAILURE;
     }
@@ -794,8 +800,8 @@ int XHwIcap_DeviceWriteFrame1(XHwIcap *InstancePtr, u32 far_word,
      * Write the modified frame data.
      */
     Status = XHwIcap_DeviceWrite(InstancePtr,
-                (u32 *) &FrameData[InstancePtr->WordsPerFrame],
-                InstancePtr->WordsPerFrame);
+                (u32 *) &amp;FrameData[InstancePtr-&gt;WordsPerFrame],
+                InstancePtr-&gt;WordsPerFrame);
     if (Status != XST_SUCCESS) {
         return XST_FAILURE;
     }
@@ -804,8 +810,8 @@ int XHwIcap_DeviceWriteFrame1(XHwIcap *InstancePtr, u32 far_word,
      * Write out the pad frame. The pad frame was read from the device
      * before the data frame.
      */
-    Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *) &FrameData[0],
-                    InstancePtr->WordsPerFrame);
+    Status = XHwIcap_DeviceWrite(InstancePtr, (u32 *) &amp;FrameData[0],
+                    InstancePtr-&gt;WordsPerFrame);
     if (Status != XST_SUCCESS) {
         return XST_FAILURE;
     }
@@ -839,7 +845,7 @@ int XHwIcap_DeviceWriteFrame1(XHwIcap *InstancePtr, u32 far_word,
      * Intiate the transfer of data present in the FIFO to
      * the ICAP device
      */
-    Status = XHwIcap_DeviceWrite(InstancePtr, &WriteBuffer[0], Index);
+    Status = XHwIcap_DeviceWrite(InstancePtr, &amp;WriteBuffer[0], Index);
     if (Status != XST_SUCCESS)  {
         return XST_FAILURE;
     }
@@ -879,7 +885,7 @@ u32 getWord (){
 
         if(digitIndex==5)
         {
-            far_word = uartBuffer[0]<<24 | uartBuffer[1]<<16 |uartBuffer[2]<<8 | uartBuffer[3];
+            far_word = uartBuffer[0]&lt;&lt;24 | uartBuffer[1]&lt;&lt;16 |uartBuffer[2]&lt;&lt;8 | uartBuffer[3];
             return far_word;
         }
         else
@@ -936,9 +942,9 @@ int main()
     Xil_DCacheEnable();
 
     // Initialize Device Configuration Interface
-    DcfgInstPtr = &DcfgInstance;
+    DcfgInstPtr = &amp;DcfgInstance;
     XDcfg_0 = XDcfg_LookupConfig(XPAR_XDCFG_0_DEVICE_ID) ;
-    Status =  XDcfg_CfgInitialize(DcfgInstPtr, XDcfg_0, XDcfg_0->BaseAddr);
+    Status =  XDcfg_CfgInitialize(DcfgInstPtr, XDcfg_0, XDcfg_0-&gt;BaseAddr);
     if (Status != XST_SUCCESS) {
         return XST_FAILURE;
     }
@@ -951,13 +957,13 @@ int main()
         return XST_FAILURE;
     }
 
-    HwIcapInstPtr = &HwIcap;
+    HwIcapInstPtr = &amp;HwIcap;
     Status = XHwIcap_CfgInitialize(HwIcapInstPtr, ConfigPtr,
-                ConfigPtr->BaseAddress);
+                ConfigPtr-&gt;BaseAddress);
     if (Status != XST_SUCCESS) {
         return XST_FAILURE;
     }
-    HwIcapInstPtr->DeviceIdCode = 0x23727093;
+    HwIcapInstPtr-&gt;DeviceIdCode = 0x23727093;
     XHwIcap_Reset(HwIcapInstPtr);
 
     print("HWICAP Initialized\r\n");
@@ -967,7 +973,7 @@ int main()
         equal_number=0;
         print("Please input the far words!\r\n");
         addr_word = getWord();
-        Status = XHwIcap_DeviceReadFrame1(HwIcapInstPtr, addr_word,&read_FrameBuffer[0]);
+        Status = XHwIcap_DeviceReadFrame1(HwIcapInstPtr, addr_word,&amp;read_FrameBuffer[0]);
         XHwIcap_Reset(HwIcapInstPtr);
         if (Status != XST_SUCCESS) {
             print("Read Lut Failure\r\n");
@@ -975,7 +981,7 @@ int main()
         }
         else if(Status == XST_SUCCESS)
         {
-            for(i=0;i<FRAME_WORDS_NUM;i++)
+            for(i=0;i&lt;FRAME_WORDS_NUM;i++)
                 xil_printf("%x\r\n",read_FrameBuffer[i]);
         }
         print("Please input the number of the lut:\r\n");
@@ -983,7 +989,7 @@ int main()
         print("Please input the new data of the lut:\r\n");
         new_word = getWord();
         read_FrameBuffer[(101 + lut_index)] = new_word;
-        Status = XHwIcap_DeviceWriteFrame1(HwIcapInstPtr, addr_word, &read_FrameBuffer[1]);
+        Status = XHwIcap_DeviceWriteFrame1(HwIcapInstPtr, addr_word, &amp;read_FrameBuffer[1]);
         XHwIcap_Reset(HwIcapInstPtr);
         if (Status != XST_SUCCESS) {
             print("Write Lut Failure\r\n");
@@ -994,7 +1000,7 @@ int main()
             print("Read Lut Failure\r\n");
             return XST_FAILURE;
         }
-        for(i=0;i<FRAME_WORDS_NUM;i++)
+        for(i=0;i&lt;FRAME_WORDS_NUM;i++)
         {
             if(read_FrameBuffer_verify[i] == read_FrameBuffer[i])
             {
@@ -1009,8 +1015,7 @@ int main()
     }
     return 0;
 }
-</code></pre>
-<script>
+</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -1115,10 +1120,10 @@ int main()
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-10-23T16:42:46+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-29T20:35:06+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年10月23日</p>
+    <p>更新于：2021年10月29日</p>
   </a>
 </div>
 
@@ -1145,7 +1150,7 @@ int main()
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/&title=使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Jian's Blog&summary=该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/&title=使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Chenjian's Blog&summary=该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。"
           
           >
           
@@ -1157,7 +1162,7 @@ int main()
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/&title=使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Jian's Blog&summary=该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/&title=使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Chenjian's Blog&summary=该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。"
           
           >
           
@@ -1169,7 +1174,7 @@ int main()
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/&title=使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Jian's Blog&summary=该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。"
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/10/23/blog4-lut-nei-rong-du-qu-2/&title=使用ZYNQ实现单LUT内容的动态修改（二）PS端动态修改LUT内容，软件部分，Vitis操作 - Chenjian's Blog&summary=该系统的软件部分使用Xilinx Vitis平台进行实现，操作方法类似于之前版本的SDK，不同的是Vitis中的硬件平台要自己手动导入，其余编译调试大体相同。"
           
           >
           

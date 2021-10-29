@@ -16,7 +16,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>使用粒子过滤器跟踪类车机器人 - Jian&#39;s Blog</title>
+  <title>使用粒子过滤器跟踪类车机器人 - Chenjian&#39;s Blog</title>
   
     <meta name="keywords" content="机器人，matlab">
   
@@ -27,7 +27,7 @@
 
   <!-- feed -->
   
-    <link rel="alternate" href="/myblogs/atom.xml" title="Jian's Blog">
+    <link rel="alternate" href="/myblogs/atom.xml" title="Chenjian's Blog">
   
 
   <!-- import meta -->
@@ -83,10 +83,8 @@
   <div class='a'>
     
     
-      <p class="title">Jian's Blog</p>
+      <p class="title">Chenjian's Blog</p>
     
-    
-      <p class="subtitle">Up</p>
     
   </div>
   <div class='b'>
@@ -149,7 +147,7 @@
           
           
           
-            Jian's Blog
+            Chenjian's Blog
           
         </a>
       
@@ -467,6 +465,14 @@
           
             
               
+  
+  <div class='new-meta-item category'>
+    <a href='/myblogs/categories/%E6%9C%BA%E5%99%A8%E4%BA%BA/Matlab%E4%BB%BF%E7%9C%9F/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>机器人/Matlab仿真</p>
+    </a>
+  </div>
+
 
             
           
@@ -522,14 +528,13 @@
 \dot{\theta}=\omega</script><ul>
 <li>在修正阶段，粒子的重要权值（似然性）由当前测量的误差范数确定$(\sqrt{(\Delta x)^2+(\Delta y)^2+(\Delta \theta)^2})$，因为我们仅对这三个变量进行测量，更多详细信息参见 <a href="https://ww2.mathworks.cn/help/robotics/ref/stateestimatorpf.correct.html" target="_blank" rel="noopener"><code>correct</code></a>.</li>
 </ul>
-<h2 id="二、初始化类车机器人"><a href="#二、初始化类车机器人" class="headerlink" title="二、初始化类车机器人"></a>二、初始化类车机器人</h2><pre class=" language-lang-matlab"><code class="language-lang-matlab">rng('default'); % for repeatable result
+<h2 id="二、初始化类车机器人"><a href="#二、初始化类车机器人" class="headerlink" title="二、初始化类车机器人"></a>二、初始化类车机器人</h2><pre><code>rng('default'); % for repeatable result
 dt = 0.05; % time step
 initialPose = [0  0  0  0]';
 carbot = ExampleHelperCarBot(initialPose, dt);
-</code></pre>
-<p><a href="https://imgchr.com/i/BdxXWV" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/11/01/BdxXWV.png" alt="BdxXWV.png"></a></p>
+</code></pre><p><a href="https://imgchr.com/i/BdxXWV" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/11/01/BdxXWV.png" alt="BdxXWV.png"></a></p>
 <h2 id="三、设置粒子滤波器"><a href="#三、设置粒子滤波器" class="headerlink" title="三、设置粒子滤波器"></a>三、设置粒子滤波器</h2><p>本部分使用5000个粒子配置粒子过滤器。最初，所有粒子都是从正态分布中随机选取的，其初始状态和单位协方差为均值。每个粒子包含6个状态变量$(x,y,\theta,\dot{x},\dot{y},\dot{\theta})$。注意，第三个变量标记为圆形，因为它是汽车的方向。指定两个回调函数$StateTransitionFcn$和$MeasurementLikelihoodFcn$也非常重要。这两个函数直接决定了粒子过滤器的性能。这两个函数的详细信息可以在本示例的最后两个部分中找到。</p>
-<pre class=" language-lang-matlab"><code class="language-lang-matlab">pf = stateEstimatorPF;
+<pre><code>pf = stateEstimatorPF;
 
 initialize(pf, 5000, [initialPose(1:3)', 0, 0, 0], eye(6), 'CircularVariables',[0 0 1 0 0 0]);
 pf.StateEstimationMethod = 'mean';
@@ -543,17 +548,15 @@ pf.MeasurementLikelihoodFcn = @exampleHelperCarBotMeasurementLikelihood;
 
 % Last best estimation for x, y and theta
 lastBestGuess = [0 0 0];
-</code></pre>
-<h2 id="四、主循环"><a href="#四、主循环" class="headerlink" title="四、主循环"></a>四、主循环</h2><p>注意，在此示例中，命令给机器人的线性和角速度是随时间变化的任意函数。另外，注意循环的固定速率计时是通过 <a href="https://ww2.mathworks.cn/help/robotics/ref/ratecontrol.html" target="_blank" rel="noopener"><code>rateControl</code></a>实现的。</p>
+</code></pre><h2 id="四、主循环"><a href="#四、主循环" class="headerlink" title="四、主循环"></a>四、主循环</h2><p>注意，在此示例中，命令给机器人的线性和角速度是随时间变化的任意函数。另外，注意循环的固定速率计时是通过 <a href="https://ww2.mathworks.cn/help/robotics/ref/ratecontrol.html" target="_blank" rel="noopener"><code>rateControl</code></a>实现的。</p>
 <p>使用固定速率支持以20 Hz的频率运行20秒。</p>
-<pre class=" language-lang-matlab"><code class="language-lang-matlab">r = rateControl(1/dt);
-</code></pre>
-<p>重置固定速率对象以重新启动计时器。在运行与时间有关的代码之前，请立即重置计时器。</p>
-<pre class=" language-lang-matlab"><code class="language-lang-matlab">reset(r);
+<pre><code>r = rateControl(1/dt);
+</code></pre><p>重置固定速率对象以重新启动计时器。在运行与时间有关的代码之前，请立即重置计时器。</p>
+<pre><code>reset(r);
 
 simulationTime = 0; 
 
-while simulationTime < 20 % if time is not up
+while simulationTime &lt; 20 % if time is not up
 
     % Generate motion command that is to be sent to the robot
     % NOTE there will be some discrepancy between the commanded motion and the
@@ -592,8 +595,7 @@ while simulationTime < 20 % if time is not up
     % Update simulation time
     simulationTime = simulationTime + dt;
 end
-</code></pre>
-<p><a href="https://imgchr.com/i/BdzW79" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/11/01/BdzW79.png" alt="BdzW79.png"></a></p>
+</code></pre><p><a href="https://imgchr.com/i/BdzW79" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/11/01/BdzW79.png" alt="BdzW79.png"></a></p>
 <h2 id="五、结果图说明"><a href="#五、结果图说明" class="headerlink" title="五、结果图说明"></a>五、结果图说明</h2><p>这三个图显示了粒子滤波器的跟踪性能。</p>
 <ul>
 <li>在第一个图中，粒子过滤器在偏离初始姿势的情况下很好地跟踪了汽车。</li>
@@ -705,10 +707,10 @@ end
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-17T16:50:35+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-29T20:47:28+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年3月17日</p>
+    <p>更新于：2021年10月29日</p>
   </a>
 </div>
 
@@ -735,7 +737,7 @@ end
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/11/06/blog6-shi-yong-li-zi-guo-lu-qi-gen-zong-lei-che-ji-qi-ren/&title=使用粒子过滤器跟踪类车机器人 - Jian's Blog&summary=本例参考网址：https://ww2.mathworks.cn/help/robotics/ug/track-a-car-like-robot-using-particle-filter.html"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=http://cj_song.gitee.io/myblogs/2020/11/06/blog6-shi-yong-li-zi-guo-lu-qi-gen-zong-lei-che-ji-qi-ren/&title=使用粒子过滤器跟踪类车机器人 - Chenjian's Blog&summary=本例参考网址：https://ww2.mathworks.cn/help/robotics/ug/track-a-car-like-robot-using-particle-filter.html"
           
           >
           
@@ -747,7 +749,7 @@ end
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/11/06/blog6-shi-yong-li-zi-guo-lu-qi-gen-zong-lei-che-ji-qi-ren/&title=使用粒子过滤器跟踪类车机器人 - Jian's Blog&summary=本例参考网址：https://ww2.mathworks.cn/help/robotics/ug/track-a-car-like-robot-using-particle-filter.html"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://cj_song.gitee.io/myblogs/2020/11/06/blog6-shi-yong-li-zi-guo-lu-qi-gen-zong-lei-che-ji-qi-ren/&title=使用粒子过滤器跟踪类车机器人 - Chenjian's Blog&summary=本例参考网址：https://ww2.mathworks.cn/help/robotics/ug/track-a-car-like-robot-using-particle-filter.html"
           
           >
           
@@ -759,7 +761,7 @@ end
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/11/06/blog6-shi-yong-li-zi-guo-lu-qi-gen-zong-lei-che-ji-qi-ren/&title=使用粒子过滤器跟踪类车机器人 - Jian's Blog&summary=本例参考网址：https://ww2.mathworks.cn/help/robotics/ug/track-a-car-like-robot-using-particle-filter.html"
+          href="http://service.weibo.com/share/share.php?url=http://cj_song.gitee.io/myblogs/2020/11/06/blog6-shi-yong-li-zi-guo-lu-qi-gen-zong-lei-che-ji-qi-ren/&title=使用粒子过滤器跟踪类车机器人 - Chenjian's Blog&summary=本例参考网址：https://ww2.mathworks.cn/help/robotics/ug/track-a-car-like-robot-using-particle-filter.html"
           
           >
           
